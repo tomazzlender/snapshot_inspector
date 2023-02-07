@@ -3,6 +3,8 @@ require "minitest/snapshot/engine"
 
 module Minitest
   module Snapshot
-    # Your code goes here...
+    module Test
+      autoload :IntegrationHelpers, "minitest/snapshot/test/integration_helpers"
+    end
   end
 end

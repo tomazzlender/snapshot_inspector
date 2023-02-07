@@ -21,6 +21,25 @@ Or install it yourself as:
 $ gem install minitest-snapshot
 ```
 
+Add integration tests helper to `test/test_helper.rb`:
+```ruby
+class ActiveSupport::TestCase
+  # ...
+  include Minitest::Snapshot::Test::IntegrationHelpers
+end
+```
+
+Start using `take_snapshot` method in integration tests:
+```ruby
+test "should get index" do
+  get root_path
+  
+  take_snapshot response # <-- take a snapshot of the response
+  
+  assert_response :success
+end
+```
+
 ## Contributing
 Contribution directions go here.
 
