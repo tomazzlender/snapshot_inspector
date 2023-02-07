@@ -4,6 +4,8 @@ module Minitest
       module IntegrationHelpers
         extend ActiveSupport::Concern
 
+        Rails.root.join("tmp", "snapshots").rmtree
+
         # Takes a snapshot of the given response.
         #
         # +take_snapshot+ can be called after the +response+ object becomes available
