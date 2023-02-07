@@ -10,8 +10,6 @@
           <%= snapshot[:test_case_human_name] %>
           <%= if snapshot[:slug][-1].to_i > 0 then "(#{(snapshot[:slug][-1].to_i + 1).ordinalize} snapshot in the same test case)" end %>
         <% end %>
-        <br>
-        <span data-label="snapshot.source_location"><%= snapshot[:source_location].join(":") %></span>
       </li>
     <% end %>
   </ul>
