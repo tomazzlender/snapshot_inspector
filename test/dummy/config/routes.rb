@@ -1,3 +1,3 @@
 Rails.application.routes.draw do
-  mount Minitest::Snapshot::Engine => "/minitest-snapshot"
+  mount Minitest::Snapshot::Engine => "/rails/snapshots"
 end
