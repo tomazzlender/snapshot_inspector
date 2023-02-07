@@ -1,2 +1,9 @@
-<h1>Snapshots#index</h1>
-<p>Find me in app/views/minitest/snapshot/snapshots/index.html.erb</p>
+<h1>Snapshots</h1>
+
+<ul>
+  <% @snapshots.each do |snapshot| %>
+    <li>
+      <%= snapshot[:created_at] %> - <%= snapshot[:test_class] %> - <%= snapshot[:test_case_human_name] %>
+    </li>
+  <% end %>
+</ul>
