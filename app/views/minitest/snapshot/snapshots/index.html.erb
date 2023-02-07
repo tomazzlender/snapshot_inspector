@@ -4,7 +4,7 @@
   <% @snapshots.each do |snapshot| %>
     <li>
       <%= link_to snapshot_path(snapshot[:slug]) do %>
-        <%= snapshot[:created_at] %> - <%= snapshot[:test_class] %> - <%= snapshot[:test_case_human_name] %>
+        <%= snapshot[:test_class] %> - <%= snapshot[:test_case_human_name] %>
       <% end %>
     </li>
   <% end %>
