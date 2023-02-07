@@ -19,6 +19,7 @@ module Minitest::Snapshot
       assert_response :success
       assert_select "h1", text: "Snapshots"
       assert_select "li", text: /should get index/
+      assert_select "[data-label='snapshot.source_location']", text: "/Users/Nickname/Code/app_name/test/controllers/some_controller_test.rb:42"
     end
 
     test "should get show" do
