@@ -4,6 +4,10 @@
   Tip: If you wish to see how a snapshot behaves with javascript disabled, simply temporarily disable it in browser settings.
 </p>
 
+<% if @grouped_by_test_class.blank? %>
+  <p>Place `take_screenshot response` in your integration tests after a `response` object is populated and run the tests. Snapshots will appear below.</p>
+<% end %>
+
 <% @grouped_by_test_class.each do |test_class, snapshots| %>
   <h2><%= test_class %></h2>
 
