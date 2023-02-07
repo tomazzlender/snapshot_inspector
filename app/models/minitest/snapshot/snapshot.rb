@@ -11,6 +11,14 @@ module Minitest
           .sort_by { |snapshot| snapshot[:created_at] }
           .reverse
       end
+
+      def self.find(slug)
+        file_path = slug.split("/")[0..-2].join("/")
+        absolute_file_path = Rails.root.join("tmp/snapshots/#{file_path}.json")
+        snapshots = JSON.parse(File.read(absolute_file_path), symbolize_names: true)
+
+        snapshots.find { |snapshot| snapshot[:slug] == slug }
+      end
     end
   end
 end

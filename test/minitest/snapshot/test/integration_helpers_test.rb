@@ -21,6 +21,7 @@ class Minitest::Snapshot::Test::IntegrationHelpersTest < ActiveSupport::TestCase
 
     expected_contents = [
       {
+        slug: "dummy_controller_test/test_some_controller_action/0",
         created_at: "2023-02-07 11:05:05 UTC",
         response_body: "<html><body>Example response body.</body></html>",
         test_case_name: "test_some_controller_action",
@@ -50,6 +51,7 @@ class Minitest::Snapshot::Test::IntegrationHelpersTest < ActiveSupport::TestCase
 
     expected_contents = [
       {
+        slug: "dummy_controller_test/test_some_controller_action/0",
         created_at: "2023-02-07 11:05:05 UTC",
         response_body: "<html><body>Example response body.</body></html>",
         test_case_name: "test_some_controller_action",
@@ -57,6 +59,7 @@ class Minitest::Snapshot::Test::IntegrationHelpersTest < ActiveSupport::TestCase
         test_class: "DummyControllerTest"
       },
       {
+        slug: "dummy_controller_test/test_some_controller_action/1",
         created_at: "2023-02-07 11:05:05 UTC",
         response_body: "<html><body>Another response body.</body></html>",
         test_case_name: "test_some_controller_action",
