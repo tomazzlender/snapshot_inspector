@@ -5,6 +5,10 @@
     "response_body": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Minitest snapshot</title>\n  \n  \n\n</head>\n<body>\n\n<h1>Snapshots</h1>\n\n<ul>\n</ul>\n\n\n</body>\n</html>\n",
     "test_case_name": "test_should_get_index",
     "test_case_human_name": "Should get index",
-    "test_class": "Minitest::Snapshot::SnapshotsControllerTest"
+    "test_class": "Minitest::Snapshot::SnapshotsControllerTest",
+    "source_location": [
+      "/Users/Nickname/Code/app_name/test/controllers/some_controller_test.rb",
+      42
+    ]
   }
 ]

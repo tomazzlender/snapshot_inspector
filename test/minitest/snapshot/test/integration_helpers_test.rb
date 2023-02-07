@@ -2,6 +2,9 @@ require "test_helper"
 
 class DummyControllerTest < ActiveSupport::TestCase
   include Minitest::Snapshot::Test::IntegrationHelpers
+
+  test "some controller action" do
+  end
 end
 
 class Minitest::Snapshot::Test::IntegrationHelpersTest < ActiveSupport::TestCase
@@ -26,7 +29,11 @@ class Minitest::Snapshot::Test::IntegrationHelpersTest < ActiveSupport::TestCase
         response_body: "<html><body>Example response body.</body></html>",
         test_case_name: "test_some_controller_action",
         test_case_human_name: "some controller action",
-        test_class: "DummyControllerTest"
+        test_class: "DummyControllerTest",
+        source_location: [
+          "#{Minitest::Snapshot::Engine.root}/test/minitest/snapshot/test/integration_helpers_test.rb",
+          6
+        ]
       }
     ]
 
@@ -56,7 +63,11 @@ class Minitest::Snapshot::Test::IntegrationHelpersTest < ActiveSupport::TestCase
         response_body: "<html><body>Example response body.</body></html>",
         test_case_name: "test_some_controller_action",
         test_case_human_name: "some controller action",
-        test_class: "DummyControllerTest"
+        test_class: "DummyControllerTest",
+        source_location: [
+          "#{Minitest::Snapshot::Engine.root}/test/minitest/snapshot/test/integration_helpers_test.rb",
+          6
+        ]
       },
       {
         slug: "dummy_controller_test/test_some_controller_action/1",
@@ -64,7 +75,11 @@ class Minitest::Snapshot::Test::IntegrationHelpersTest < ActiveSupport::TestCase
         response_body: "<html><body>Another response body.</body></html>",
         test_case_name: "test_some_controller_action",
         test_case_human_name: "some controller action",
-        test_class: "DummyControllerTest"
+        test_class: "DummyControllerTest",
+        source_location: [
+          "#{Minitest::Snapshot::Engine.root}/test/minitest/snapshot/test/integration_helpers_test.rb",
+          6
+        ]
       }
     ]
 
