@@ -8,6 +8,7 @@
       <li>
         <%= link_to snapshot_path(snapshot[:slug]) do %>
           <%= snapshot[:test_case_human_name] %>
+          <%= if snapshot[:slug][-1].to_i > 0 then "(#{(snapshot[:slug][-1].to_i + 1).ordinalize} snapshot in the same test case)" end %>
         <% end %>
       </li>
     <% end %>
