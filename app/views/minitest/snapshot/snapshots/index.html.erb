@@ -1,11 +1,15 @@
 <h1>Snapshots</h1>
 
-<ul>
-  <% @snapshots.each do |snapshot| %>
-    <li>
-      <%= link_to snapshot_path(snapshot[:slug]) do %>
-        <%= snapshot[:test_class] %> - <%= snapshot[:test_case_human_name] %>
-      <% end %>
-    </li>
-  <% end %>
-</ul>
+<% @grouped_by_test_class.each do |test_class, snapshots| %>
+  <h2><%= test_class %></h2>
+
+  <ul>
+    <% snapshots.each do |snapshot| %>
+      <li>
+        <%= link_to snapshot_path(snapshot[:slug]) do %>
+          <%= snapshot[:test_case_human_name] %>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>

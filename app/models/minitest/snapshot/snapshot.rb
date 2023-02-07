@@ -12,6 +12,12 @@ module Minitest
           .reverse
       end
 
+      def self.grouped_by_test_class
+        all.group_by do |snapshot|
+          snapshot[:test_class]
+        end
+      end
+
       def self.find(slug)
         file_path = slug.split("/")[0..-2].join("/")
         absolute_file_path = Rails.root.join("tmp/snapshots/#{file_path}.json")
