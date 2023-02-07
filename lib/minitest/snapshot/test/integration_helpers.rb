@@ -59,7 +59,7 @@ module Minitest
             created_at: Time.current,
             response_body: response.parsed_body,
             test_case_name: test_case_name,
-            test_case_human_name: test_case_name.gsub(/^test_/, "").humanize,
+            test_case_human_name: test_case_name.gsub(/^test_/, "").humanize(capitalize: false),
             test_class: test_class_name
           }
         end

@@ -25,7 +25,7 @@ class Minitest::Snapshot::Test::IntegrationHelpersTest < ActiveSupport::TestCase
         created_at: "2023-02-07 11:05:05 UTC",
         response_body: "<html><body>Example response body.</body></html>",
         test_case_name: "test_some_controller_action",
-        test_case_human_name: "Some controller action",
+        test_case_human_name: "some controller action",
         test_class: "DummyControllerTest"
       }
     ]
@@ -55,7 +55,7 @@ class Minitest::Snapshot::Test::IntegrationHelpersTest < ActiveSupport::TestCase
         created_at: "2023-02-07 11:05:05 UTC",
         response_body: "<html><body>Example response body.</body></html>",
         test_case_name: "test_some_controller_action",
-        test_case_human_name: "Some controller action",
+        test_case_human_name: "some controller action",
         test_class: "DummyControllerTest"
       },
       {
@@ -63,7 +63,7 @@ class Minitest::Snapshot::Test::IntegrationHelpersTest < ActiveSupport::TestCase
         created_at: "2023-02-07 11:05:05 UTC",
         response_body: "<html><body>Another response body.</body></html>",
         test_case_name: "test_some_controller_action",
-        test_case_human_name: "Some controller action",
+        test_case_human_name: "some controller action",
         test_class: "DummyControllerTest"
       }
     ]
