@@ -18,7 +18,7 @@ module Minitest::Snapshot
 
       assert_response :success
       assert_select "h1", text: "Snapshots"
-      assert_select "li", text: /Should get index/
+      assert_select "li", text: /should get index/
     end
 
     test "should get show" do
