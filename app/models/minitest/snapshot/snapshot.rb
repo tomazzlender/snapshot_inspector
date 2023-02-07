@@ -6,11 +6,12 @@ module Minitest
           source_directory = Rails.root.join("tmp/snapshots")
           test_case_files = Dir.glob("#{source_directory}/**/*.{json}")
 
-          test_case_files
-            .map { |test_case_file| JSON.parse(File.read(test_case_file), symbolize_names: true) }
-            .flatten
-            .sort_by { |snapshot| snapshot[:created_at] }
-            .reverse
+          snapshots =
+            test_case_files
+              .map { |test_case_file| JSON.parse(File.read(test_case_file), symbolize_names: true) }
+              .flatten
+
+          order_by_line_number(snapshots)
         end
 
         def grouped_by_test_class
@@ -25,6 +26,14 @@ module Minitest
           snapshots = JSON.parse(File.read(absolute_file_path), symbolize_names: true)
 
           snapshots.find { |snapshot| snapshot[:slug] == slug }
+        end
+
+        private
+
+        def order_by_line_number(snapshots)
+          snapshots.sort_by do |snapshot|
+            snapshot[:source_location].dup << snapshot[:slug]
+          end
         end
       end
     end
