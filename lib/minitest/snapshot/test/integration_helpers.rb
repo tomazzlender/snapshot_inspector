@@ -14,14 +14,24 @@ module Minitest
         #
         # The method implementation is a work in progress.
         def take_snapshot(response)
+          increment_test_case_snapshot_counter
+
           file_path = get_file_path_or_create_file_for_storage
           contents = parse_contents(file_path)
 
           new_contents = contents << new_snapshot(response)
+
           file_path.write(format_content_for_storage(new_contents))
         end
 
         private
+
+        attr_accessor :_snapshot_counter
+
+        def increment_test_case_snapshot_counter
+          @_snapshot_counter ||= 0
+          @_snapshot_counter += 1
+        end
 
         def format_content_for_storage(contents)
           JSON.pretty_generate(contents)
@@ -45,6 +55,7 @@ module Minitest
 
         def new_snapshot(response)
           {
+            slug: "#{test_class_name.underscore}/#{test_case_name}/#{index}",
             created_at: Time.current,
             response_body: response.parsed_body,
             test_case_name: test_case_name,
@@ -67,6 +78,10 @@ module Minitest
 
         def test_case_name
           method_name
+        end
+
+        def index
+          _snapshot_counter - 1
         end
 
         def test_class_name

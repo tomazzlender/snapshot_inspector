@@ -20,5 +20,15 @@ module Minitest::Snapshot
       assert_select "h1", text: "Snapshots"
       assert_select "li", text: /Should get index/
     end
+
+    test "should get show" do
+      destination = Rails.root.join("tmp/snapshots/minitest/snapshot/snapshots_controller_test/")
+      destination.mkpath
+      FileUtils.copy(file_fixture("test_should_get_index.json"), destination)
+
+      get snapshot_url("minitest/snapshot/snapshots_controller_test/test_should_get_index/0")
+
+      assert_response :success
+    end
   end
 end

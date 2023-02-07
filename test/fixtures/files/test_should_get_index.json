@@ -1,5 +1,6 @@
 [
   {
+    "slug": "minitest/snapshot/snapshots_controller_test/test_should_get_index/0",
     "created_at": "2023-02-07 16:38:46 UTC",
     "response_body": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Minitest snapshot</title>\n  \n  \n\n</head>\n<body>\n\n<h1>Snapshots</h1>\n\n<ul>\n</ul>\n\n\n</body>\n</html>\n",
     "test_case_name": "test_should_get_index",
