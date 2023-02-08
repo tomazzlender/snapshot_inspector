@@ -13,7 +13,7 @@ module Minitest
         # Snapshots are taken only when explicitly enabled with a flag --with-snapshots.
         # E.g. bin/rails test --with-snapshots
         def take_snapshot(response)
-          return unless ENV["TAKE_SNAPSHOTS"] == "true"
+          return unless Minitest::Snapshot.configuration.snapshot_taking_enabled
 
           increment_test_case_snapshot_counter
 
