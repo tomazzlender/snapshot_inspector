@@ -8,6 +8,7 @@ gem "puma"
 gem "sprockets-rails"
 gem "importmap-rails"
 gem "stimulus-rails"
+gem "overcommit"
 
 # Start debugger with binding.b [https://github.com/ruby/debug]
 gem "debug", ">= 1.0.0"
