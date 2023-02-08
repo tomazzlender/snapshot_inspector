@@ -8,6 +8,8 @@ class DummyControllerTest < ActiveSupport::TestCase
 end
 
 class Minitest::Snapshot::Test::IntegrationHelpersTest < ActiveSupport::TestCase
+  include EnvironmentHelper
+
   setup do
     Rails.root.join("tmp", "snapshots").rmtree
   end
@@ -17,8 +19,10 @@ class Minitest::Snapshot::Test::IntegrationHelpersTest < ActiveSupport::TestCase
     response = ActionDispatch::TestResponse.new
 
     travel_to(Time.new(2023, 2, 7, 12, 5, 5)) do
-      response.stub(:parsed_body, "<html><body>Example response body.</body></html>") do
-        test_case_example.take_snapshot(response)
+      with_environment("TAKE_SNAPSHOTS" => "true") do
+        response.stub(:parsed_body, "<html><body>Example response body.</body></html>") do
+          test_case_example.take_snapshot(response)
+        end
       end
     end
 
@@ -47,11 +51,13 @@ class Minitest::Snapshot::Test::IntegrationHelpersTest < ActiveSupport::TestCase
     second_response = ActionDispatch::TestResponse.new
 
     travel_to(Time.new(2023, 2, 7, 12, 5, 5)) do
-      first_response.stub(:parsed_body, "<html><body>Example response body.</body></html>") do
-        test_case_example.take_snapshot(first_response)
+      with_environment("TAKE_SNAPSHOTS" => "true") do
+        first_response.stub(:parsed_body, "<html><body>Example response body.</body></html>") do
+          test_case_example.take_snapshot(first_response)
 
-        second_response.stub(:parsed_body, "<html><body>Another response body.</body></html>") do
-          test_case_example.take_snapshot(second_response)
+          second_response.stub(:parsed_body, "<html><body>Another response body.</body></html>") do
+            test_case_example.take_snapshot(second_response)
+          end
         end
       end
     end
