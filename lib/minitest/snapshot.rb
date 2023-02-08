@@ -1,3 +1,5 @@
+abort "`minitest-snapshot` is only meant to be loaded in the `development` and `test` environments. Your current environment is `#{Rails.env}`. Move the gem into the `group :development, :test` block in your Gemfile." unless Rails.env.development? || Rails.env.test?
+
 require "minitest/snapshot/version"
 require "minitest/snapshot/engine"
 require "importmap-rails"
