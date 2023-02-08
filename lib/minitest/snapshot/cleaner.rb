@@ -4,7 +4,7 @@ module Minitest
       module_function
 
       def clean_snapshots_from_previous_run
-        Rails.root.join("tmp", "snapshots").rmtree
+        Minitest::Snapshot.configuration.storage_directory.rmtree
       end
     end
   end

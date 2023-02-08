@@ -10,7 +10,7 @@ module Minitest::Snapshot
     end
 
     test "should get index" do
-      destination = Rails.root.join("tmp/snapshots/minitest/snapshot/snapshots_controller_test/")
+      destination = Minitest::Snapshot.configuration.storage_directory.join("minitest/snapshot/snapshots_controller_test/")
       destination.mkpath
       FileUtils.copy(file_fixture("test_should_get_index.json"), destination)
 
@@ -22,7 +22,7 @@ module Minitest::Snapshot
     end
 
     test "should get show" do
-      destination = Rails.root.join("tmp/snapshots/minitest/snapshot/snapshots_controller_test/")
+      destination = Minitest::Snapshot.configuration.storage_directory.join("minitest/snapshot/snapshots_controller_test/")
       destination.mkpath
       FileUtils.copy(file_fixture("test_should_get_index.json"), destination)
 

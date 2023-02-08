@@ -15,11 +15,12 @@ module Minitest
     end
 
     class Configuration
-      attr_accessor :importmap, :snapshot_taking_enabled
+      attr_accessor :importmap, :snapshot_taking_enabled, :storage_directory
 
       def initialize
         @importmap = Importmap::Map.new
         @snapshot_taking_enabled = false
+        @storage_directory = nil
       end
     end
 

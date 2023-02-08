@@ -67,11 +67,7 @@ module Minitest
         end
 
         def absolute_file_path
-          Rails.root.join(tmp_snapshot_directory_path, test_class_name.underscore, file_name)
-        end
-
-        def tmp_snapshot_directory_path
-          "tmp/snapshots"
+          Minitest::Snapshot.configuration.storage_directory.join(test_class_name.underscore, file_name)
         end
 
         def file_name
