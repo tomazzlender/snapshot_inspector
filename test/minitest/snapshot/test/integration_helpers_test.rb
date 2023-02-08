@@ -19,7 +19,7 @@ class Minitest::Snapshot::Test::IntegrationHelpersTest < ActiveSupport::TestCase
     response = ActionDispatch::TestResponse.new
 
     travel_to(Time.new(2023, 2, 7, 12, 5, 5)) do
-      with_environment("TAKE_SNAPSHOTS" => "true") do
+      Minitest::Snapshot.configuration.stub(:snapshot_taking_enabled, true) do
         response.stub(:parsed_body, "<html><body>Example response body.</body></html>") do
           test_case_example.take_snapshot(response)
         end
@@ -51,7 +51,7 @@ class Minitest::Snapshot::Test::IntegrationHelpersTest < ActiveSupport::TestCase
     second_response = ActionDispatch::TestResponse.new
 
     travel_to(Time.new(2023, 2, 7, 12, 5, 5)) do
-      with_environment("TAKE_SNAPSHOTS" => "true") do
+      Minitest::Snapshot.configuration.stub(:snapshot_taking_enabled, true) do
         first_response.stub(:parsed_body, "<html><body>Example response body.</body></html>") do
           test_case_example.take_snapshot(first_response)
 
