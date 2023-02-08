@@ -5,6 +5,10 @@ module Minitest
     class Engine < ::Rails::Engine
       isolate_namespace Minitest::Snapshot
 
+      initializer "minitest_snapshot.set_storage_directory" do |_app|
+        Minitest::Snapshot.configuration.storage_directory = Rails.root.join("tmp", "snapshots")
+      end
+
       rake_tasks do
         load "tasks/tmp.rake"
       end

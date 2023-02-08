@@ -41,7 +41,7 @@ class Minitest::Snapshot::Test::IntegrationHelpersTest < ActiveSupport::TestCase
       }
     ]
 
-    snapshot_file_path = Rails.root.join("tmp", "snapshots", "dummy_controller_test", "test_some_controller_action.json")
+    snapshot_file_path = Minitest::Snapshot.configuration.storage_directory.join("dummy_controller_test", "test_some_controller_action.json")
     assert_equal JSON.pretty_generate(expected_contents), File.read(snapshot_file_path)
   end
 
@@ -89,7 +89,7 @@ class Minitest::Snapshot::Test::IntegrationHelpersTest < ActiveSupport::TestCase
       }
     ]
 
-    snapshot_file_path = Rails.root.join("tmp", "snapshots", "dummy_controller_test", "test_some_controller_action.json")
+    snapshot_file_path = Minitest::Snapshot.configuration.storage_directory.join("dummy_controller_test", "test_some_controller_action.json")
     assert_equal JSON.pretty_generate(expected_contents), File.read(snapshot_file_path)
   end
 end

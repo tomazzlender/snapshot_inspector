@@ -3,8 +3,7 @@ module Minitest
     class Snapshot
       class << self
         def all
-          source_directory = Rails.root.join("tmp/snapshots")
-          test_case_files = Dir.glob("#{source_directory}/**/*.{json}")
+          test_case_files = Dir.glob("#{Minitest::Snapshot.configuration.storage_directory}/**/*.{json}")
 
           snapshots =
             test_case_files
@@ -22,7 +21,7 @@ module Minitest
 
         def find(slug)
           file_path = slug.split("/")[0..-2].join("/")
-          absolute_file_path = Rails.root.join("tmp/snapshots/#{file_path}.json")
+          absolute_file_path = Minitest::Snapshot.configuration.storage_directory.join("#{file_path}.json")
           snapshots = JSON.parse(File.read(absolute_file_path), symbolize_names: true)
 
           snapshots.find { |snapshot| snapshot[:slug] == slug }
