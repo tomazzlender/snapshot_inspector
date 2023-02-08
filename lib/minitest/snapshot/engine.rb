@@ -15,7 +15,7 @@ module Minitest
       end
 
       initializer "minitest_snapshot.assets.precompile" do |app|
-        app.config.assets.precompile += %w[minitest/snapshot/manifest] if Rails.env.development?
+        app.config.assets.precompile += %w[minitest/snapshot/manifest] if Rails.env.development? || Rails.env.test?
       end
 
       initializer "minitest_snapshot.include_test_integration_helpers" do |_app|
@@ -26,7 +26,7 @@ module Minitest
 
       config.after_initialize do |app|
         app.routes.prepend do
-          mount Minitest::Snapshot::Engine, at: "/rails/snapshots" if Rails.env.development?
+          mount Minitest::Snapshot::Engine, at: "/rails/snapshots" if Rails.env.development? || Rails.env.test?
         end
       end
     end
