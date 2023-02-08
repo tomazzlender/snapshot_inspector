@@ -13,23 +13,10 @@ gem "minitest-snapshot"
 
 And then execute:
 ```bash
-$ bundle
+bundle
 ```
 
-Or install it yourself as:
-```bash
-$ gem install minitest-snapshot
-```
-
-Add integration tests helper to `test/test_helper.rb`:
-```ruby
-class ActiveSupport::TestCase
-  # ...
-  include Minitest::Snapshot::Test::IntegrationHelpers
-end
-```
-
-Start using `take_snapshot` method in integration tests:
+Now you can start using `take_snapshot` method in integration tests:
 ```ruby
 test "should get index" do
   get root_path
@@ -39,6 +26,14 @@ test "should get index" do
   assert_response :success
 end
 ```
+
+Run tests with a flag `--with-snapshots` that enables taking snapshots.
+
+```bash
+bin/rails test --with-snapshots
+```
+
+Start your local server and visit http://localhost:300/rails/snapshots.
 
 ## Contributing
 Contribution directions go here.
