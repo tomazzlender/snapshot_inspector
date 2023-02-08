@@ -3,6 +3,10 @@ module Minitest
     class Engine < ::Rails::Engine
       isolate_namespace Minitest::Snapshot
 
+      rake_tasks do
+        load "tasks/tmp.rake"
+      end
+
       initializer "minitest_snapshot.include_test_integration_helpers" do |_app|
         ActiveSupport.on_load(:action_dispatch_integration_test) do
           include Minitest::Snapshot::Test::IntegrationHelpers
