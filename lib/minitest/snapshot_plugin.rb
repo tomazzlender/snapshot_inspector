@@ -1,3 +1,5 @@
+require "minitest/snapshot/cleaner"
+
 module Minitest
   class << self
     def plugin_snapshot_options(opts, _options)
@@ -7,13 +9,7 @@ module Minitest
     end
 
     def plugin_snapshot_init(_options)
-      purge_previous_snapshots if ENV["TAKE_SNAPSHOTS"] == "true"
-    end
-
-    private
-
-    def purge_previous_snapshots
-      Rails.root.join("tmp", "snapshots").rmtree
+      Minitest::Snapshot::Cleaner.clean_snapshots_from_previous_run if ENV["TAKE_SNAPSHOTS"] == "true"
     end
   end
 end
