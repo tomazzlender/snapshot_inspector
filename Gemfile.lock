@@ -2,7 +2,10 @@ PATH
   remote: .
   specs:
     minitest-snapshot (0.1.0)
+      importmap-rails (>= 1.1.5)
       rails (>= 7.0.4.2)
+      sprockets-rails (>= 3.4.2)
+      stimulus-rails (>= 1.2.1)
 
 GEM
   remote: https://rubygems.org/
@@ -85,6 +88,9 @@ GEM
       activesupport (>= 5.0)
     i18n (1.12.0)
       concurrent-ruby (~> 1.0)
+    importmap-rails (1.1.5)
+      actionpack (>= 6.0.0)
+      railties (>= 6.0.0)
     io-console (0.6.0)
     irb (1.6.2)
       reline (>= 0.3.0)
@@ -182,6 +188,8 @@ GEM
       language_server-protocol (~> 3.17.0.2)
       rubocop (= 1.42.0)
       rubocop-performance (= 1.15.2)
+    stimulus-rails (1.2.1)
+      railties (>= 6.0.0)
     thor (1.2.1)
     timeout (0.3.1)
     tzinfo (2.0.6)
@@ -197,10 +205,12 @@ PLATFORMS
 
 DEPENDENCIES
   debug (>= 1.0.0)
+  importmap-rails
   minitest-snapshot!
   puma
   sprockets-rails
   standard
+  stimulus-rails
 
 BUNDLED WITH
    2.4.6

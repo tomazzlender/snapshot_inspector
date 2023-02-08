@@ -1,3 +1,5 @@
+require "importmap-rails"
+
 module Minitest
   module Snapshot
     class Engine < ::Rails::Engine
@@ -7,8 +9,13 @@ module Minitest
         load "tasks/tmp.rake"
       end
 
+      initializer "minitest_snapshot.importmap", before: "importmap" do |app|
+        app.config.importmap.paths << root.join("config/importmap.rb")
+        app.config.importmap.cache_sweepers << root.join("app/assets/javascripts")
+      end
+
       initializer "minitest_snapshot.assets.precompile" do |app|
-        app.config.assets.precompile += %w[minitest/snapshot/application.css] if Rails.env.development?
+        app.config.assets.precompile += %w[minitest/snapshot/manifest] if Rails.env.development?
       end
 
       initializer "minitest_snapshot.include_test_integration_helpers" do |_app|
