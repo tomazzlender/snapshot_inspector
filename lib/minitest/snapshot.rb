@@ -15,12 +15,14 @@ module Minitest
     end
 
     class Configuration
-      attr_accessor :importmap, :snapshot_taking_enabled, :storage_directory
+      attr_accessor :importmap, :snapshot_taking_enabled, :storage_directory, :host, :route_path
 
       def initialize
         @importmap = Importmap::Map.new
         @snapshot_taking_enabled = false
         @storage_directory = nil
+        @host = "http://localhost:3000"
+        @route_path = "/rails/snapshots"
       end
     end
 
