@@ -12,21 +12,21 @@ module Minitest::Snapshot
     test "should get index" do
       destination = Minitest::Snapshot.configuration.storage_directory.join("minitest/snapshot/snapshots_controller_test/")
       destination.mkpath
-      FileUtils.copy(file_fixture("test_should_get_index.json"), destination)
+      FileUtils.copy(file_fixture("test_some_controller_action_0.json"), destination)
 
       get root_path
 
       assert_response :success
       assert_select "h1", text: "Snapshots"
-      assert_select "li", text: /should get index/
+      assert_select "li", text: /some controller action/
     end
 
     test "should get show" do
       destination = Minitest::Snapshot.configuration.storage_directory.join("minitest/snapshot/snapshots_controller_test/")
       destination.mkpath
-      FileUtils.copy(file_fixture("test_should_get_index.json"), destination)
+      FileUtils.copy(file_fixture("test_some_controller_action_0.json"), destination)
 
-      get snapshot_url("minitest/snapshot/snapshots_controller_test/test_should_get_index/0")
+      get snapshot_url("minitest/snapshot/snapshots_controller_test/test_some_controller_action_0")
 
       assert_response :success
     end

@@ -26,22 +26,27 @@ class Minitest::Snapshot::Test::IntegrationHelpersTest < ActiveSupport::TestCase
       end
     end
 
-    expected_contents = [
-      {
-        slug: "dummy_controller_test/test_some_controller_action/0",
-        created_at: "2023-02-07 11:05:05 UTC",
-        response_body: "<html><body>Example response body.</body></html>",
-        test_case_name: "test_some_controller_action",
-        test_case_human_name: "some controller action",
-        test_class: "DummyControllerTest",
+    expected_contents = {
+      response_recording: {
+        body: "<html><body>Example response body.</body></html>"
+      },
+      test_recording: {
+        name: "some controller action",
+        method_name: "test_some_controller_action",
         source_location: [
           "#{Minitest::Snapshot::Engine.root}/test/minitest/snapshot/test/integration_helpers_test.rb",
           6
-        ]
-      }
-    ]
+        ],
+        test_case_name: "DummyControllerTest",
+        take_snapshot_index: 0,
+        test_case_file_path: "#{Minitest::Snapshot::Engine.root}/test/minitest/snapshot/test/integration_helpers_test.rb",
+        line_number: 6
+      },
+      created_at: "2023-02-07T11:05:05.000Z",
+      slug: "dummy_controller_test/test_some_controller_action_0"
+    }
 
-    snapshot_file_path = Minitest::Snapshot.configuration.storage_directory.join("dummy_controller_test", "test_some_controller_action.json")
+    snapshot_file_path = Minitest::Snapshot.configuration.storage_directory.join("dummy_controller_test", "test_some_controller_action_0.json")
     assert_equal JSON.pretty_generate(expected_contents), File.read(snapshot_file_path)
   end
 
@@ -62,34 +67,50 @@ class Minitest::Snapshot::Test::IntegrationHelpersTest < ActiveSupport::TestCase
       end
     end
 
-    expected_contents = [
-      {
-        slug: "dummy_controller_test/test_some_controller_action/0",
-        created_at: "2023-02-07 11:05:05 UTC",
-        response_body: "<html><body>Example response body.</body></html>",
-        test_case_name: "test_some_controller_action",
-        test_case_human_name: "some controller action",
-        test_class: "DummyControllerTest",
-        source_location: [
-          "#{Minitest::Snapshot::Engine.root}/test/minitest/snapshot/test/integration_helpers_test.rb",
-          6
-        ]
+    snapshot1_expected_contents = {
+      response_recording: {
+        body: "<html><body>Example response body.</body></html>"
       },
-      {
-        slug: "dummy_controller_test/test_some_controller_action/1",
-        created_at: "2023-02-07 11:05:05 UTC",
-        response_body: "<html><body>Another response body.</body></html>",
-        test_case_name: "test_some_controller_action",
-        test_case_human_name: "some controller action",
-        test_class: "DummyControllerTest",
+      test_recording: {
+        name: "some controller action",
+        method_name: "test_some_controller_action",
         source_location: [
           "#{Minitest::Snapshot::Engine.root}/test/minitest/snapshot/test/integration_helpers_test.rb",
           6
-        ]
-      }
-    ]
+        ],
+        test_case_name: "DummyControllerTest",
+        take_snapshot_index: 0,
+        test_case_file_path: "#{Minitest::Snapshot::Engine.root}/test/minitest/snapshot/test/integration_helpers_test.rb",
+        line_number: 6
+      },
+      created_at: "2023-02-07T11:05:05.000Z",
+      slug: "dummy_controller_test/test_some_controller_action_0"
+    }
 
-    snapshot_file_path = Minitest::Snapshot.configuration.storage_directory.join("dummy_controller_test", "test_some_controller_action.json")
-    assert_equal JSON.pretty_generate(expected_contents), File.read(snapshot_file_path)
+    snapshot2_expected_contents = {
+      response_recording: {
+        body: "<html><body>Another response body.</body></html>"
+      },
+      test_recording: {
+        name: "some controller action",
+        method_name: "test_some_controller_action",
+        source_location: [
+          "#{Minitest::Snapshot::Engine.root}/test/minitest/snapshot/test/integration_helpers_test.rb",
+          6
+        ],
+        test_case_name: "DummyControllerTest",
+        take_snapshot_index: 1,
+        test_case_file_path: "#{Minitest::Snapshot::Engine.root}/test/minitest/snapshot/test/integration_helpers_test.rb",
+        line_number: 6
+      },
+      created_at: "2023-02-07T11:05:05.000Z",
+      slug: "dummy_controller_test/test_some_controller_action_1"
+    }
+
+    snapshot1_file_path = Minitest::Snapshot.configuration.storage_directory.join("dummy_controller_test", "test_some_controller_action_0.json")
+    assert_equal JSON.pretty_generate(snapshot1_expected_contents), File.read(snapshot1_file_path)
+
+    snapshot2_file_path = Minitest::Snapshot.configuration.storage_directory.join("dummy_controller_test", "test_some_controller_action_1.json")
+    assert_equal JSON.pretty_generate(snapshot2_expected_contents), File.read(snapshot2_file_path)
   end
 end
