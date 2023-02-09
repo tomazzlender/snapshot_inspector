@@ -4,7 +4,7 @@ require "minitest/snapshot/cleaner"
 module Minitest
   class << self
     def plugin_snapshot_options(opts, _options)
-      opts.on "--with-snapshots", "Take snapshots of responses for inspecting at http://localhost:3000/rails/snapshots" do
+      opts.on "--take-snapshots", "Take snapshots of responses for inspecting at http://localhost:3000/rails/snapshots" do
         Minitest::Snapshot.configuration.snapshot_taking_enabled = true
       end
     end
