@@ -28,9 +28,20 @@ module Minitest
         end
       end
 
+      initializer "minitest_snapshot.configure_default_url_options" do |_app|
+        url_options =
+          if Rails.application.routes.default_url_options.present?
+            Rails.application.routes.default_url_options
+          elsif Rails.application.config.action_controller.default_url_options.present?
+            Rails.application.config.action_controller.default_url_options
+          end
+
+        Minitest::Snapshot.configuration.host = url_options ? [url_options[:host], url_options[:port]].join(":") : Minitest::Snapshot.configuration.host
+      end
+
       config.after_initialize do |app|
         app.routes.prepend do
-          mount Minitest::Snapshot::Engine, at: "/rails/snapshots"
+          mount Minitest::Snapshot::Engine, at: Minitest::Snapshot.configuration.route_path
         end
       end
     end
