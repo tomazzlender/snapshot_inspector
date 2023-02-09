@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>View Inspector</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+
+  <%= stylesheet_link_tag "view_inspector/application", media: "all" %>
+  <%= view_inspector_importmap_tags %>
+  <%= javascript_import_module_tag "view_inspector/application" %>
+</head>
+<body>
+
+<%= yield %>
+
+</body>
+</html>

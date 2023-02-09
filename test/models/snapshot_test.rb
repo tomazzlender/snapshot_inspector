@@ -1,6 +1,6 @@
 require "test_helper"
 
-class Minitest::Snapshot::SnapshotTest < ActiveSupport::TestCase
+class ViewInspector::SnapshotTest < ActiveSupport::TestCase
   test "private #order_by_line_numbers" do
     expected = [
       sample_snapshot_with("test_example_something", ["/test/controllers/another_dummy_controller.rb", 9], 0),
@@ -19,7 +19,7 @@ class Minitest::Snapshot::SnapshotTest < ActiveSupport::TestCase
     ]
 
     actual =
-      Minitest::Snapshot::Snapshot
+      ViewInspector::Snapshot
         .send(:order_by_line_number, dummy_snapshots)
         .map { |snapshot| snapshot.slug }
 
@@ -29,7 +29,7 @@ class Minitest::Snapshot::SnapshotTest < ActiveSupport::TestCase
   private
 
   def sample_snapshot_with(name, source_location, index)
-    Minitest::Snapshot::Snapshot.new.parse(
+    ViewInspector::Snapshot.new.parse(
       response: Struct.new(:parsed_body).new(parsed_body: ""),
       test: {
         source_location: source_location,

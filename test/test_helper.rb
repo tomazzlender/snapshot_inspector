@@ -6,4 +6,4 @@ require "rails/test_help"
 require "minitest/mock"
 require "test_helpers/environment_helper"
 
-ActiveSupport::TestCase.file_fixture_path = Minitest::Snapshot::Engine.root + "test/fixtures/files"
+ActiveSupport::TestCase.file_fixture_path = ViewInspector::Engine.root + "test/fixtures/files"

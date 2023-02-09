@@ -1,13 +1,13 @@
-require_relative "lib/minitest/snapshot/version"
+require_relative "lib/view_inspector/version"
 
 Gem::Specification.new do |spec|
-  spec.name = "minitest-snapshot"
-  spec.version = Minitest::Snapshot::VERSION
+  spec.name = "view_inspector"
+  spec.version = ViewInspector::VERSION
   spec.authors = ["Tomaz Zlender"]
   spec.email = ["tomaz@zlender.se"]
-  spec.homepage = "https://github.com/tomazzlender/minitest-snapshot"
-  spec.summary = "Summary of Minitest::Snapshot."
-  spec.description = "Description of Minitest::Snapshot."
+  spec.homepage = "https://github.com/tomazzlender/view_inspector"
+  spec.summary = "Summary of ViewInspector."
+  spec.description = "Description of ViewInspector."
   spec.license = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the "allowed_push_host"

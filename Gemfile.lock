@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    minitest-snapshot (0.1.0)
+    view_inspector (0.1.0)
       importmap-rails (>= 1.1.5)
       rails (>= 7.0.4.2)
       sprockets-rails (>= 3.4.2)
@@ -212,12 +212,12 @@ PLATFORMS
 DEPENDENCIES
   debug (>= 1.0.0)
   importmap-rails
-  minitest-snapshot!
   overcommit
   puma
   sprockets-rails
   standard
   stimulus-rails
+  view_inspector!
 
 BUNDLED WITH
    2.4.6
