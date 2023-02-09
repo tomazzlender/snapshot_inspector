@@ -1,14 +1,13 @@
 # Minitest::Snapshot
 Short description and motivation.
 
-## Usage
-How to use my plugin.
-
 ## Installation
-Add this line to your application's Gemfile:
+Add the gem to your application's Gemfile under `:development` group:
 
 ```ruby
-gem "minitest-snapshot"
+group :development do
+  gem "minitest-snapshot"
+end
 ```
 
 And then execute:
@@ -16,7 +15,9 @@ And then execute:
 bundle
 ```
 
-Now you can start using `take_snapshot` method in integration tests:
+## Usage
+
+Start using `take_snapshot` method in the integration tests:
 ```ruby
 test "should get index" do
   get root_path
@@ -27,7 +28,7 @@ test "should get index" do
 end
 ```
 
-Run tests with a flag `--with-snapshots` that enables taking snapshots.
+Run tests with a flag `--with-snapshots` to enable taking snapshots.
 
 ```bash
 bin/rails test --with-snapshots
