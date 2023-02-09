@@ -1,0 +1,19 @@
+{
+  "response_recording": {
+    "body": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Minitest snapshot</title>\n  \n  \n\n</head>\n<body>\n\n<h1>Snapshots</h1>\n\n<ul>\n</ul>\n\n\n</body>\n</html>\n"
+  },
+  "test_recording": {
+    "name": "some controller action",
+    "method_name": "test_some_controller_action",
+    "source_location": [
+      "/Users/Nickname/Code/app_name/test/controllers/some_controller_test.rb",
+      6
+    ],
+    "test_case_name": "Minitest::Snapshot::SnapshotsControllerTest",
+    "take_snapshot_index": 0,
+    "test_case_file_path": "/Users/Nickname/Code/app_name/test/controllers/some_controller_test.rb",
+    "line_number": 6
+  },
+  "created_at": "2023-02-07T11:05:05.000Z",
+  "slug": "minitest/snapshot/snapshots_controller_test/test_some_controller_action_0"
+}

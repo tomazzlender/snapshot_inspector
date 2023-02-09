@@ -1,24 +1,42 @@
 require "test_helper"
 
 class Minitest::Snapshot::SnapshotTest < ActiveSupport::TestCase
-  test "#order_by_line_numbers" do
+  test "private #order_by_line_numbers" do
     expected = [
-      {source_location: ["/test/controllers/another_dummy_controller.rb", 9]},
-      {source_location: ["/test/controllers/another_dummy_controller.rb", 30]},
-      {source_location: ["/test/controllers/dummy_controller.rb", 10]},
-      {source_location: ["/test/controllers/dummy_controller.rb", 13]},
-      {source_location: ["/test/controllers/dummy_controller.rb", 21]}
-    ]
+      sample_snapshot_with("test_example_something", ["/test/controllers/another_dummy_controller.rb", 9], 0),
+      sample_snapshot_with("test_example_another", ["/test/controllers/another_dummy_controller.rb", 30], 0),
+      sample_snapshot_with("test_example_one", ["/test/controllers/dummy_controller.rb", 10], 0),
+      sample_snapshot_with("test_example_one", ["/test/controllers/dummy_controller.rb", 13], 1),
+      sample_snapshot_with("test_example_else", ["/test/controllers/dummy_controller.rb", 21], 0)
+    ].map { |snapshot| snapshot.slug }
 
     dummy_snapshots = [
-      {source_location: ["/test/controllers/dummy_controller.rb", 21]},
-      {source_location: ["/test/controllers/another_dummy_controller.rb", 30]},
-      {source_location: ["/test/controllers/dummy_controller.rb", 10]},
-      {source_location: ["/test/controllers/another_dummy_controller.rb", 9]},
-      {source_location: ["/test/controllers/dummy_controller.rb", 13]}
+      sample_snapshot_with("test_example_else", ["/test/controllers/dummy_controller.rb", 21], 0),
+      sample_snapshot_with("test_example_another", ["/test/controllers/another_dummy_controller.rb", 30], 0),
+      sample_snapshot_with("test_example_one", ["/test/controllers/dummy_controller.rb", 10], 0),
+      sample_snapshot_with("test_example_something", ["/test/controllers/another_dummy_controller.rb", 9], 0),
+      sample_snapshot_with("test_example_one", ["/test/controllers/dummy_controller.rb", 13], 1)
     ]
-    actual = Minitest::Snapshot::Snapshot.send(:order_by_line_number, dummy_snapshots)
+
+    actual =
+      Minitest::Snapshot::Snapshot
+        .send(:order_by_line_number, dummy_snapshots)
+        .map { |snapshot| snapshot.slug }
 
     assert_equal expected, actual
+  end
+
+  private
+
+  def sample_snapshot_with(name, source_location, index)
+    Minitest::Snapshot::Snapshot.new.parse(
+      response: Struct.new(:parsed_body).new(parsed_body: ""),
+      test: {
+        source_location: source_location,
+        test_case_name: "SomethingController",
+        method_name: name,
+        take_snapshot_index: index
+      }
+    )
   end
 end
