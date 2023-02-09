@@ -12,7 +12,7 @@ module Minitest
         new.from_json(json)
       end
 
-      def self.grouped_by_test_class
+      def self.grouped_by_test_case
         all.group_by do |snapshot|
           snapshot.test_recording.test_case_name
         end
