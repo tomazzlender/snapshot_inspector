@@ -30,5 +30,13 @@ module Minitest::Snapshot
 
       assert_response :success
     end
+
+    test "should return not found for a unknown slug" do
+      get snapshot_url("unknown/slug/0")
+
+      assert_response :not_found
+      assert_select "h1", text: "Not Found"
+      assert_select "a", href: Minitest::Snapshot.configuration.route_path
+    end
   end
 end
