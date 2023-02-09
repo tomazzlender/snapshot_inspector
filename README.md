@@ -2,17 +2,18 @@
 Short description and motivation.
 
 ## Installation
-Add the gem to your application's Gemfile under `:development` group:
+Add the gem to your application's Gemfile under `:development` and `:test` groups. Snapshots are taken in the test environment and inspected in the development environment.
 
 ```ruby
-group :development do
+group [:development, :test] do
   gem "minitest-snapshot"
 end
 ```
 
-And then execute:
+
+Then execute:
 ```bash
-bundle
+bundle install
 ```
 
 ## Usage
