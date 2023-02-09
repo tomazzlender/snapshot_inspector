@@ -10,8 +10,8 @@ module Minitest
         # for inspection in the lifecycle of the integration test. You can take one or
         # more snapshots in a single test case.
         #
-        # Snapshots are taken only when explicitly enabled with a flag --with-snapshots.
-        # E.g. bin/rails test --with-snapshots
+        # Snapshots are taken only when explicitly enabled with a flag --take-snapshots.
+        # E.g. bin/rails test --take-snapshots
         def take_snapshot(response)
           return unless Minitest::Snapshot.configuration.snapshot_taking_enabled
 

@@ -28,10 +28,10 @@ test "should get index" do
 end
 ```
 
-Run tests with a flag `--with-snapshots` to enable taking snapshots.
+Run tests with a flag `--take-snapshots` to enable taking snapshots.
 
 ```bash
-bin/rails test --with-snapshots
+bin/rails test --take-snapshots
 ```
 
 Start your local server and visit http://localhost:300/rails/snapshots.
