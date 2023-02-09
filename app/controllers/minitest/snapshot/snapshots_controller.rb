@@ -1,7 +1,7 @@
 module Minitest::Snapshot
   class SnapshotsController < ApplicationController
     def index
-      @grouped_by_test_class = Snapshot.grouped_by_test_class
+      @grouped_by_test_class = Snapshot.grouped_by_test_case
     end
 
     def show
