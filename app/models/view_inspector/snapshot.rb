@@ -62,7 +62,7 @@ module ViewInspector
     end
 
     class ResponseRecording
-      attr_reader :body
+      attr_reader :body, :original_fullpath, :controller_action, :status, :response_headers, :request_body, :request_headers
 
       def self.parse(response)
         new.parse(response)
@@ -70,11 +70,23 @@ module ViewInspector
 
       def parse(response)
         @body = response.parsed_body
+        @original_fullpath = response.request.original_fullpath
+        @controller_action = Rails.application.routes.recognize_path response.request.original_fullpath
+        @status = response.status
+        @request_headers = response.request.headers.env.reject { |key| key.to_s.include?('.') }
+        @request_body = response.request.body.to_a
+        @response_headers = response.headers.to_h
         self
       end
 
       def from_json(json)
         @body = json[:body]
+        @original_fullpath = json[:original_fullpath]
+        @controller_action = json[:controller_action]
+        @status = json[:status]
+        @request_headers = json[:request_headers]
+        @request_body = json[:request_body]
+        @response_headers = json[:response_headers]
         self
       end
     end

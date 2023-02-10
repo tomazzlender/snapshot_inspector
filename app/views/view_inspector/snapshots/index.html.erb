@@ -18,6 +18,16 @@
           <%= snapshot.test_recording.name %>
           <%= if snapshot.test_recording.take_snapshot_index > 0 then "(#{(snapshot.test_recording.take_snapshot_index + 1).ordinalize} in the same test)" end %>
         <% end %>
+        <span style="display: block;font-size:18px;color:#666;">
+          <span style="font-size: 16px;">Action</span>
+          <span style="background: #efefef;padding: 3px 5px;"><%= snapshot.response_recording.controller_action[:controller] %>#<%= snapshot.response_recording.controller_action[:action] %></span>
+
+          <span style="font-size: 16px;margin-left: 2px;">Full path</span>
+          <span style="background: #efefef;padding: 3px 5px"><%= snapshot.response_recording.original_fullpath %></span>
+
+          <span style="font-size: 16px;margin-left: 2px;">Status</span>
+          <span style="background: #efefef;padding: 3px 5px"><%= snapshot.response_recording.status %></span>
+        </span>
       </li>
     <% end %>
   </ul>

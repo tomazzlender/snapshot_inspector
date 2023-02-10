@@ -4,5 +4,5 @@ Rails.application.routes.draw do
   get "privacy", to: "pages#privacy", as: :privacy
 
   resources :users, only: [:index, :edit]
-  resources :items, only: [:index, :show]
+  resources :items, only: [:index, :show, :create]
 end

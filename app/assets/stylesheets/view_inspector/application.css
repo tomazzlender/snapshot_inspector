@@ -42,7 +42,7 @@ pre {
   white-space: pre-wrap;
 }
 
-a { color: #000; text-decoration: none; }
+a { color: #000; }
 a:hover { text-decoration: underline; }
 
 @media (prefers-color-scheme: dark) {

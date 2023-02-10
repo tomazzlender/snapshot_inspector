@@ -7,9 +7,18 @@ class ItemsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should get show" do
+  test "should show item" do
     get item_path(:one)
     take_snapshot response
     assert_response :success
+  end
+
+  test "should create item" do
+    post items_path, params: { item: {name: "Example Name"} }
+    take_snapshot response
+    assert_redirected_to item_path(:one, name: "Example Name")
+
+    follow_redirect!
+    take_snapshot response
   end
 end
