@@ -1,5 +1,6 @@
 # ViewInspector
-Short description and motivation.
+
+Inspect Ruby on Rails views in a browser while testing them.
 
 ## Installation
 Add the gem to your application's Gemfile under `:development` and `:test` groups. Snapshots are taken in the test environment and inspected in the development environment.
