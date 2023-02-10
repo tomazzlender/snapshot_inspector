@@ -1,6 +1,8 @@
 module Minitest
   module Snapshot
     class Snapshot
+      class NotFound < StandardError; end
+
       attr_reader :slug, :response_recording, :test_recording, :created_at
 
       def self.persist(response:, test:)
@@ -10,6 +12,8 @@ module Minitest
       def self.find(slug)
         json = JSON.parse(File.read(Helpers.absolute_snapshot_file_path(slug)), symbolize_names: true)
         new.from_json(json)
+      rescue Errno::ENOENT
+        raise NotFound.new("Snapshot with a slug `#{slug}` can't be found.")
       end
 
       def self.grouped_by_test_case
