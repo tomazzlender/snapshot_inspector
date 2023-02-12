@@ -38,6 +38,14 @@ bin/rails test --take-snapshots
 
 Start your local server and visit http://localhost:300/rails/snapshots.
 
+If you wish for the snapshots in a browser to live reload, use a library like [hotwire-livereload](https://github.com/kirillplatonov/hotwire-livereload).
+Besides the general installation instructions, add the following lines into `development.rb`.
+
+```ruby
+config.hotwire_livereload.listen_paths << Rails.root.join(ViewInspector::STORAGE_DIRECTORY)
+config.hotwire_livereload.force_reload_paths << Rails.root.join(ViewInspector::STORAGE_DIRECTORY)
+```
+
 ## Contributing
 Contribution directions go here.
 
