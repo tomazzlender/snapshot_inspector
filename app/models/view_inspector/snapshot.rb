@@ -9,7 +9,7 @@ module ViewInspector
     end
 
     def self.find(slug)
-      json = JSON.parse(File.read(Helpers.absolute_snapshot_file_path(slug)), symbolize_names: true)
+      json = JSON.parse(Storage.read(slug), symbolize_names: true)
       new.from_json(json)
     rescue Errno::ENOENT
       raise NotFound.new("Snapshot with a slug `#{slug}` can't be found.")
@@ -22,12 +22,7 @@ module ViewInspector
     end
 
     private_class_method def self.all
-      file_paths = Helpers.persisted_snapshots_file_paths(ViewInspector.configuration.absolute_storage_directory)
-
-      snapshots = file_paths.map do |file_path|
-        slug = Helpers.extract_slug(file_path)
-        find(slug)
-      end
+      snapshots = Storage.list.map { |slug| find(slug) }
 
       order_by_line_number(snapshots)
     end
@@ -47,9 +42,7 @@ module ViewInspector
     end
 
     def persist
-      absolute_file_path = Helpers.absolute_snapshot_file_path(slug)
-      absolute_file_path.dirname.mkpath
-      absolute_file_path.write(JSON.pretty_generate(as_json))
+      Storage.write(slug, JSON.pretty_generate(as_json))
       self
     end
 
@@ -111,20 +104,8 @@ module ViewInspector
     end
 
     module Helpers
-      def self.absolute_snapshot_file_path(slug)
-        ViewInspector.configuration.absolute_storage_directory.join("#{slug}.json")
-      end
-
       def self.generate_slug(test_recording)
         [test_recording.test_case_name.underscore, "#{test_recording.method_name}_#{test_recording.take_snapshot_index}"].join("/")
-      end
-
-      def self.extract_slug(file_path)
-        file_path.gsub(ViewInspector.configuration.absolute_storage_directory.to_s + "/", "").gsub(".json", "")
-      end
-
-      def self.persisted_snapshots_file_paths(storage_directory)
-        Dir.glob("#{storage_directory}/**/*.{json}")
       end
     end
   end
