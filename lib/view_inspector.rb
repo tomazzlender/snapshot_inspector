@@ -15,14 +15,16 @@ module ViewInspector
   end
 
   STORAGE_DIRECTORY = "tmp/view_inspector/snapshots"
+  PROCESSING_DIRECTORY = "tmp/view_inspector/processing"
 
   class Configuration
-    attr_accessor :importmap, :snapshot_taking_enabled, :absolute_storage_directory, :host, :route_path
+    attr_accessor :importmap, :snapshot_taking_enabled, :absolute_storage_directory, :absolute_processing_directory, :host, :route_path
 
     def initialize
       @importmap = Importmap::Map.new
       @snapshot_taking_enabled = false
       @absolute_storage_directory = nil
+      @absolute_processing_directory = nil
       @host = "http://localhost:3000"
       @route_path = "/rails/snapshots"
     end

@@ -6,7 +6,7 @@ module ViewInspector
     include Test::IntegrationHelpers
 
     setup do
-      ViewInspector::Cleaner.clean_snapshots_from_previous_run
+      ViewInspector::Storage.clean_storage_directory
     end
 
     test "should get index" do

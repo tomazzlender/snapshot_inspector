@@ -6,6 +6,7 @@ module ViewInspector
 
     initializer "view_inspector.set_storage_directory" do |_app|
       ViewInspector.configuration.absolute_storage_directory = Rails.root.join(ViewInspector::STORAGE_DIRECTORY)
+      ViewInspector.configuration.absolute_processing_directory = Rails.root.join(ViewInspector::PROCESSING_DIRECTORY)
     end
 
     rake_tasks do

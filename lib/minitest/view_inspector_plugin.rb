@@ -1,10 +1,12 @@
 require "view_inspector"
-require "view_inspector/cleaner"
+require "view_inspector/storage"
 require "minitest"
 
 module Minitest
   class ViewInspectorReporter < Reporter
     def report
+      ViewInspector::Storage.move_processing_to_storage_directory
+
       io.print "\n\nInspect snapshots on #{ViewInspector.configuration.host + ViewInspector.configuration.route_path}"
     end
   end
@@ -20,7 +22,7 @@ module Minitest
       return unless ViewInspector.configuration.snapshot_taking_enabled
 
       reporter << ViewInspectorReporter.new
-      ViewInspector::Cleaner.clean_snapshots_from_previous_run
+      ViewInspector::Storage.clean_processing_directory
     end
   end
 end
