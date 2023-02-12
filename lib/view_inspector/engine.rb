@@ -5,7 +5,7 @@ module ViewInspector
     isolate_namespace ViewInspector
 
     initializer "view_inspector.set_storage_directory" do |_app|
-      ViewInspector.configuration.storage_directory = Rails.root.join("tmp", "snapshots")
+      ViewInspector.configuration.absolute_storage_directory = Rails.root.join(ViewInspector::STORAGE_DIRECTORY)
     end
 
     rake_tasks do

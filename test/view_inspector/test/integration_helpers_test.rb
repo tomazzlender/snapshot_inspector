@@ -46,7 +46,7 @@ class ViewInspector::Test::IntegrationHelpersTest < ActiveSupport::TestCase
       slug: "dummy_controller_test/test_some_controller_action_0"
     }
 
-    snapshot_file_path = ViewInspector.configuration.storage_directory.join("dummy_controller_test", "test_some_controller_action_0.json")
+    snapshot_file_path = ViewInspector.configuration.absolute_storage_directory.join("dummy_controller_test", "test_some_controller_action_0.json")
     assert_equal JSON.pretty_generate(expected_contents), File.read(snapshot_file_path)
   end
 
@@ -107,10 +107,10 @@ class ViewInspector::Test::IntegrationHelpersTest < ActiveSupport::TestCase
       slug: "dummy_controller_test/test_some_controller_action_1"
     }
 
-    snapshot1_file_path = ViewInspector.configuration.storage_directory.join("dummy_controller_test", "test_some_controller_action_0.json")
+    snapshot1_file_path = ViewInspector.configuration.absolute_storage_directory.join("dummy_controller_test", "test_some_controller_action_0.json")
     assert_equal JSON.pretty_generate(snapshot1_expected_contents), File.read(snapshot1_file_path)
 
-    snapshot2_file_path = ViewInspector.configuration.storage_directory.join("dummy_controller_test", "test_some_controller_action_1.json")
+    snapshot2_file_path = ViewInspector.configuration.absolute_storage_directory.join("dummy_controller_test", "test_some_controller_action_1.json")
     assert_equal JSON.pretty_generate(snapshot2_expected_contents), File.read(snapshot2_file_path)
   end
 end

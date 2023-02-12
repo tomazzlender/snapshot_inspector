@@ -3,7 +3,7 @@ module ViewInspector
     module_function
 
     def clean_snapshots_from_previous_run
-      ViewInspector.configuration.storage_directory.rmtree
+      ViewInspector.configuration.absolute_storage_directory.rmtree
     end
   end
 end

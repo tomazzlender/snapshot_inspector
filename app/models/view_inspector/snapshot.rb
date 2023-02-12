@@ -22,7 +22,7 @@ module ViewInspector
     end
 
     private_class_method def self.all
-      file_paths = Helpers.persisted_snapshots_file_paths(ViewInspector.configuration.storage_directory)
+      file_paths = Helpers.persisted_snapshots_file_paths(ViewInspector.configuration.absolute_storage_directory)
 
       snapshots = file_paths.map do |file_path|
         slug = Helpers.extract_slug(file_path)
@@ -112,7 +112,7 @@ module ViewInspector
 
     module Helpers
       def self.absolute_snapshot_file_path(slug)
-        ViewInspector.configuration.storage_directory.join("#{slug}.json")
+        ViewInspector.configuration.absolute_storage_directory.join("#{slug}.json")
       end
 
       def self.generate_slug(test_recording)
@@ -120,7 +120,7 @@ module ViewInspector
       end
 
       def self.extract_slug(file_path)
-        file_path.gsub(ViewInspector.configuration.storage_directory.to_s + "/", "").gsub(".json", "")
+        file_path.gsub(ViewInspector.configuration.absolute_storage_directory.to_s + "/", "").gsub(".json", "")
       end
 
       def self.persisted_snapshots_file_paths(storage_directory)

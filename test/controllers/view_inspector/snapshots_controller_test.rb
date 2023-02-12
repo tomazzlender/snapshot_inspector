@@ -10,7 +10,7 @@ module ViewInspector
     end
 
     test "should get index" do
-      destination = ViewInspector.configuration.storage_directory.join("view_inspector/snapshots_controller_test/")
+      destination = ViewInspector.configuration.absolute_storage_directory.join("view_inspector/snapshots_controller_test/")
       destination.mkpath
       FileUtils.copy(file_fixture("test_some_controller_action_0.json"), destination)
 
@@ -22,7 +22,7 @@ module ViewInspector
     end
 
     test "should get show" do
-      destination = ViewInspector.configuration.storage_directory.join("view_inspector/snapshots_controller_test/")
+      destination = ViewInspector.configuration.absolute_storage_directory.join("view_inspector/snapshots_controller_test/")
       destination.mkpath
       FileUtils.copy(file_fixture("test_some_controller_action_0.json"), destination)
 
