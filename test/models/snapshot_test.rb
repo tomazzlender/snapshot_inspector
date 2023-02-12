@@ -55,6 +55,18 @@ class ViewInspector::SnapshotTest < ActiveSupport::TestCase
     assert_equal snapshot.response_recording.body, "<!DOCTYPE html>\n<html>\n<head>\n  <title>View Inspector</title>\n  \n  \n\n</head>\n<body>\n\n<h1>Snapshots</h1>\n\n<ul>\n</ul>\n\n\n</body>\n</html>\n"
   end
 
+  test "::grouped_by_test_case" do
+    destination = ViewInspector::Storage.snapshots_directory.join("view_inspector/snapshots_controller_test/")
+    destination.mkpath
+    FileUtils.copy(file_fixture("test_some_controller_action_0.json"), destination)
+
+    snapshots_grouped_by_test_case = ViewInspector::Snapshot.grouped_by_test_case
+
+    assert_kind_of ViewInspector::Snapshot, snapshots_grouped_by_test_case["ViewInspector::SnapshotsControllerTest"].first
+    assert snapshots_grouped_by_test_case.count == 1
+    assert snapshots_grouped_by_test_case["ViewInspector::SnapshotsControllerTest"].count == 1
+  end
+
   test "private #order_by_line_numbers" do
     expected = [
       sample_snapshot_with("test_example_something", ["/test/controllers/another_dummy_controller.rb", 9], 0),
