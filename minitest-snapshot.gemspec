@@ -26,4 +26,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency "stimulus-rails", ">= 1.2.1"
   spec.add_dependency "importmap-rails", ">= 1.1.5"
   spec.add_dependency "sprockets-rails", ">= 3.4.2"
+  spec.add_dependency "nokogiri", ">= 1.14.1"
 end

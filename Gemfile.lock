@@ -3,6 +3,7 @@ PATH
   specs:
     view_inspector (0.1.0)
       importmap-rails (>= 1.1.5)
+      nokogiri (>= 1.14.1)
       rails (>= 7.0.4.2)
       sprockets-rails (>= 3.4.2)
       stimulus-rails (>= 1.2.1)

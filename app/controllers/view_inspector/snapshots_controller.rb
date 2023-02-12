@@ -9,7 +9,7 @@ module ViewInspector
 
     def raw
       @snapshot = Snapshot.find(params[:slug])
-      render html: @snapshot.response_recording.body.html_safe, layout: false
+      render :raw, layout: false
     rescue Snapshot::NotFound => error
       @error = error
       render :not_found, status: 404
