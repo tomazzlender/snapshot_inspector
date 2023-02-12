@@ -37,7 +37,7 @@ module ViewInspector
       @response_recording = ResponseRecording.parse(response)
       @test_recording = TestRecording.parse(test)
       @created_at = Time.current
-      @slug = Helpers.generate_slug(test_recording)
+      @slug = to_slug
       self
     end
 
@@ -52,6 +52,10 @@ module ViewInspector
       @response_recording = ResponseRecording.new.from_json(json[:response_recording])
       @test_recording = TestRecording.new.from_json(json[:test_recording])
       self
+    end
+
+    def to_slug
+      [test_recording.test_case_name.underscore, "#{test_recording.method_name}_#{test_recording.take_snapshot_index}"].join("/")
     end
 
     class ResponseRecording
@@ -100,12 +104,6 @@ module ViewInspector
         @test_case_file_path = json[:test_case_file_path]
         @line_number = json[:line_number]
         self
-      end
-    end
-
-    module Helpers
-      def self.generate_slug(test_recording)
-        [test_recording.test_case_name.underscore, "#{test_recording.method_name}_#{test_recording.take_snapshot_index}"].join("/")
       end
     end
   end
