@@ -8,7 +8,7 @@ body, p, ol, ul, td {
 
 body {
   margin: 0;
-  padding: 100px 0 100px 100px;
+  padding: 0 0 100px 100px;
 }
 
 h1 {
@@ -28,6 +28,10 @@ p {
 
 ul {
   margin: 3px 0 0;
+}
+
+h1 {
+  padding-top: 100px;
 }
 
 h1, h2, h3, h4, h5, h6 {
