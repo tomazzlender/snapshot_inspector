@@ -12,9 +12,7 @@
     <%= hotwire_livereload_tags %>
   <% end %>
 </head>
-<body>
-
-<%= yield %>
-
+<body id="<%= "#{controller_name}_#{action_name}" %>">
+  <%= yield %>
 </body>
 </html>

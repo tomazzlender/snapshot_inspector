@@ -6,7 +6,6 @@ module ViewInspector
 
     def show
       @snapshot = Snapshot.find(params[:slug])
-      render :show, layout: false
     rescue Snapshot::NotFound => error
       @error = error
       render :not_found, status: 404
