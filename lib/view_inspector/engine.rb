@@ -4,7 +4,7 @@ module ViewInspector
   class Engine < ::Rails::Engine
     isolate_namespace ViewInspector
 
-    initializer "view_inspector.storage_directory" do |_app|
+    config.before_configuration do |_app|
       ViewInspector.configuration.storage_directory = Rails.root.join(ViewInspector::STORAGE_DIRECTORY)
     end
 
