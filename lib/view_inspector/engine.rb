@@ -9,8 +9,10 @@ module ViewInspector
       ViewInspector.configuration.absolute_processing_directory = Rails.root.join(ViewInspector::PROCESSING_DIRECTORY)
     end
 
-    rake_tasks do
-      load "tasks/tmp.rake"
+    unless Rails.env.test?
+      rake_tasks do
+        load "tasks/tmp.rake"
+      end
     end
 
     initializer "view_inspector.importmap", before: "importmap" do |app|
