@@ -14,7 +14,7 @@ module ViewInspector
     attr_accessor :configuration
   end
 
-  STORAGE_DIRECTORY = "tmp/snapshots"
+  STORAGE_DIRECTORY = "tmp/view_inspector/snapshots"
 
   class Configuration
     attr_accessor :importmap, :snapshot_taking_enabled, :absolute_storage_directory, :host, :route_path
