@@ -31,8 +31,18 @@ module ViewInspector
       assert_response :success
     end
 
+    test "should get raw" do
+      destination = ViewInspector::Storage.snapshots_directory.join("view_inspector/snapshots_controller_test/")
+      destination.mkpath
+      FileUtils.copy(file_fixture("test_some_controller_action_0.json"), destination)
+
+      get raw_snapshot_url("view_inspector/snapshots_controller_test/test_some_controller_action_0")
+
+      assert_response :success
+    end
+
     test "should return not found for a unknown slug" do
-      get snapshot_url("unknown/slug/0")
+      get snapshot_url("raw/unknown/slug/0")
 
       assert_response :not_found
       assert_select "h1", text: "Not Found"

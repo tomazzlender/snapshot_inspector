@@ -1,13 +1,1 @@
-<iframe id="body"></iframe>
-
-<script>
-  let content = "<%= escape_javascript @snapshot.response_recording.body.html_safe %>"
-  let iframe = document.getElementById("body");
-  let iframe_document = iframe.document;
-  if (iframe.contentWindow)
-    iframe_document = iframe.contentWindow.document;
-
-  iframe_document.open();
-  iframe_document.writeln(content);
-  iframe_document.close();
-</script>
+<iframe id="body" src="<%= raw_snapshot_path(params[:slug]) %>"></iframe>
