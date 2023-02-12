@@ -8,6 +8,9 @@
   <%= stylesheet_link_tag "view_inspector/application", media: "all" %>
   <%= view_inspector_importmap_tags %>
   <%= javascript_import_module_tag "view_inspector/application" %>
+  <% if defined?(Hotwire::Livereload::DISABLE_FILE) && !File.exist?(Rails.root.join(Hotwire::Livereload::DISABLE_FILE)) %>
+    <%= hotwire_livereload_tags %>
+  <% end %>
 </head>
 <body>
 
