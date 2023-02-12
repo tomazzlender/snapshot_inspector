@@ -1,4 +1,4 @@
-# Minitest::Snapshot
+# ViewInspector
 Short description and motivation.
 
 ## Installation
@@ -6,7 +6,7 @@ Add the gem to your application's Gemfile under `:development` and `:test` group
 
 ```ruby
 group [:development, :test] do
-  gem "minitest-snapshot"
+  gem "view_inspector"
 end
 ```
 
