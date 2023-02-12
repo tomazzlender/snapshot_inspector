@@ -36,7 +36,7 @@ module ViewInspector
 
       assert_response :not_found
       assert_select "h1", text: "Not Found"
-      assert_select "a", href: ViewInspector.configuration.route_path
+      assert_select "a", href: "/rails/snapshots"
     end
   end
 end
