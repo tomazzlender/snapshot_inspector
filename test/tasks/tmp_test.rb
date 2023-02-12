@@ -10,7 +10,7 @@ class TmpTaskTest < ActiveSupport::TestCase
     mock = MiniTest::Mock.new
     mock.expect(:call, nil)
 
-    ViewInspector::Storage.stub(:clean_storage_directory, mock) do
+    ViewInspector::Storage.stub(:clear, mock) do
       Rake::Task["tmp:snapshots:clear"].invoke
     end
 

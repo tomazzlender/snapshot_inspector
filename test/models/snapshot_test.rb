@@ -19,7 +19,7 @@ class ViewInspector::SnapshotTest < ActiveSupport::TestCase
       end
 
     expected_file_contents = File.read(file_fixture("test_some_controller_action_0.json"))[0..-2]
-    persisted_file_contents = File.read(ViewInspector.configuration.absolute_processing_directory.join("view_inspector/snapshots_controller_test/test_some_controller_action_0.json"))
+    persisted_file_contents = File.read(ViewInspector::Storage.processing_directory.join("view_inspector/snapshots_controller_test/test_some_controller_action_0.json"))
 
     assert_kind_of ViewInspector::Snapshot, snapshot
     assert_equal expected_file_contents, persisted_file_contents
@@ -36,7 +36,7 @@ class ViewInspector::SnapshotTest < ActiveSupport::TestCase
   end
 
   test "::find" do
-    destination = ViewInspector.configuration.absolute_storage_directory.join("view_inspector/snapshots_controller_test/")
+    destination = ViewInspector::Storage.snapshots_directory.join("view_inspector/snapshots_controller_test/")
     destination.mkpath
     FileUtils.copy(file_fixture("test_some_controller_action_0.json"), destination)
 

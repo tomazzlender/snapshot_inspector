@@ -11,7 +11,6 @@ group [:development, :test] do
 end
 ```
 
-
 Then execute:
 ```bash
 bundle install
@@ -42,8 +41,10 @@ If you wish for the snapshots in a browser to live reload, use a library like [h
 Besides the general installation instructions, add the following lines into `development.rb`.
 
 ```ruby
-config.hotwire_livereload.listen_paths << Rails.root.join(ViewInspector::STORAGE_DIRECTORY)
-config.hotwire_livereload.force_reload_paths << Rails.root.join(ViewInspector::STORAGE_DIRECTORY)
+config.after_initialize do
+  config.hotwire_livereload.listen_paths << ViewInspector::Storage.snapshots_directory
+  config.hotwire_livereload.force_reload_paths << ViewInspector::Storage.snapshots_directory
+end
 ```
 
 ## Contributing
