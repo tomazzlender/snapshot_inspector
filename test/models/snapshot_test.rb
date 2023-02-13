@@ -92,6 +92,15 @@ class ViewInspector::SnapshotTest < ActiveSupport::TestCase
     assert_equal expected, actual
   end
 
+  test "raises an error when tries to persist a response that is not of kind active dispatch test response" do
+    error = assert_raises(ViewInspector::Snapshot::InvalidInput) do
+      ViewInspector::Snapshot.persist(response: :foo, test: {})
+    end
+
+    expected_message = "#take_snapshot only accepts an argument of kind `ActionDispatch::TestResponse`. You provided `Symbol`."
+    assert_equal expected_message, error.message
+  end
+
   private
 
   def sample_snapshot_with(name, source_location, index)

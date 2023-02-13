@@ -2,9 +2,13 @@ module ViewInspector
   class Snapshot
     class NotFound < StandardError; end
 
+    class InvalidInput < StandardError; end
+
     attr_reader :slug, :response_recording, :test_recording, :created_at
 
     def self.persist(response:, test:)
+      raise InvalidInput.new(invalid_input_message(response)) unless response.is_a?(ActionDispatch::TestResponse)
+
       new.parse(response: response, test: test).persist
     end
 
@@ -31,6 +35,10 @@ module ViewInspector
       snapshots.sort_by do |snapshot|
         snapshot.test_recording.source_location.dup << snapshot.test_recording.take_snapshot_index
       end
+    end
+
+    private_class_method def self.invalid_input_message(response)
+      "#take_snapshot only accepts an argument of kind `ActionDispatch::TestResponse`. You provided `#{response.class}`."
     end
 
     def parse(response:, test:)
