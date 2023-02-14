@@ -4,7 +4,7 @@ module ViewInspector
 
     class InvalidInput < StandardError; end
 
-    attr_reader :slug, :snapshotee_recording_klass, :response_recording, :test_recording, :created_at
+    attr_reader :test_recording, :slug, :created_at, :snapshotee_recording_klass, :response_recording
 
     def self.persist(snapshotee:, test:)
       raise InvalidInput.new(invalid_input_message(snapshotee)) unless snapshotee.is_a?(ActionDispatch::TestResponse)
@@ -42,11 +42,11 @@ module ViewInspector
     end
 
     def parse(snapshotee:, test:)
-      @response_recording = ResponseRecording.parse(snapshotee)
       @test_recording = TestRecording.parse(test)
-      @created_at = Time.current
       @slug = to_slug
+      @created_at = Time.current
       @snapshotee_recording_klass = snapshotee_recording_klass_mapping(snapshotee).to_s
+      @response_recording = ResponseRecording.parse(snapshotee)
       self
     end
 
@@ -56,11 +56,11 @@ module ViewInspector
     end
 
     def from_json(json)
-      @created_at = Time.zone.parse(json[:created_at])
-      @slug = json[:slug]
-      @response_recording = ResponseRecording.new.from_json(json[:response_recording])
       @test_recording = TestRecording.new.from_json(json[:test_recording])
+      @slug = json[:slug]
+      @created_at = Time.zone.parse(json[:created_at])
       @snapshotee_recording_klass = json[:snapshotee_recording_klass]
+      @response_recording = ResponseRecording.new.from_json(json[:response_recording])
       self
     end
 

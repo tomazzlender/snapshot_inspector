@@ -27,9 +27,6 @@ class ViewInspector::Test::IntegrationHelpersTest < ActiveSupport::TestCase
     end
 
     expected_contents = {
-      response_recording: {
-        body: "<html><body>Example response body.</body></html>"
-      },
       test_recording: {
         name: "some controller action",
         method_name: "test_some_controller_action",
@@ -42,9 +39,12 @@ class ViewInspector::Test::IntegrationHelpersTest < ActiveSupport::TestCase
         test_case_file_path: "#{ViewInspector::Engine.root}/test/view_inspector/test/helpers_test.rb",
         line_number: 6
       },
-      created_at: "2023-02-07T11:05:05.000Z",
       slug: "dummy_controller_test/test_some_controller_action_0",
-      snapshotee_recording_klass: "ViewInspector::Snapshot::ResponseRecording"
+      created_at: "2023-02-07T11:05:05.000Z",
+      snapshotee_recording_klass: "ViewInspector::Snapshot::ResponseRecording",
+      response_recording: {
+        body: "<html><body>Example response body.</body></html>"
+      }
     }
 
     snapshot_file_path = ViewInspector::Storage.processing_directory.join("dummy_controller_test", "test_some_controller_action_0.json")
@@ -69,9 +69,6 @@ class ViewInspector::Test::IntegrationHelpersTest < ActiveSupport::TestCase
     end
 
     snapshot1_expected_contents = {
-      response_recording: {
-        body: "<html><body>Example response body.</body></html>"
-      },
       test_recording: {
         name: "some controller action",
         method_name: "test_some_controller_action",
@@ -84,15 +81,15 @@ class ViewInspector::Test::IntegrationHelpersTest < ActiveSupport::TestCase
         test_case_file_path: "#{ViewInspector::Engine.root}/test/view_inspector/test/helpers_test.rb",
         line_number: 6
       },
-      created_at: "2023-02-07T11:05:05.000Z",
       slug: "dummy_controller_test/test_some_controller_action_0",
-      snapshotee_recording_klass: "ViewInspector::Snapshot::ResponseRecording"
+      created_at: "2023-02-07T11:05:05.000Z",
+      snapshotee_recording_klass: "ViewInspector::Snapshot::ResponseRecording",
+      response_recording: {
+        body: "<html><body>Example response body.</body></html>"
+      }
     }
 
     snapshot2_expected_contents = {
-      response_recording: {
-        body: "<html><body>Another response body.</body></html>"
-      },
       test_recording: {
         name: "some controller action",
         method_name: "test_some_controller_action",
@@ -105,9 +102,12 @@ class ViewInspector::Test::IntegrationHelpersTest < ActiveSupport::TestCase
         test_case_file_path: "#{ViewInspector::Engine.root}/test/view_inspector/test/helpers_test.rb",
         line_number: 6
       },
-      created_at: "2023-02-07T11:05:05.000Z",
       slug: "dummy_controller_test/test_some_controller_action_1",
-      snapshotee_recording_klass: "ViewInspector::Snapshot::ResponseRecording"
+      created_at: "2023-02-07T11:05:05.000Z",
+      snapshotee_recording_klass: "ViewInspector::Snapshot::ResponseRecording",
+      response_recording: {
+        body: "<html><body>Another response body.</body></html>"
+      }
     }
 
     snapshot1_file_path = ViewInspector::Storage.processing_directory.join("dummy_controller_test", "test_some_controller_action_0.json")
