@@ -7,7 +7,7 @@ class DummyControllerTest < ActiveSupport::TestCase
   end
 end
 
-class ViewInspector::Test::IntegrationHelpersTest < ActiveSupport::TestCase
+class ViewInspector::Test::HelpersTest < ActiveSupport::TestCase
   include EnvironmentHelper
 
   setup do
