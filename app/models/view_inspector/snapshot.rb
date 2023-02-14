@@ -4,7 +4,7 @@ module ViewInspector
 
     class InvalidInput < StandardError; end
 
-    attr_reader :test_recording, :slug, :created_at, :snapshotee_recording_klass, :snapshotee_recording
+    attr_reader :snapshotee_recording_klass, :snapshotee_recording, :test_recording, :slug, :created_at
 
     def self.persist(snapshotee:, test:)
       raise InvalidInput.new(invalid_input_message(snapshotee)) unless snapshotee.is_a?(ActionDispatch::TestResponse)
@@ -42,11 +42,11 @@ module ViewInspector
     end
 
     def parse(snapshotee:, test:)
+      @snapshotee_recording_klass = snapshotee_recording_klass_mapping(snapshotee)
+      @snapshotee_recording = @snapshotee_recording_klass.parse(snapshotee)
       @test_recording = TestRecording.parse(test)
       @slug = to_slug
       @created_at = Time.current
-      @snapshotee_recording_klass = snapshotee_recording_klass_mapping(snapshotee)
-      @snapshotee_recording = @snapshotee_recording_klass.parse(snapshotee)
       self
     end
 
@@ -56,11 +56,11 @@ module ViewInspector
     end
 
     def from_json(json)
+      @snapshotee_recording_klass = json[:snapshotee_recording_klass].constantize
+      @snapshotee_recording = @snapshotee_recording_klass.new.from_json(json[:snapshotee_recording])
       @test_recording = TestRecording.new.from_json(json[:test_recording])
       @slug = json[:slug]
       @created_at = Time.zone.parse(json[:created_at])
-      @snapshotee_recording_klass = json[:snapshotee_recording_klass].constantize
-      @snapshotee_recording = @snapshotee_recording_klass.new.from_json(json[:snapshotee_recording])
       self
     end
 
