@@ -15,4 +15,6 @@ gem "debug", ">= 1.0.0"
 
 group :development do
   gem "standard"
+  gem "guard"
+  gem "guard-minitest"
 end
