@@ -1,1 +1,1 @@
-<%= remove_traces_of_javascript(@snapshot.snapshotee_recording.body).html_safe %>
+<%= render partial: @snapshot.snapshotee_recording_klass.name.demodulize.underscore, locals: { snapshot: @snapshot } %>
