@@ -7,8 +7,6 @@ module ViewInspector
     attr_reader :snapshotee_recording_klass, :snapshotee_recording, :test_recording, :slug, :created_at
 
     def self.persist(snapshotee:, test:)
-      raise InvalidInput.new(invalid_input_message(snapshotee)) unless snapshotee.is_a?(ActionDispatch::TestResponse)
-
       new.parse(snapshotee: snapshotee, test: test).persist
     end
 
@@ -35,10 +33,6 @@ module ViewInspector
       snapshots.sort_by do |snapshot|
         snapshot.test_recording.source_location.dup << snapshot.test_recording.take_snapshot_index
       end
-    end
-
-    private_class_method def self.invalid_input_message(response)
-      "#take_snapshot only accepts an argument of kind `ActionDispatch::TestResponse`. You provided `#{response.class}`."
     end
 
     def parse(snapshotee:, test:)
@@ -74,8 +68,12 @@ module ViewInspector
       case snapshotee.class.to_s
       when "ActionDispatch::TestResponse" then ResponseRecording
       else
-        raise InvalidInput
+        raise InvalidInput.new(invalid_snapshotee_klass_message(snapshotee))
       end
+    end
+
+    def invalid_snapshotee_klass_message(snapshotee)
+      "#take_snapshot only accepts an argument of kind `ActionDispatch::TestResponse`. You provided `#{snapshotee.class}`."
     end
   end
 end
