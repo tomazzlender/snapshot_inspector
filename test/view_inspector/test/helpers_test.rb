@@ -34,12 +34,12 @@ class ViewInspector::Test::IntegrationHelpersTest < ActiveSupport::TestCase
         name: "some controller action",
         method_name: "test_some_controller_action",
         source_location: [
-          "#{ViewInspector::Engine.root}/test/view_inspector/test/integration_helpers_test.rb",
+          "#{ViewInspector::Engine.root}/test/view_inspector/test/helpers_test.rb",
           6
         ],
         test_case_name: "DummyControllerTest",
         take_snapshot_index: 0,
-        test_case_file_path: "#{ViewInspector::Engine.root}/test/view_inspector/test/integration_helpers_test.rb",
+        test_case_file_path: "#{ViewInspector::Engine.root}/test/view_inspector/test/helpers_test.rb",
         line_number: 6
       },
       created_at: "2023-02-07T11:05:05.000Z",
@@ -75,12 +75,12 @@ class ViewInspector::Test::IntegrationHelpersTest < ActiveSupport::TestCase
         name: "some controller action",
         method_name: "test_some_controller_action",
         source_location: [
-          "#{ViewInspector::Engine.root}/test/view_inspector/test/integration_helpers_test.rb",
+          "#{ViewInspector::Engine.root}/test/view_inspector/test/helpers_test.rb",
           6
         ],
         test_case_name: "DummyControllerTest",
         take_snapshot_index: 0,
-        test_case_file_path: "#{ViewInspector::Engine.root}/test/view_inspector/test/integration_helpers_test.rb",
+        test_case_file_path: "#{ViewInspector::Engine.root}/test/view_inspector/test/helpers_test.rb",
         line_number: 6
       },
       created_at: "2023-02-07T11:05:05.000Z",
@@ -95,12 +95,12 @@ class ViewInspector::Test::IntegrationHelpersTest < ActiveSupport::TestCase
         name: "some controller action",
         method_name: "test_some_controller_action",
         source_location: [
-          "#{ViewInspector::Engine.root}/test/view_inspector/test/integration_helpers_test.rb",
+          "#{ViewInspector::Engine.root}/test/view_inspector/test/helpers_test.rb",
           6
         ],
         test_case_name: "DummyControllerTest",
         take_snapshot_index: 1,
-        test_case_file_path: "#{ViewInspector::Engine.root}/test/view_inspector/test/integration_helpers_test.rb",
+        test_case_file_path: "#{ViewInspector::Engine.root}/test/view_inspector/test/helpers_test.rb",
         line_number: 6
       },
       created_at: "2023-02-07T11:05:05.000Z",
