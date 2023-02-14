@@ -45,7 +45,7 @@ module ViewInspector
       @test_recording = TestRecording.parse(test)
       @slug = to_slug
       @created_at = Time.current
-      @snapshotee_recording_klass = snapshotee_recording_klass_mapping(snapshotee).to_s
+      @snapshotee_recording_klass = snapshotee_recording_klass_mapping(snapshotee)
       @response_recording = ResponseRecording.parse(snapshotee)
       self
     end
@@ -59,7 +59,7 @@ module ViewInspector
       @test_recording = TestRecording.new.from_json(json[:test_recording])
       @slug = json[:slug]
       @created_at = Time.zone.parse(json[:created_at])
-      @snapshotee_recording_klass = json[:snapshotee_recording_klass]
+      @snapshotee_recording_klass = json[:snapshotee_recording_klass].constantize
       @response_recording = ResponseRecording.new.from_json(json[:response_recording])
       self
     end
