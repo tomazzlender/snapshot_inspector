@@ -68,6 +68,8 @@ module ViewInspector
       [test_recording.test_case_name.underscore, "#{test_recording.method_name}_#{test_recording.take_snapshot_index}"].join("/")
     end
 
+    private
+
     def snapshotee_recording_klass_mapping(snapshotee)
       case snapshotee.class.to_s
       when "ActionDispatch::TestResponse" then ResponseRecording
