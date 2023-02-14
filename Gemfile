@@ -17,4 +17,5 @@ group :development do
   gem "standard"
   gem "guard"
   gem "guard-minitest"
+  gem "minitest-focus"
 end
