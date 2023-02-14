@@ -7,7 +7,7 @@ require "importmap-rails"
 
 module ViewInspector
   module Test
-    autoload :IntegrationHelpers, "view_inspector/test/integration_helpers"
+    autoload :Helpers, "view_inspector/test/helpers"
   end
 
   STORAGE_DIRECTORY = "tmp/view_inspector"

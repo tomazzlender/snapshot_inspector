@@ -25,7 +25,7 @@ module ViewInspector
 
     initializer "view_inspector.include_test_integration_helpers" do |_app|
       ActiveSupport.on_load(:action_dispatch_integration_test) do
-        include ViewInspector::Test::IntegrationHelpers
+        include ViewInspector::Test::Helpers
       end
     end
 

@@ -1,7 +1,7 @@
 require "test_helper"
 
 class DummyControllerTest < ActiveSupport::TestCase
-  include ViewInspector::Test::IntegrationHelpers
+  include ViewInspector::Test::Helpers
 
   test "some controller action" do
   end

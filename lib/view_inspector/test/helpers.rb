@@ -1,6 +1,6 @@
 module ViewInspector
   module Test
-    module IntegrationHelpers
+    module Helpers
       extend ActiveSupport::Concern
 
       # Takes a snapshot of the given response.
