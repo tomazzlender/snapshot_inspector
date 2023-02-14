@@ -5,7 +5,7 @@ require "minitest"
 module Minitest
   class ViewInspectorReporter < Reporter
     def report
-      ViewInspector::Storage.move_files_from_processing_directory_to_snapshots_directory
+      ViewInspector::Storage.move_files_from_processing_directory_to_snapshots_directory if ViewInspector::Storage.processing_directory.exist?
 
       io.print "\n\nInspect snapshots on #{ViewInspector.configuration.host + ViewInspector.configuration.route_path}"
     end
