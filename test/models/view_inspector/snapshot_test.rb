@@ -33,7 +33,7 @@ class ViewInspector::SnapshotTest < ActiveSupport::TestCase
     assert_equal snapshot.test_recording.take_snapshot_index, 0
     assert_equal snapshot.test_recording.test_case_file_path, "/Users/Nickname/Code/app_name/test/controllers/some_controller_test.rb"
     assert_equal snapshot.test_recording.line_number, 6
-    assert_equal snapshot.response_recording.body, "<!DOCTYPE html>\n<html>\n<head>\n  <title>View Inspector</title>\n  \n  \n\n</head>\n<body>\n\n<h1>Snapshots</h1>\n\n<ul>\n</ul>\n\n\n</body>\n</html>\n"
+    assert_equal snapshot.snapshotee_recording.body, "<!DOCTYPE html>\n<html>\n<head>\n  <title>View Inspector</title>\n  \n  \n\n</head>\n<body>\n\n<h1>Snapshots</h1>\n\n<ul>\n</ul>\n\n\n</body>\n</html>\n"
   end
 
   test "::find" do
@@ -54,7 +54,7 @@ class ViewInspector::SnapshotTest < ActiveSupport::TestCase
     assert_equal snapshot.test_recording.take_snapshot_index, 0
     assert_equal snapshot.test_recording.test_case_file_path, "/Users/Nickname/Code/app_name/test/controllers/some_controller_test.rb"
     assert_equal snapshot.test_recording.line_number, 6
-    assert_equal snapshot.response_recording.body, "<!DOCTYPE html>\n<html>\n<head>\n  <title>View Inspector</title>\n  \n  \n\n</head>\n<body>\n\n<h1>Snapshots</h1>\n\n<ul>\n</ul>\n\n\n</body>\n</html>\n"
+    assert_equal snapshot.snapshotee_recording.body, "<!DOCTYPE html>\n<html>\n<head>\n  <title>View Inspector</title>\n  \n  \n\n</head>\n<body>\n\n<h1>Snapshots</h1>\n\n<ul>\n</ul>\n\n\n</body>\n</html>\n"
   end
 
   test "::grouped_by_test_case" do

@@ -42,7 +42,7 @@ class ViewInspector::Test::IntegrationHelpersTest < ActiveSupport::TestCase
       slug: "dummy_controller_test/test_some_controller_action_0",
       created_at: "2023-02-07T11:05:05.000Z",
       snapshotee_recording_klass: "ViewInspector::Snapshot::ResponseRecording",
-      response_recording: {
+      snapshotee_recording: {
         body: "<html><body>Example response body.</body></html>"
       }
     }
@@ -84,7 +84,7 @@ class ViewInspector::Test::IntegrationHelpersTest < ActiveSupport::TestCase
       slug: "dummy_controller_test/test_some_controller_action_0",
       created_at: "2023-02-07T11:05:05.000Z",
       snapshotee_recording_klass: "ViewInspector::Snapshot::ResponseRecording",
-      response_recording: {
+      snapshotee_recording: {
         body: "<html><body>Example response body.</body></html>"
       }
     }
@@ -105,7 +105,7 @@ class ViewInspector::Test::IntegrationHelpersTest < ActiveSupport::TestCase
       slug: "dummy_controller_test/test_some_controller_action_1",
       created_at: "2023-02-07T11:05:05.000Z",
       snapshotee_recording_klass: "ViewInspector::Snapshot::ResponseRecording",
-      response_recording: {
+      snapshotee_recording: {
         body: "<html><body>Another response body.</body></html>"
       }
     }
