@@ -4,7 +4,7 @@ module ViewInspector
 
     class InvalidInput < StandardError; end
 
-    attr_reader :slug, :response_recording, :test_recording, :created_at
+    attr_reader :slug, :snapshotee_recording_klass, :response_recording, :test_recording, :created_at
 
     def self.persist(snapshotee:, test:)
       raise InvalidInput.new(invalid_input_message(snapshotee)) unless snapshotee.is_a?(ActionDispatch::TestResponse)
@@ -46,6 +46,7 @@ module ViewInspector
       @test_recording = TestRecording.parse(test)
       @created_at = Time.current
       @slug = to_slug
+      @snapshotee_recording_klass = snapshotee_recording_klass_mapping(snapshotee).to_s
       self
     end
 
@@ -59,11 +60,20 @@ module ViewInspector
       @slug = json[:slug]
       @response_recording = ResponseRecording.new.from_json(json[:response_recording])
       @test_recording = TestRecording.new.from_json(json[:test_recording])
+      @snapshotee_recording_klass = json[:snapshotee_recording_klass]
       self
     end
 
     def to_slug
       [test_recording.test_case_name.underscore, "#{test_recording.method_name}_#{test_recording.take_snapshot_index}"].join("/")
+    end
+
+    def snapshotee_recording_klass_mapping(snapshotee)
+      case snapshotee.class.to_s
+      when "ActionDispatch::TestResponse" then ResponseRecording
+      else
+        raise InvalidInput
+      end
     end
   end
 end

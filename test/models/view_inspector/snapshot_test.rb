@@ -25,6 +25,7 @@ class ViewInspector::SnapshotTest < ActiveSupport::TestCase
     assert_equal expected_file_contents, persisted_file_contents
     assert_equal snapshot.slug, "view_inspector/snapshots_controller_test/test_some_controller_action_0"
     assert_equal snapshot.created_at, Time.zone.parse("2023-02-07 11:05:05 UTC")
+    assert_equal snapshot.snapshotee_recording_klass, "ViewInspector::Snapshot::ResponseRecording"
     assert_equal snapshot.test_recording.name, "some controller action"
     assert_equal snapshot.test_recording.method_name, "test_some_controller_action"
     assert_equal snapshot.test_recording.source_location, ["/Users/Nickname/Code/app_name/test/controllers/some_controller_test.rb", 6]
@@ -45,6 +46,7 @@ class ViewInspector::SnapshotTest < ActiveSupport::TestCase
     assert_kind_of ViewInspector::Snapshot, snapshot
     assert_equal snapshot.slug, "view_inspector/snapshots_controller_test/test_some_controller_action_0"
     assert_equal snapshot.created_at, Time.zone.parse("2023-02-07 11:05:05 UTC")
+    assert_equal snapshot.snapshotee_recording_klass, "ViewInspector::Snapshot::ResponseRecording"
     assert_equal snapshot.test_recording.name, "some controller action"
     assert_equal snapshot.test_recording.method_name, "test_some_controller_action"
     assert_equal snapshot.test_recording.source_location, ["/Users/Nickname/Code/app_name/test/controllers/some_controller_test.rb", 6]
@@ -104,8 +106,9 @@ class ViewInspector::SnapshotTest < ActiveSupport::TestCase
   private
 
   def sample_snapshot_with(name, source_location, index)
+    snapshotee = ActionDispatch::TestResponse.from_response(Struct.new(:body, :status, :headers).new(body: "", status: 200, headers: {}))
     ViewInspector::Snapshot.new.parse(
-      snapshotee: Struct.new(:parsed_body).new(parsed_body: ""),
+      snapshotee: snapshotee,
       test: {
         source_location: source_location,
         test_case_name: "SomethingController",

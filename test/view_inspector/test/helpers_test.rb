@@ -43,7 +43,8 @@ class ViewInspector::Test::IntegrationHelpersTest < ActiveSupport::TestCase
         line_number: 6
       },
       created_at: "2023-02-07T11:05:05.000Z",
-      slug: "dummy_controller_test/test_some_controller_action_0"
+      slug: "dummy_controller_test/test_some_controller_action_0",
+      snapshotee_recording_klass: "ViewInspector::Snapshot::ResponseRecording"
     }
 
     snapshot_file_path = ViewInspector::Storage.processing_directory.join("dummy_controller_test", "test_some_controller_action_0.json")
@@ -84,7 +85,8 @@ class ViewInspector::Test::IntegrationHelpersTest < ActiveSupport::TestCase
         line_number: 6
       },
       created_at: "2023-02-07T11:05:05.000Z",
-      slug: "dummy_controller_test/test_some_controller_action_0"
+      slug: "dummy_controller_test/test_some_controller_action_0",
+      snapshotee_recording_klass: "ViewInspector::Snapshot::ResponseRecording"
     }
 
     snapshot2_expected_contents = {
@@ -104,7 +106,8 @@ class ViewInspector::Test::IntegrationHelpersTest < ActiveSupport::TestCase
         line_number: 6
       },
       created_at: "2023-02-07T11:05:05.000Z",
-      slug: "dummy_controller_test/test_some_controller_action_1"
+      slug: "dummy_controller_test/test_some_controller_action_1",
+      snapshotee_recording_klass: "ViewInspector::Snapshot::ResponseRecording"
     }
 
     snapshot1_file_path = ViewInspector::Storage.processing_directory.join("dummy_controller_test", "test_some_controller_action_0.json")
