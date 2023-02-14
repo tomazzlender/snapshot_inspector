@@ -6,10 +6,10 @@ module ViewInspector
 
     attr_reader :slug, :response_recording, :test_recording, :created_at
 
-    def self.persist(response:, test:)
-      raise InvalidInput.new(invalid_input_message(response)) unless response.is_a?(ActionDispatch::TestResponse)
+    def self.persist(snapshotee:, test:)
+      raise InvalidInput.new(invalid_input_message(snapshotee)) unless snapshotee.is_a?(ActionDispatch::TestResponse)
 
-      new.parse(response: response, test: test).persist
+      new.parse(snapshotee: snapshotee, test: test).persist
     end
 
     def self.find(slug)
@@ -41,8 +41,8 @@ module ViewInspector
       "#take_snapshot only accepts an argument of kind `ActionDispatch::TestResponse`. You provided `#{response.class}`."
     end
 
-    def parse(response:, test:)
-      @response_recording = ResponseRecording.parse(response)
+    def parse(snapshotee:, test:)
+      @response_recording = ResponseRecording.parse(snapshotee)
       @test_recording = TestRecording.parse(test)
       @created_at = Time.current
       @slug = to_slug

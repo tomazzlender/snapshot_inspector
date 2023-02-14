@@ -14,7 +14,7 @@ class ViewInspector::SnapshotTest < ActiveSupport::TestCase
     snapshot =
       travel_to(Time.zone.parse("2023-02-07 11:05:05 UTC")) do
         response.stub(:parsed_body, "<!DOCTYPE html>\n<html>\n<head>\n  <title>View Inspector</title>\n  \n  \n\n</head>\n<body>\n\n<h1>Snapshots</h1>\n\n<ul>\n</ul>\n\n\n</body>\n</html>\n") do
-          ViewInspector::Snapshot.persist(response: response, test: test)
+          ViewInspector::Snapshot.persist(snapshotee: response, test: test)
         end
       end
 
@@ -94,7 +94,7 @@ class ViewInspector::SnapshotTest < ActiveSupport::TestCase
 
   test "raises an error when tries to persist a response that is not of kind active dispatch test response" do
     error = assert_raises(ViewInspector::Snapshot::InvalidInput) do
-      ViewInspector::Snapshot.persist(response: :foo, test: {})
+      ViewInspector::Snapshot.persist(snapshotee: :foo, test: {})
     end
 
     expected_message = "#take_snapshot only accepts an argument of kind `ActionDispatch::TestResponse`. You provided `Symbol`."
@@ -105,7 +105,7 @@ class ViewInspector::SnapshotTest < ActiveSupport::TestCase
 
   def sample_snapshot_with(name, source_location, index)
     ViewInspector::Snapshot.new.parse(
-      response: Struct.new(:parsed_body).new(parsed_body: ""),
+      snapshotee: Struct.new(:parsed_body).new(parsed_body: ""),
       test: {
         source_location: source_location,
         test_case_name: "SomethingController",

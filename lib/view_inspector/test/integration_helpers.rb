@@ -11,13 +11,13 @@ module ViewInspector
       #
       # Snapshots are taken only when explicitly enabled with a flag --take-snapshots.
       # E.g. bin/rails test --take-snapshots
-      def take_snapshot(response)
+      def take_snapshot(snapshotee)
         return unless ViewInspector.configuration.snapshot_taking_enabled
 
         increment_take_snapshot_counter_scoped_by_test
 
         ViewInspector::Snapshot.persist(
-          response: response,
+          snapshotee: snapshotee,
           test: {
             method_name: method_name,
             source_location: method(method_name).source_location,
