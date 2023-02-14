@@ -26,3 +26,10 @@ PreCommit:
     required: true
     parallelize: true
     command: ['bin/rails', 'test']
+
+  TakeSnapshots:
+    description: "Run dummy app tests and take snapshots"
+    enabled: true
+    required: true
+    parallelize: true
+    command: ['bin/rails', 'test', 'test/dummy/test', '--take-snapshots']
