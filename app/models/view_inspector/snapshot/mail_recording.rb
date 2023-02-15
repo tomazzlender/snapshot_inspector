@@ -7,16 +7,20 @@ module ViewInspector
 
       def parse(mail)
         @message = mail.to_s
+        @bcc = mail.bcc
         self
       end
 
       def from_json(json)
         @message = json[:message]
+        @bcc = json[:bcc]
         self
       end
 
       def message
-        Mail::Message.new(@message)
+        message = Mail::Message.new(@message)
+        message.bcc = @bcc
+        message
       end
     end
   end

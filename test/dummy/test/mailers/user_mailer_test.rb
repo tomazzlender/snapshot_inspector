@@ -15,15 +15,12 @@ class UserMailerTest < ActionMailer::TestCase
 
     assert_equal "Welcome!", persisted_mail.subject
     assert_equal [recepient.email], persisted_mail.to
-    # assert_equal ["bcc@example.com"], persisted_mail.bcc
+    assert_equal ["bcc@example.com"], persisted_mail.bcc
     assert_equal ["no-reply@example.com"], persisted_mail.from
   end
 
   def to_mail(snapshotee_file_path)
-    contents = snapshotee_file_path.read
-    json = JSON.parse(contents, symbolize_names: true)
-    message_as_string = json[:snapshotee_recording][:message]
-
-    Mail::Message.new(message_as_string)
+    contents = JSON.parse(snapshotee_file_path.read, symbolize_names: true)
+    ViewInspector::Snapshot::MailRecording.new.from_json(contents[:snapshotee_recording]).message
   end
 end

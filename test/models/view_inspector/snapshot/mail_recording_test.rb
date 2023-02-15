@@ -24,6 +24,7 @@ class ViewInspector::Snapshot::MailRecordingTest < ActiveSupport::TestCase
     assert_equal mail_recording.message.subject, "Welcome!"
     assert_equal mail_recording.message.to, ["john@example.com"]
     assert_equal mail_recording.message.from, ["no-reply@example.com"]
+    assert_equal mail_recording.message.bcc, ["bcc@example.com"]
     assert_equal mail, mail_recording.message
   end
 
@@ -33,6 +34,7 @@ class ViewInspector::Snapshot::MailRecordingTest < ActiveSupport::TestCase
 
     assert_equal mail_recording.message.subject, "Welcome!"
     assert_equal mail_recording.message.to, ["john@example.com"]
+    assert_equal mail_recording.message.bcc, ["bcc@example.com"]
     assert_equal mail_recording.message.from, ["no-reply@example.com"]
   end
 end
