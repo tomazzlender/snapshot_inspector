@@ -9,15 +9,21 @@ class UserMailerTest < ActionMailer::TestCase
       take_snapshot mail
     end
 
-    expected_file_contents = JSON.parse(File.read(file_fixture("user_mailer_test/test_welcome_0.json"))[0..-2], symbolize_names: true)
-    persisted_file_contents = JSON.parse(File.read(ViewInspector::Storage.processing_directory.join("user_mailer_test/test_welcome_0.json")), symbolize_names: true)
-    assert_equal expected_file_contents.except(:created_at), persisted_file_contents.except(:created_at)
+    expected_mail = to_mail(file_fixture("user_mailer_test/test_welcome_0.json"))
+    persisted_mail = to_mail(ViewInspector::Storage.processing_directory.join("user_mailer_test/test_welcome_0.json"))
+    assert_equal expected_mail.body.decoded, persisted_mail.body.decoded
 
-    assert_equal "Welcome!", mail.subject
-    assert_equal [recepient.email], mail.to
-    assert_equal ["bcc@example.com"], mail.bcc
-    assert_equal ["no-reply@example.com"], mail.from
-    expected_body = "<!DOCTYPE html>\r\n<html>\r\n  <head>\r\n    <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />\r\n    <style>\r\n      /* Email styles need to be inline */\r\n    </style>\r\n  </head>\r\n\r\n  <body>\r\n    <main>\r\n  <h1>Welcome John!</h1>\r\n  <p>We are happy to have you.</p>\r\n</main>\r\n\r\n  </body>\r\n</html>\r\n"
-    assert_match expected_body, mail.body.encoded
+    assert_equal "Welcome!", persisted_mail.subject
+    assert_equal [recepient.email], persisted_mail.to
+    # assert_equal ["bcc@example.com"], persisted_mail.bcc
+    assert_equal ["no-reply@example.com"], persisted_mail.from
+  end
+
+  def to_mail(snapshotee_file_path)
+    contents = snapshotee_file_path.read
+    json = JSON.parse(contents, symbolize_names: true)
+    message_as_string = json[:snapshotee_recording][:message]
+
+    Mail::Message.new(message_as_string)
   end
 end

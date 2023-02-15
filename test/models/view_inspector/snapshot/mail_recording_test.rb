@@ -5,13 +5,13 @@ class ViewInspector::Snapshot::MailRecordingTest < ActiveSupport::TestCase
     default from: "no-reply@example.com", return_path: "system@example.com"
 
     def welcome(recipient)
-      @recepient = recipient
+      attachments["mail_attachment.txt"] = ViewInspector::Engine.root.join("test/fixtures/files/mail_attachment.txt").read
       mail(
-        to: email_address_with_name(@recepient.email, @recepient.name),
+        to: email_address_with_name(recipient.email, recipient.name),
         bcc: ["bcc@example.com"],
         subject: "Welcome!"
       ) do |format|
-        format.html { render html: "<html><body>Welcome #{@recepient.name}</body></html>" }
+        format.html { render html: "<html><body>Welcome #{recipient.name}</body></html>" }
       end
     end
   end
@@ -24,6 +24,7 @@ class ViewInspector::Snapshot::MailRecordingTest < ActiveSupport::TestCase
     assert_equal mail_recording.subject, "Welcome!"
     assert_equal mail_recording.to, ["john@example.com"]
     assert_equal mail_recording.from, ["no-reply@example.com"]
+    assert_equal mail, mail_recording.message
   end
 
   test "#from_json" do
