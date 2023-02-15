@@ -22,6 +22,14 @@ module ViewInspector
         message.bcc = @bcc
         message
       end
+
+      def mailer_name
+        message.header["X-ViewInspector-Mailer-Name"].value
+      end
+
+      def action_name
+        message.header["X-ViewInspector-Action-Name"].value
+      end
     end
   end
 end

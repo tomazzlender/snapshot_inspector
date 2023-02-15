@@ -25,6 +25,8 @@ class ViewInspector::Snapshot::MailRecordingTest < ActiveSupport::TestCase
     assert_equal mail_recording.message.to, ["john@example.com"]
     assert_equal mail_recording.message.from, ["no-reply@example.com"]
     assert_equal mail_recording.message.bcc, ["bcc@example.com"]
+    assert_equal mail_recording.action_name, "welcome"
+    assert_equal mail_recording.mailer_name, "view_inspector/snapshot/mail_recording_test/dummy_mailer"
     assert_equal mail, mail_recording.message
   end
 

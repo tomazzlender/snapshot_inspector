@@ -1,4 +1,5 @@
 require "importmap-rails"
+require "view_inspector/test/action_mailer_headers"
 
 module ViewInspector
   class Engine < ::Rails::Engine
@@ -30,6 +31,10 @@ module ViewInspector
 
       ActiveSupport.on_load(:action_mailer_test_case) do
         include ViewInspector::Test::Helpers
+      end
+
+      ActiveSupport.on_load(:action_mailer) do
+        include ViewInspector::Test::ActionMailerHeaders
       end
     end
 
