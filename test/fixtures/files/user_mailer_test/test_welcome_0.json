@@ -1,0 +1,26 @@
+{
+  "snapshotee_recording_klass": "ViewInspector::Snapshot::MailerRecording",
+  "snapshotee_recording": {
+    "subject": "Welcome!",
+    "to": [
+      "john@example.com"
+    ],
+    "from": [
+      "no-reply@example.com"
+    ]
+  },
+  "test_recording": {
+    "name": "welcome",
+    "method_name": "test_welcome",
+    "source_location": [
+      "/Users/personal/Code/view_inspector/test/dummy/test/mailers/user_mailer_test.rb",
+      4
+    ],
+    "test_case_name": "UserMailerTest",
+    "take_snapshot_index": 0,
+    "test_case_file_path": "/Users/personal/Code/view_inspector/test/dummy/test/mailers/user_mailer_test.rb",
+    "line_number": 4
+  },
+  "slug": "user_mailer_test/test_welcome_0",
+  "created_at": "2023-02-15T07:06:15.661Z"
+}

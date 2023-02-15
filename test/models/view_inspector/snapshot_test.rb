@@ -99,7 +99,7 @@ class ViewInspector::SnapshotTest < ActiveSupport::TestCase
       ViewInspector::Snapshot.persist(snapshotee: :foo, test: {})
     end
 
-    expected_message = "#take_snapshot only accepts an argument of kind `ActionDispatch::TestResponse`. You provided `Symbol`."
+    expected_message = "#take_snapshot only accepts an argument of kind `ActionDispatch::TestResponse` or `ActionMailer::MessageDelivery`. You provided `Symbol`."
     assert_equal expected_message, error.message
   end
 

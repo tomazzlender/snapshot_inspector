@@ -23,8 +23,12 @@ module ViewInspector
       app.config.assets.precompile += %w[view_inspector/manifest]
     end
 
-    initializer "view_inspector.include_test_integration_helpers" do |_app|
+    initializer "view_inspector.include_test_helpers" do |_app|
       ActiveSupport.on_load(:action_dispatch_integration_test) do
+        include ViewInspector::Test::Helpers
+      end
+
+      ActiveSupport.on_load(:action_mailer_test_case) do
         include ViewInspector::Test::Helpers
       end
     end
