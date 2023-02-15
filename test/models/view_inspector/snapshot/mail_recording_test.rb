@@ -1,6 +1,6 @@
 require "test_helper"
 
-class ViewInspector::Snapshot::MailerRecordingTest < ActiveSupport::TestCase
+class ViewInspector::Snapshot::MailRecordingTest < ActiveSupport::TestCase
   class DummyMailer < ActionMailer::Base
     default from: "no-reply@example.com", return_path: "system@example.com"
 
