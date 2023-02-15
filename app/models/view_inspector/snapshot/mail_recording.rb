@@ -1,3 +1,5 @@
+require "mail"
+
 module ViewInspector
   class Snapshot
     class MailRecording

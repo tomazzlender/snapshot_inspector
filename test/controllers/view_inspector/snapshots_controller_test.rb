@@ -9,7 +9,7 @@ module ViewInspector
       ViewInspector::Storage.clear
     end
 
-    test "should get index" do
+    test "should a list of snapshots grouped by test cases" do
       destination = ViewInspector::Storage.snapshots_directory.join("view_inspector/snapshots_controller_test/")
       destination.mkpath
       FileUtils.copy(file_fixture("test_some_controller_action_0.json"), destination)
@@ -21,7 +21,7 @@ module ViewInspector
       assert_select "li", text: /some controller action/
     end
 
-    test "should get show" do
+    test "should show a snapshot with a response" do
       destination = ViewInspector::Storage.snapshots_directory.join("view_inspector/snapshots_controller_test/")
       destination.mkpath
       FileUtils.copy(file_fixture("test_some_controller_action_0.json"), destination)
@@ -31,12 +31,32 @@ module ViewInspector
       assert_response :success
     end
 
-    test "should get raw" do
+    test "should show a raw response" do
       destination = ViewInspector::Storage.snapshots_directory.join("view_inspector/snapshots_controller_test/")
       destination.mkpath
       FileUtils.copy(file_fixture("test_some_controller_action_0.json"), destination)
 
       get raw_snapshot_url("view_inspector/snapshots_controller_test/test_some_controller_action_0")
+
+      assert_response :success
+    end
+
+    test "should show a snapshot with a mail" do
+      destination = ViewInspector::Storage.snapshots_directory.join("user_mailer_test")
+      destination.mkpath
+      FileUtils.copy(file_fixture("user_mailer_test/test_welcome_0.json"), destination)
+
+      get snapshot_url("user_mailer_test/test_welcome_0")
+
+      assert_response :success
+    end
+
+    test "should show a raw mail" do
+      destination = ViewInspector::Storage.snapshots_directory.join("user_mailer_test")
+      destination.mkpath
+      FileUtils.copy(file_fixture("user_mailer_test/test_welcome_0.json"), destination)
+
+      get raw_snapshot_url("user_mailer_test/test_welcome_0")
 
       assert_response :success
     end
