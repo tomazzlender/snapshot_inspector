@@ -1,14 +1,7 @@
 {
   "snapshotee_recording_klass": "ViewInspector::Snapshot::MailRecording",
   "snapshotee_recording": {
-    "message": "Return-Path: <system@example.com>\r\nDate: Wed, 15 Feb 2023 13:50:39 +0100\r\nFrom: no-reply@example.com\r\nTo: John <john@example.com>\r\nMessage-ID: <63ecd51fdb6c8_17744e38-430@tomaz-2.local.mail>\r\nSubject: Welcome!\r\nMime-Version: 1.0\r\nContent-Type: text/html;\r\n charset=UTF-8\r\nContent-Transfer-Encoding: 7bit\r\n\r\n<!DOCTYPE html>\r\n<html>\r\n  <head>\r\n    <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />\r\n    <style>\r\n      /* Email styles need to be inline */\r\n    </style>\r\n  </head>\r\n\r\n  <body>\r\n    <main>\r\n  <h1>Welcome John!</h1>\r\n  <p>We are happy to have you.</p>\r\n</main>\r\n\r\n  </body>\r\n</html>\r\n",
-    "subject": "Welcome!",
-    "to": [
-      "john@example.com"
-    ],
-    "from": [
-      "no-reply@example.com"
-    ]
+    "message": "Return-Path: <system@example.com>\r\nDate: Wed, 15 Feb 2023 13:50:39 +0100\r\nFrom: no-reply@example.com\r\nTo: John <john@example.com>\r\nMessage-ID: <63ecd51fdb6c8_17744e38-430@tomaz-2.local.mail>\r\nSubject: Welcome!\r\nMime-Version: 1.0\r\nContent-Type: text/html;\r\n charset=UTF-8\r\nContent-Transfer-Encoding: 7bit\r\n\r\n<!DOCTYPE html>\r\n<html>\r\n  <head>\r\n    <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />\r\n    <style>\r\n      /* Email styles need to be inline */\r\n    </style>\r\n  </head>\r\n\r\n  <body>\r\n    <main>\r\n  <h1>Welcome John!</h1>\r\n  <p>We are happy to have you.</p>\r\n</main>\r\n\r\n  </body>\r\n</html>\r\n"
   },
   "test_recording": {
     "name": "welcome",

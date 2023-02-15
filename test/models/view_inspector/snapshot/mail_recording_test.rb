@@ -21,23 +21,18 @@ class ViewInspector::Snapshot::MailRecordingTest < ActiveSupport::TestCase
     mail = DummyMailer.welcome(recipient)
     mail_recording = ViewInspector::Snapshot::MailRecording.parse(mail)
 
-    assert_equal mail_recording.subject, "Welcome!"
-    assert_equal mail_recording.to, ["john@example.com"]
-    assert_equal mail_recording.from, ["no-reply@example.com"]
+    assert_equal mail_recording.message.subject, "Welcome!"
+    assert_equal mail_recording.message.to, ["john@example.com"]
+    assert_equal mail_recording.message.from, ["no-reply@example.com"]
     assert_equal mail, mail_recording.message
   end
 
   test "#from_json" do
-    json = {
-      subject: "Welcome!",
-      to: ["john@example.com"],
-      from: ["no-reply@example.com"]
-    }
+    fixture = JSON.parse(file_fixture("user_mailer_test/test_welcome_0.json").read, symbolize_names: true)
+    mail_recording = ViewInspector::Snapshot::MailRecording.new.from_json(fixture[:snapshotee_recording])
 
-    mail_recording = ViewInspector::Snapshot::MailRecording.new.from_json(json)
-
-    assert_equal mail_recording.subject, "Welcome!"
-    assert_equal mail_recording.to, ["john@example.com"]
-    assert_equal mail_recording.from, ["no-reply@example.com"]
+    assert_equal mail_recording.message.subject, "Welcome!"
+    assert_equal mail_recording.message.to, ["john@example.com"]
+    assert_equal mail_recording.message.from, ["no-reply@example.com"]
   end
 end
