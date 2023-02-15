@@ -1,6 +1,10 @@
 require "test_helper"
 
 class ViewInspector::SnapshotTest < ActiveSupport::TestCase
+  teardown do
+    ViewInspector::Storage.clear
+  end
+
   test "::persist" do
     response = ActionDispatch::TestResponse.new
 

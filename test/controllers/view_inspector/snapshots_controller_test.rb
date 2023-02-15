@@ -9,6 +9,10 @@ module ViewInspector
       ViewInspector::Storage.clear
     end
 
+    teardown do
+      ViewInspector::Storage.clear
+    end
+
     test "should a list of snapshots grouped by test cases" do
       destination = ViewInspector::Storage.snapshots_directory.join("view_inspector/snapshots_controller_test/")
       destination.mkpath
