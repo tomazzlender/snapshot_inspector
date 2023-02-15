@@ -1,1 +1,5 @@
-<%= remove_traces_of_javascript(snapshot.snapshotee_recording.message.body.decoded).html_safe %>
+<% if snapshot.snapshotee_recording.message.html_part %>
+  <%= snapshot.snapshotee_recording.message.html_part.body.decoded.html_safe %>
+<% else %>
+  <%= snapshot.snapshotee_recording.message.body %>
+<% end %>
