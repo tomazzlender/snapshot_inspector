@@ -5,6 +5,7 @@ module ViewInspector
     end
 
     def show
+      @snapshot = Snapshot.find(params[:slug])
     end
 
     def raw
