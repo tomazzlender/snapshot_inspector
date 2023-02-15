@@ -67,7 +67,7 @@ module ViewInspector
     def snapshotee_recording_klass_mapping(snapshotee)
       case snapshotee.class.to_s
       when "ActionDispatch::TestResponse" then ResponseRecording
-      when "ActionMailer::MessageDelivery" then MailerRecording
+      when "ActionMailer::MessageDelivery" then MailRecording
       else
         raise InvalidInput.new(invalid_snapshotee_klass_message(snapshotee))
       end

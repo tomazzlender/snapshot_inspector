@@ -1,5 +1,5 @@
 {
-  "snapshotee_recording_klass": "ViewInspector::Snapshot::MailerRecording",
+  "snapshotee_recording_klass": "ViewInspector::Snapshot::MailRecording",
   "snapshotee_recording": {
     "subject": "Welcome!",
     "to": [

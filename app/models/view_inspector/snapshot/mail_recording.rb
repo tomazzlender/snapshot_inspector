@@ -1,16 +1,16 @@
 module ViewInspector
   class Snapshot
-    class MailerRecording
+    class MailRecording
       attr_reader :subject, :to, :from
 
-      def self.parse(mailer)
-        new.parse(mailer)
+      def self.parse(mail)
+        new.parse(mail)
       end
 
-      def parse(mailer)
-        @subject = mailer.subject
-        @to = mailer.to
-        @from = mailer.from
+      def parse(mail)
+        @subject = mail.subject
+        @to = mail.to
+        @from = mail.from
         self
       end
 
