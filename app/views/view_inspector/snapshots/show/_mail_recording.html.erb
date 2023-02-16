@@ -1,8 +1,7 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>View Inspector</title>
-  <meta name="viewport" content="width=device-width"/>
+<html><head>
+  <title><%= @page_title %></title>
+  <meta name="viewport" content="width=device-width" />
   <style type="text/css">
     html, body, iframe {
       height: 100%;
@@ -42,8 +41,7 @@
     }
 
     dd:empty:before {
-      content: "\00a0";
-    / / & nbsp;
+      content: "\00a0"; // &nbsp;
     }
 
     iframe {
@@ -56,47 +54,47 @@
 <body>
 <header>
   <dl>
-    <% if @snapshot.snapshotee_recording.message.respond_to?(:smtp_envelope_from) && Array(@snapshot.snapshotee_recording.message.from) != Array(@snapshot.snapshotee_recording.message.smtp_envelope_from) %>
+    <% if @email.respond_to?(:smtp_envelope_from) && Array(@email.from) != Array(@email.smtp_envelope_from) %>
       <dt>SMTP-From:</dt>
-      <dd id="smtp_from"><%= @snapshot.snapshotee_recording.message.smtp_envelope_from %></dd>
+      <dd id="smtp_from"><%= @email.smtp_envelope_from %></dd>
     <% end %>
 
-    <% if @snapshot.snapshotee_recording.message.respond_to?(:smtp_envelope_to) && @snapshot.snapshotee_recording.message.to != @snapshot.snapshotee_recording.message.smtp_envelope_to %>
+    <% if @email.respond_to?(:smtp_envelope_to) && @email.to != @email.smtp_envelope_to %>
       <dt>SMTP-To:</dt>
-      <dd id="smtp_to"><%= @snapshot.snapshotee_recording.message.smtp_envelope_to %></dd>
+      <dd id="smtp_to"><%= @email.smtp_envelope_to %></dd>
     <% end %>
 
     <dt>From:</dt>
-    <dd id="from"><%= @snapshot.snapshotee_recording.message.header['from'] %></dd>
+    <dd id="from"><%= @email.header['from'] %></dd>
 
-    <% if @snapshot.snapshotee_recording.message.reply_to %>
+    <% if @email.reply_to %>
       <dt>Reply-To:</dt>
-      <dd id="reply_to"><%= @snapshot.snapshotee_recording.message.header['reply-to'] %></dd>
+      <dd id="reply_to"><%= @email.header['reply-to'] %></dd>
     <% end %>
 
     <dt>To:</dt>
-    <dd id="to"><%= @snapshot.snapshotee_recording.message.header['to'] %></dd>
+    <dd id="to"><%= @email.header['to'] %></dd>
 
-    <% if @snapshot.snapshotee_recording.message.cc %>
+    <% if @email.cc %>
       <dt>CC:</dt>
-      <dd id="cc"><%= @snapshot.snapshotee_recording.message.header['cc'] %></dd>
+      <dd id="cc"><%= @email.header['cc'] %></dd>
     <% end %>
 
-    <% if @snapshot.snapshotee_recording.message.bcc %>
+    <% if @email.bcc %>
       <dt>BCC:</dt>
-      <dd id="bcc"><%= @snapshot.snapshotee_recording.message.header['bcc'] %></dd>
+      <dd id="bcc"><%= @email.header['bcc'] %></dd>
     <% end %>
 
     <dt>Date:</dt>
     <dd id="date"><%= Time.current.rfc2822 %></dd>
 
     <dt>Subject:</dt>
-    <dd><strong id="subject"><%= @snapshot.snapshotee_recording.message.subject %></strong></dd>
+    <dd><strong id="subject"><%= @email.subject %></strong></dd>
 
-    <% unless @snapshot.snapshotee_recording.message.attachments.nil? || @snapshot.snapshotee_recording.message.attachments.empty? %>
+    <% unless @email.attachments.nil? || @email.attachments.empty? %>
       <dt>Attachments:</dt>
       <dd>
-        <% @snapshot.snapshotee_recording.message.attachments.each do |a| %>
+        <% @email.attachments.each do |a| %>
           <% filename = a.respond_to?(:original_filename) ? a.original_filename : a.filename %>
           <%= link_to filename, "data:application/octet-stream;charset=utf-8;base64,#{Base64.encode64(a.body.to_s)}", download: filename %>
         <% end %>
@@ -104,33 +102,61 @@
     <% end %>
 
     <dt>Format:</dt>
-    <% if @snapshot.snapshotee_recording.message.html_part && @snapshot.snapshotee_recording.message.text_part %>
+    <% if @email.html_part && @email.text_part %>
       <dd>
-        <select>
-          <option value="html">View as HTML email</option>
-          <option value="plain">View as plain-text email</option>
+        <select id="part" onchange="refreshBody(false);">
+          <option <%= request.format == Mime[:html] ? 'selected' : '' %> value="<%= part_query('text/html') %>">View as HTML email</option>
+          <option <%= request.format == Mime[:text] ? 'selected' : '' %> value="<%= part_query('text/plain') %>">View as plain-text email</option>
         </select>
       </dd>
-    <% elsif @snapshot.snapshotee_recording.message.part.any? { |part| part.mime_type == "text/plain" && part.filename.blank? } %>
-      <dd id="mime_type" data-mime-type="">plain-text email</dd>
-    <% elsif @snapshot.snapshotee_recording.message.part.any? { |part| part.mime_type == "text/html" && part.filename.blank? } %>
-      <dd id="mime_type" data-mime-type="">HTML email</dd>
+    <% elsif @part %>
+      <dd id="mime_type" data-mime-type="<%= part_query(@part.mime_type) %>"><%= @part.mime_type == 'text/html' ? 'HTML email' : 'plain-text email' %></dd>
     <% else %>
       <dd id="mime_type" data-mime-type=""></dd>
     <% end %>
 
     <dt>EML File:</dt>
-    <dd><%= link_to "Download", "#" %></dd>
+    <dd><%= link_to "Download", format: :eml %></dd>
   </dl>
 </header>
 
-<% if @snapshot.snapshotee_recording.message.body %>
-  <iframe id="body" src="<%= raw_snapshot_path(snapshot.slug) %>"></iframe>
+<% if @part && @part.mime_type %>
+  <iframe name="messageBody" src="?<%= part_query(@part.mime_type) %>"></iframe>
 <% else %>
   <p>
-    You are trying to inspect an email that does not have any content.
+    You are trying to preview an email that does not have any content.
+    This is probably because the <em>mail</em> method has not been called in <em><%= @preview.preview_name %>#<%= @email_action %></em>.
   </p>
 <% end %>
+
+<script>
+  function refreshBody(reload) {
+    var part_select = document.querySelector('select#part');
+    var locale_select = document.querySelector('select#locale');
+    var iframe = document.getElementsByName('messageBody')[0];
+    var part_param = part_select ?
+      part_select.options[part_select.selectedIndex].value :
+      document.querySelector('#mime_type').dataset.mimeType;
+    var locale_param = locale_select ? locale_select.options[locale_select.selectedIndex].value : null;
+    var fresh_location;
+    if (locale_param) {
+      fresh_location = '?' + part_param + '&' + locale_param;
+    } else {
+      fresh_location = '?' + part_param;
+    }
+    iframe.contentWindow.location = fresh_location;
+
+    var url = location.pathname.replace(/\.(txt|html)$/, '');
+    var format = /html/.test(part_param) ? '.html' : '.txt';
+    var state_to_replace = locale_param ? (url + format + '?' + locale_param) : (url + format);
+
+    if (reload) {
+      location.href = state_to_replace;
+    } else if (history.replaceState) {
+      window.history.replaceState({}, '', state_to_replace);
+    }
+  }
+</script>
 
 </body>
 </html>
