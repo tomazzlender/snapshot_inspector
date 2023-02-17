@@ -49,6 +49,10 @@ module ViewInspector
       ViewInspector.configuration.host = url_options ? [url_options[:host], url_options[:port]].join(":") : ViewInspector.configuration.host
     end
 
+    initializer "view_inspector.register_eml_mime_type" do |_app|
+      Mime::Type.register "application/octet-stream", :eml
+    end
+
     config.after_initialize do |app|
       app.routes.prepend do
         mount ViewInspector::Engine, at: ViewInspector.configuration.route_path

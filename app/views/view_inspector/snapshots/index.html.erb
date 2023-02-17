@@ -11,7 +11,7 @@
     <ul>
       <% snapshots.each do |snapshot| %>
         <li>
-          <%= link_to snapshot_path(snapshot.slug) do %>
+          <%= link_to ViewInspector::SnapshotsHelper.snapshot_path(snapshot) do %>
             <%= snapshot.test_recording.name %>
             <%= if snapshot.test_recording.take_snapshot_index > 0 then "(#{(snapshot.test_recording.take_snapshot_index + 1).ordinalize} in the same test)" end %>
           <% end %>

@@ -104,7 +104,7 @@
     <dt>Format:</dt>
     <% if @email.html_part && @email.text_part %>
       <dd>
-        <select id="part" onchange="refreshBody(false);">
+        <select id="part" onchange="refreshBody(true);">
           <option <%= request.format == Mime[:html] ? 'selected' : '' %> value="<%= part_query('text/html') %>">View as HTML email</option>
           <option <%= request.format == Mime[:text] ? 'selected' : '' %> value="<%= part_query('text/plain') %>">View as plain-text email</option>
         </select>
@@ -121,7 +121,7 @@
 </header>
 
 <% if @part && @part.mime_type %>
-  <iframe name="messageBody" src="?<%= part_query(@part.mime_type) %>"></iframe>
+  <iframe name="messageBody" src="<%= raw_mail_snapshot_path(slug: @snapshot.slug, part: @part.mime_type) %>"></iframe>
 <% else %>
   <p>
     You are trying to preview an email that does not have any content.
@@ -132,29 +132,15 @@
 <script>
   function refreshBody(reload) {
     var part_select = document.querySelector('select#part');
-    var locale_select = document.querySelector('select#locale');
-    var iframe = document.getElementsByName('messageBody')[0];
     var part_param = part_select ?
       part_select.options[part_select.selectedIndex].value :
       document.querySelector('#mime_type').dataset.mimeType;
-    var locale_param = locale_select ? locale_select.options[locale_select.selectedIndex].value : null;
-    var fresh_location;
-    if (locale_param) {
-      fresh_location = '?' + part_param + '&' + locale_param;
-    } else {
-      fresh_location = '?' + part_param;
-    }
-    iframe.contentWindow.location = fresh_location;
 
     var url = location.pathname.replace(/\.(txt|html)$/, '');
     var format = /html/.test(part_param) ? '.html' : '.txt';
-    var state_to_replace = locale_param ? (url + format + '?' + locale_param) : (url + format);
+    var state_to_replace = url + format;
 
-    if (reload) {
-      location.href = state_to_replace;
-    } else if (history.replaceState) {
-      window.history.replaceState({}, '', state_to_replace);
-    }
+    location.href = state_to_replace;
   }
 </script>
 
