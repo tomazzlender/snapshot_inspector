@@ -1,6 +1,9 @@
 # ViewInspector
 
-Inspect Ruby on Rails views in a browser while testing them.
+Take snapshots of responses and mailers while working with integration and mailers tests in Ruby on Rails.
+Render and inspect snapshots in a browser. Works with a default Ruby on Rails testing framework only (minitest).
+
+> **NOTICE:** the library works great, needs some internal refactoring, and a few more nice to have features.
 
 ## Installation
 Add the gem to your application's Gemfile under `:development` and `:test` groups. Snapshots are taken in the test environment and inspected in the development environment.
@@ -19,13 +22,26 @@ bundle install
 ## Usage
 
 Start using `take_snapshot` method in the integration tests:
+
 ```ruby
 test "should get index" do
   get root_path
   
-  take_snapshot response # <-- take a snapshot of the response
+  take_snapshot response # <-- takes a snapshot of the response
   
   assert_response :success
+end
+```
+
+and in mailer tests:
+
+```ruby
+test "welcome mail" do
+  mail = NotifierMailer.welcome
+
+  take_snapshot mail # <-- takes a snapshot of the mail
+
+  assert_equal "Welcome!", mail.subject
 end
 ```
 
