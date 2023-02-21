@@ -31,7 +31,7 @@ module SnapshotInspector
         end
       else
         ActiveSupport.on_load(:active_support_test_case) do
-          include SnapshotInspector::Test::Helpers
+          include SnapshotInspector::Test::TestUnitHelpers
         end
       end
 

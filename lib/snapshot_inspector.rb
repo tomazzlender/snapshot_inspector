@@ -7,7 +7,7 @@ require "importmap-rails"
 
 module SnapshotInspector
   module Test
-    autoload :Helpers, "snapshot_inspector/test/helpers"
+    autoload :TestUnitHelpers, "snapshot_inspector/test/test_unit_helpers"
     autoload :RSpecHelpers, "snapshot_inspector/test/rspec_helpers"
   end
 

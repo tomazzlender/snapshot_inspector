@@ -3,7 +3,7 @@ require "test_helper"
 module SnapshotInspector
   class SnapshotsControllerTest < ActionDispatch::IntegrationTest
     include Engine.routes.url_helpers
-    include Test::Helpers
+    include Test::TestUnitHelpers
 
     setup do
       SnapshotInspector::Storage.clear

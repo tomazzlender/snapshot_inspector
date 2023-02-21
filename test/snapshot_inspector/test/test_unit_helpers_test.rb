@@ -1,7 +1,7 @@
 require "test_helper"
 
 class DummyControllerTest < ActiveSupport::TestCase
-  include SnapshotInspector::Test::Helpers
+  include SnapshotInspector::Test::TestUnitHelpers
 
   test "some controller action" do
   end
@@ -36,7 +36,7 @@ class SnapshotInspector::Test::HelpersTest < ActiveSupport::TestCase
         test_case_name: "DummyControllerTest",
         method_name: "test_some_controller_action",
         source_location: [
-          "#{SnapshotInspector::Engine.root}/test/snapshot_inspector/test/helpers_test.rb",
+          "#{SnapshotInspector::Engine.root}/test/snapshot_inspector/test/test_unit_helpers_test.rb",
           6
         ],
         take_snapshot_index: 0
@@ -76,7 +76,7 @@ class SnapshotInspector::Test::HelpersTest < ActiveSupport::TestCase
         test_case_name: "DummyControllerTest",
         method_name: "test_some_controller_action",
         source_location: [
-          "#{SnapshotInspector::Engine.root}/test/snapshot_inspector/test/helpers_test.rb",
+          "#{SnapshotInspector::Engine.root}/test/snapshot_inspector/test/test_unit_helpers_test.rb",
           6
         ],
         take_snapshot_index: 0
@@ -95,7 +95,7 @@ class SnapshotInspector::Test::HelpersTest < ActiveSupport::TestCase
         test_case_name: "DummyControllerTest",
         method_name: "test_some_controller_action",
         source_location: [
-          "#{SnapshotInspector::Engine.root}/test/snapshot_inspector/test/helpers_test.rb",
+          "#{SnapshotInspector::Engine.root}/test/snapshot_inspector/test/test_unit_helpers_test.rb",
           6
         ],
         take_snapshot_index: 1

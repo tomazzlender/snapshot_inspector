@@ -1,6 +1,6 @@
 module SnapshotInspector
   module Test
-    module Helpers
+    module TestUnitHelpers
       extend ActiveSupport::Concern
 
       # Takes a snapshot of the given +snapshotee+ (e.g. response or mail message).
