@@ -104,7 +104,7 @@
     <dt>Format:</dt>
     <% if @email.html_part && @email.text_part %>
       <dd>
-        <select id="part" onchange="refreshBody(true);">
+        <select id="part" onchange="refreshBody();">
           <option <%= request.format == Mime[:html] ? 'selected' : '' %> value="<%= part_query('text/html') %>">View as HTML email</option>
           <option <%= request.format == Mime[:text] ? 'selected' : '' %> value="<%= part_query('text/plain') %>">View as plain-text email</option>
         </select>
@@ -147,17 +147,16 @@
 <% end %>
 
 <script>
-  function refreshBody(reload) {
-    var part_select = document.querySelector('select#part');
-    var part_param = part_select ?
+  function refreshBody() {
+    const part_select = document.querySelector('select#part');
+    const part_param = part_select ?
       part_select.options[part_select.selectedIndex].value :
       document.querySelector('#mime_type').dataset.mimeType;
 
-    var url = location.pathname.replace(/\.(txt|html)$/, '');
-    var format = /html/.test(part_param) ? '.html' : '.txt';
-    var state_to_replace = url + format;
+    const url = location.pathname.replace(/\.(txt|html)$/, '');
+    const format = /html/.test(part_param) ? '.html' : '.txt';
 
-    location.href = state_to_replace;
+    location.href = url + format;
   }
 </script>
 
