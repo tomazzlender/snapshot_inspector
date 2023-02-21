@@ -33,6 +33,7 @@ class SnapshotInspector::Test::HelpersTest < ActiveSupport::TestCase
       },
       type: "response",
       context: {
+        test_framework: "test_unit",
         test_case_name: "DummyControllerTest",
         method_name: "test_some_controller_action",
         source_location: [
@@ -73,6 +74,7 @@ class SnapshotInspector::Test::HelpersTest < ActiveSupport::TestCase
       },
       type: "response",
       context: {
+        test_framework: "test_unit",
         test_case_name: "DummyControllerTest",
         method_name: "test_some_controller_action",
         source_location: [
@@ -92,6 +94,7 @@ class SnapshotInspector::Test::HelpersTest < ActiveSupport::TestCase
       },
       type: "response",
       context: {
+        test_framework: "test_unit",
         test_case_name: "DummyControllerTest",
         method_name: "test_some_controller_action",
         source_location: [

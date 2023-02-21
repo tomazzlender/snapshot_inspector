@@ -71,10 +71,6 @@ module SnapshotInspector
       @type = type_class.to_s.underscore.split("/").last.gsub("_type", "")
     end
 
-    def extract_context(context)
-      @context = TestUnitContext.extract(context)
-    end
-
     def from_hash_type_specific_data(hash)
       @snapshotee_class = hash[:snapshotee_class].constantize
       @data = Type.registry[@snapshotee_class].from_hash(hash[:data])
@@ -82,11 +78,21 @@ module SnapshotInspector
     end
 
     def from_hash_context(hash)
-      @context = TestUnitContext.from_hash(hash[:context])
+      @context = context_class(hash[:context][:test_framework].to_sym).from_hash(hash[:context])
     end
 
     def unknown_snapshotee_class_message
       "#take_snapshot only accepts an argument of kind #{Type.registry.keys.map { |class_name| "`#{class_name}`" }.join(" or ")}. You provided `#{@snapshotee_class}`."
+    end
+
+    def extract_context(context)
+      @context = context_class(context[:test_framework]).extract(context)
+    end
+
+    def context_class(test_framework)
+      case test_framework
+      when :test_unit then TestUnitContext
+      end
     end
   end
 end

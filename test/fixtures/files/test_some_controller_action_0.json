@@ -5,6 +5,7 @@
   },
   "type": "response",
   "context": {
+    "test_framework": "test_unit",
     "test_case_name": "SnapshotInspector::SnapshotsControllerTest",
     "method_name": "test_some_controller_action",
     "source_location": [

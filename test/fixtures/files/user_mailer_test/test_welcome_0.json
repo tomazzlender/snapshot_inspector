@@ -6,6 +6,7 @@
   },
   "type": "mail",
   "context": {
+    "test_framework": "test_unit",
     "test_case_name": "UserMailerTest",
     "method_name": "test_welcome",
     "source_location": [

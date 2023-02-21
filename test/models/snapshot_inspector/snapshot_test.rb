@@ -9,7 +9,8 @@ class SnapshotInspector::SnapshotTest < ActiveSupport::TestCase
   test "::persist" do
     response = ActionDispatch::TestResponse.new
 
-    test = {
+    test_unit_context = {
+      test_framework: :test_unit,
       method_name: "test_some_controller_action",
       source_location: ["/Users/Nickname/Code/app_name/test/controllers/some_controller_test.rb", 6],
       test_case_name: "SnapshotInspector::SnapshotsControllerTest",
@@ -19,7 +20,7 @@ class SnapshotInspector::SnapshotTest < ActiveSupport::TestCase
     snapshot =
       travel_to(Time.zone.parse("2023-02-07 11:05:05 UTC")) do
         response.stub(:parsed_body, "<!DOCTYPE html>\n<html>\n<head>\n  <title>View Inspector</title>\n  \n  \n\n</head>\n<body>\n\n<h1>Snapshots</h1>\n\n<ul>\n</ul>\n\n\n</body>\n</html>\n") do
-          SnapshotInspector::Snapshot.persist(snapshotee: response, context: test)
+          SnapshotInspector::Snapshot.persist(snapshotee: response, context: test_unit_context)
         end
       end
 
@@ -31,6 +32,7 @@ class SnapshotInspector::SnapshotTest < ActiveSupport::TestCase
     assert_equal snapshot.slug, "snapshot_inspector/snapshots_controller_test/test_some_controller_action_0"
     assert_equal snapshot.created_at, Time.zone.parse("2023-02-07 11:05:05 UTC")
     assert_equal snapshot.snapshotee_class, ActionDispatch::TestResponse
+    assert_equal snapshot.context.test_framework, :test_unit
     assert_equal snapshot.context.name, "some controller action"
     assert_equal snapshot.context.method_name, "test_some_controller_action"
     assert_equal snapshot.context.source_location, ["/Users/Nickname/Code/app_name/test/controllers/some_controller_test.rb", 6]
@@ -50,6 +52,7 @@ class SnapshotInspector::SnapshotTest < ActiveSupport::TestCase
     assert_equal snapshot.slug, "snapshot_inspector/snapshots_controller_test/test_some_controller_action_0"
     assert_equal snapshot.created_at, Time.zone.parse("2023-02-07 11:05:05 UTC")
     assert_equal snapshot.snapshotee_class, ActionDispatch::TestResponse
+    assert_equal snapshot.context.test_framework, :test_unit
     assert_equal snapshot.context.name, "some controller action"
     assert_equal snapshot.context.method_name, "test_some_controller_action"
     assert_equal snapshot.context.source_location, ["/Users/Nickname/Code/app_name/test/controllers/some_controller_test.rb", 6]
@@ -111,6 +114,7 @@ class SnapshotInspector::SnapshotTest < ActiveSupport::TestCase
     SnapshotInspector::Snapshot.new.extract(
       snapshotee: snapshotee,
       context: {
+        test_framework: :test_unit,
         source_location: source_location,
         test_case_name: "SomethingController",
         method_name: name,
