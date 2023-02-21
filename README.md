@@ -1,7 +1,6 @@
 # Snapshot Inspector
 
-Take snapshots of responses and mailers while working with integration and mailers tests in Ruby on Rails.
-Render and inspect snapshots in a browser. Works with a default Ruby on Rails testing framework only (minitest).
+Take snapshots of responses and mail messages while testing, and inspect them in a browser. A Ruby on Rails engine. Works with the default Ruby on Rails testing framework only (minitest).
 
 > **NOTICE:** the library works great, needs some internal refactoring, and a few more nice to have features.
 
