@@ -15,7 +15,7 @@ class UserMailer < ApplicationMailer
 
   def reminder(recipient)
     @recepient = recipient
-    attachments["mail_attachment.txt"] = ViewInspector::Engine.root.join("test/fixtures/files/mail_attachment.txt").read
+    attachments["mail_attachment.txt"] = SnapshotInspector::Engine.root.join("test/fixtures/files/mail_attachment.txt").read
     mail(
       to: email_address_with_name(@recepient.email, @recepient.name),
       subject: "Remember to take care of..."

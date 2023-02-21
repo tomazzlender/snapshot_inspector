@@ -9,7 +9,7 @@
     "test_case_name": "UserMailerTest",
     "method_name": "test_welcome",
     "source_location": [
-      "/Users/personal/Code/view_inspector/test/dummy/test/mailers/user_mailer_test.rb",
+      "/Users/personal/Code/snapshot_inspector/test/dummy/test/mailers/user_mailer_test.rb",
       4
     ],
     "take_snapshot_index": 0

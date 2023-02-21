@@ -1,4 +1,4 @@
-# ViewInspector
+# SnapshotInspector
 
 Take snapshots of responses and mailers while working with integration and mailers tests in Ruby on Rails.
 Render and inspect snapshots in a browser. Works with a default Ruby on Rails testing framework only (minitest).
@@ -10,7 +10,7 @@ Add the gem to your application's Gemfile under `:development` and `:test` group
 
 ```ruby
 group [:development, :test] do
-  gem "view_inspector"
+  gem "snapshot_inspector"
 end
 ```
 
@@ -57,8 +57,8 @@ If you wish for the snapshots in a browser to live reload, use a library like [h
 Besides the general installation instructions, add the following lines into `development.rb`.
 
 ```ruby
-config.hotwire_livereload.listen_paths << ViewInspector::Storage.snapshots_directory
-config.hotwire_livereload.force_reload_paths << ViewInspector::Storage.snapshots_directory
+config.hotwire_livereload.listen_paths << SnapshotInspector::Storage.snapshots_directory
+config.hotwire_livereload.force_reload_paths << SnapshotInspector::Storage.snapshots_directory
 ```
 
 ## Contributing

@@ -1,4 +1,4 @@
-ViewInspector::Engine.routes.draw do
+SnapshotInspector::Engine.routes.draw do
   root to: "snapshots#index"
 
   get "mail/raw/*slug", to: "snapshots/mail#raw", as: :raw_mail_snapshot

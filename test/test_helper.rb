@@ -7,4 +7,4 @@ require "minitest/mock"
 require "minitest/focus"
 require "test_helpers/environment_helper"
 
-ActiveSupport::TestCase.file_fixture_path = ViewInspector::Engine.root + "test/fixtures/files"
+ActiveSupport::TestCase.file_fixture_path = SnapshotInspector::Engine.root + "test/fixtures/files"
