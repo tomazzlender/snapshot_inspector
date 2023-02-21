@@ -1,5 +1,5 @@
 module ViewInspector
-  class Snapshots::MailRecordingsController < ApplicationController
+  class Snapshots::MailController < ApplicationController
     helper_method :part_query
 
     rescue_from Snapshot::NotFound, with: :snapshot_not_found

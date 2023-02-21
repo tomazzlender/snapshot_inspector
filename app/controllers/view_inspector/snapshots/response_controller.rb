@@ -1,5 +1,5 @@
 module ViewInspector
-  class Snapshots::ResponseRecordingsController < ApplicationController
+  class Snapshots::ResponseController < ApplicationController
     rescue_from Snapshot::NotFound, with: :snapshot_not_found
 
     layout false, only: [:raw]
