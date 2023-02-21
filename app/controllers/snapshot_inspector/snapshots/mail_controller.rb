@@ -12,7 +12,7 @@ module SnapshotInspector
         send_data @email.to_s, filename: "#{@snapshot.mailer_name}##{@snapshot.action_name}.eml"
       else
         @part = find_preferred_part(request.format, Mime[:html], Mime[:text])
-        render :show, layout: false, formats: [:html]
+        render :show, formats: [:html]
       end
     end
 

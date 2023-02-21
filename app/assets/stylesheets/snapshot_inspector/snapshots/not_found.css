@@ -1,0 +1,15 @@
+main#not_found {
+  padding: 100px;
+}
+
+main#not_found h1 {
+  margin: 0;
+  font-size: 30px;
+  font-weight: normal;
+  color: #666666;
+}
+
+main#not_found p {
+  margin: 18px 0 0;
+  color: #666666;
+}

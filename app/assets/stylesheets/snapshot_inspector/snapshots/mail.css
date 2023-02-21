@@ -1,0 +1,41 @@
+body#mail_show header {
+  width: 100%;
+  padding: 10px 0 0 0;
+  margin: 0;
+  background: white;
+  font: 12px "Lucida Grande", sans-serif;
+  border-bottom: 1px solid #dedede;
+  overflow: hidden;
+}
+
+body#mail_show dl {
+  margin: 0 0 10px 0;
+  padding: 0;
+}
+
+body#mail_show dt {
+  width: 80px;
+  padding: 1px;
+  float: left;
+  clear: left;
+  text-align: right;
+  color: #7f7f7f;
+}
+
+body#mail_show dd {
+  margin-left: 90px; /* 80px + 10px */
+  padding: 1px;
+}
+
+body#mail_show dd:empty:before {
+  content: "\00a0"; // &nbsp;
+}
+
+body#mail_show td {
+  font: 12px "Lucida Grande", sans-serif;
+}
+
+body#mail_show iframe {
+  border: 0;
+  width: 100%;
+}

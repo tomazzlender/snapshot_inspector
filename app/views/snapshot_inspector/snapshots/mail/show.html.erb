@@ -1,57 +1,3 @@
-<!DOCTYPE html>
-<html><head>
-  <title><%= @page_title %></title>
-  <meta name="viewport" content="width=device-width" />
-  <style type="text/css">
-    html, body, iframe {
-      height: 100%;
-    }
-
-    body {
-      margin: 0;
-    }
-
-    header {
-      width: 100%;
-      padding: 10px 0 0 0;
-      margin: 0;
-      background: white;
-      font: 12px "Lucida Grande", sans-serif;
-      border-bottom: 1px solid #dedede;
-      overflow: hidden;
-    }
-
-    dl {
-      margin: 0 0 10px 0;
-      padding: 0;
-    }
-
-    dt {
-      width: 80px;
-      padding: 1px;
-      float: left;
-      clear: left;
-      text-align: right;
-      color: #7f7f7f;
-    }
-
-    dd {
-      margin-left: 90px; /* 80px + 10px */
-      padding: 1px;
-    }
-
-    dd:empty:before {
-      content: "\00a0"; // &nbsp;
-    }
-
-    iframe {
-      border: 0;
-      width: 100%;
-    }
-  </style>
-</head>
-
-<body>
 <header>
   <dl>
     <% if @email.respond_to?(:smtp_envelope_from) && Array(@email.from) != Array(@email.smtp_envelope_from) %>
@@ -159,6 +105,3 @@
     location.href = url + format;
   }
 </script>
-
-</body>
-</html>

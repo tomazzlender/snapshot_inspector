@@ -1,3 +1,19 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
 html {
   height: 100%;
 }
@@ -14,66 +30,4 @@ body, p, ol, ul, td {
   font-family: helvetica, verdana, arial, sans-serif;
   font-size:   20px;
   line-height: 1.7em;
-}
-
-main {
-  padding: 100px;
-}
-
-h1 {
-  margin: 0;
-  font-size: 30px;
-}
-
-h2 {
-  margin: 30px 0 0;
-  font-size: 24px;
-}
-
-p {
-  margin: 18px 0 0;
-  color: #666666;
-}
-
-ul {
-  margin: 3px 0 0;
-}
-
-h1, h2, h3, h4, h5, h6 {
-  font-weight: normal;
-  color: #666666;
-}
-
-pre {
-  background-color: #eee;
-  padding: 10px;
-  font-size: 11px;
-  white-space: pre-wrap;
-}
-
-a { color: #000; text-decoration: none; }
-a:hover { text-decoration: underline; }
-
-@media (prefers-color-scheme: dark) {
-  body {
-    background-color: #222;
-    color: #ececec;
-  }
-
-  pre {
-    background-color: #333;
-  }
-
-  a { color: #fff; }
-  a:hover { color: #fff; text-decoration: underline; }
-}
-
-body#snapshots_show {
-  overflow: hidden;
-}
-
-iframe#body {
-  border: 0;
-  width: 100%;
-  height: 100%;
 }
