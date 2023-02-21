@@ -19,7 +19,7 @@ module SnapshotInspector
         SnapshotInspector::Snapshot.persist(
           snapshotee: snapshotee,
           context: {
-            source: :rspec,
+            test_framework: :rspec,
             example: RSpec.current_example,
             take_snapshot_index: _take_snapshot_counter - 1
           }
