@@ -20,6 +20,7 @@ module SnapshotInspector
         SnapshotInspector::Snapshot.persist(
           snapshotee: snapshotee,
           context: {
+            source: :test_unit,
             method_name: method_name,
             source_location: method(method_name).source_location,
             test_case_name: self.class.to_s,
