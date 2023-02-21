@@ -72,7 +72,7 @@ module SnapshotInspector
     end
 
     def extract_context(context)
-      @context = Context.extract(context)
+      @context = TestUnitContext.extract(context)
     end
 
     def from_hash_type_specific_data(hash)
@@ -82,7 +82,7 @@ module SnapshotInspector
     end
 
     def from_hash_context(hash)
-      @context = Context.from_hash(hash[:context])
+      @context = TestUnitContext.from_hash(hash[:context])
     end
 
     def unknown_snapshotee_class_message

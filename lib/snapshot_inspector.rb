@@ -22,7 +22,7 @@ module SnapshotInspector
 
     def initialize
       @importmap = Importmap::Map.new
-      @snapshot_taking_enabled = false
+      @snapshot_taking_enabled = ENV.fetch("TAKE_SNAPSHOTS", nil) == "1"
       @storage_directory = nil
       @host = "http://localhost:3000"
       @route_path = "/rails/snapshots"
