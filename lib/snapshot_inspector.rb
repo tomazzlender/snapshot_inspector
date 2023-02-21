@@ -8,6 +8,7 @@ require "importmap-rails"
 module SnapshotInspector
   module Test
     autoload :Helpers, "snapshot_inspector/test/helpers"
+    autoload :RSpecHelpers, "snapshot_inspector/test/rspec_helpers"
   end
 
   STORAGE_DIRECTORY = "tmp/snapshot_inspector"

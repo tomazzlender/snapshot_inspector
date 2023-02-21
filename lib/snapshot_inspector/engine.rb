@@ -25,8 +25,14 @@ module SnapshotInspector
     end
 
     initializer "snapshot_inspector.include_test_helpers" do |_app|
-      ActiveSupport.on_load(:action_dispatch_test_case) do
-        include SnapshotInspector::Test::Helpers
+      if defined?(RSpec)
+        RSpec.configure do |config|
+          config.include SnapshotInspector::Test::RSpecHelpers
+        end
+      else
+        ActiveSupport.on_load(:active_support_test_case) do
+          include SnapshotInspector::Test::Helpers
+        end
       end
 
       ActiveSupport.on_load(:action_mailer) do
