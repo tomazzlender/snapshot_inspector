@@ -86,7 +86,7 @@ module SnapshotInspector
     end
 
     def unknown_snapshotee_class_message
-      "#take_snapshot only accepts an argument of kind `ActionDispatch::TestResponse` or `ActionMailer::MessageDelivery`. You provided `#{@snapshotee_class}`."
+      "#take_snapshot only accepts an argument of kind #{Type.registry.keys.map { |class_name| "`#{class_name}`" }.join(" or ")}. You provided `#{@snapshotee_class}`."
     end
   end
 end
