@@ -51,6 +51,6 @@ class UserMailerTest < ActionMailer::TestCase
 
   def to_mail(snapshotee_file_path)
     contents = JSON.parse(snapshotee_file_path.read, symbolize_names: true)
-    ViewInspector::Snapshot::MailRecording.new.from_json(contents[:snapshotee_recording]).message
+    ViewInspector::Snapshot::MailType.from_hash(contents[:data]).message
   end
 end

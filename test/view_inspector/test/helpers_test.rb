@@ -27,21 +27,19 @@ class ViewInspector::Test::HelpersTest < ActiveSupport::TestCase
     end
 
     expected_contents = {
-      snapshotee_recording_klass: "ViewInspector::Snapshot::ResponseRecording",
-      snapshotee_recording: {
+      snapshotee_class: "ActionDispatch::TestResponse",
+      data: {
         body: "<html><body>Example response body.</body></html>"
       },
-      test_recording: {
-        name: "some controller action",
+      type: "response",
+      context: {
+        test_case_name: "DummyControllerTest",
         method_name: "test_some_controller_action",
         source_location: [
           "#{ViewInspector::Engine.root}/test/view_inspector/test/helpers_test.rb",
           6
         ],
-        test_case_name: "DummyControllerTest",
-        take_snapshot_index: 0,
-        test_case_file_path: "#{ViewInspector::Engine.root}/test/view_inspector/test/helpers_test.rb",
-        line_number: 6
+        take_snapshot_index: 0
       },
       slug: "dummy_controller_test/test_some_controller_action_0",
       created_at: "2023-02-07T11:05:05.000Z"
@@ -69,42 +67,38 @@ class ViewInspector::Test::HelpersTest < ActiveSupport::TestCase
     end
 
     snapshot1_expected_contents = {
-      snapshotee_recording_klass: "ViewInspector::Snapshot::ResponseRecording",
-      snapshotee_recording: {
+      snapshotee_class: "ActionDispatch::TestResponse",
+      data: {
         body: "<html><body>Example response body.</body></html>"
       },
-      test_recording: {
-        name: "some controller action",
+      type: "response",
+      context: {
+        test_case_name: "DummyControllerTest",
         method_name: "test_some_controller_action",
         source_location: [
           "#{ViewInspector::Engine.root}/test/view_inspector/test/helpers_test.rb",
           6
         ],
-        test_case_name: "DummyControllerTest",
-        take_snapshot_index: 0,
-        test_case_file_path: "#{ViewInspector::Engine.root}/test/view_inspector/test/helpers_test.rb",
-        line_number: 6
+        take_snapshot_index: 0
       },
       slug: "dummy_controller_test/test_some_controller_action_0",
       created_at: "2023-02-07T11:05:05.000Z"
     }
 
     snapshot2_expected_contents = {
-      snapshotee_recording_klass: "ViewInspector::Snapshot::ResponseRecording",
-      snapshotee_recording: {
+      snapshotee_class: "ActionDispatch::TestResponse",
+      data: {
         body: "<html><body>Another response body.</body></html>"
       },
-      test_recording: {
-        name: "some controller action",
+      type: "response",
+      context: {
+        test_case_name: "DummyControllerTest",
         method_name: "test_some_controller_action",
         source_location: [
           "#{ViewInspector::Engine.root}/test/view_inspector/test/helpers_test.rb",
           6
         ],
-        test_case_name: "DummyControllerTest",
-        take_snapshot_index: 1,
-        test_case_file_path: "#{ViewInspector::Engine.root}/test/view_inspector/test/helpers_test.rb",
-        line_number: 6
+        take_snapshot_index: 1
       },
       slug: "dummy_controller_test/test_some_controller_action_1",
       created_at: "2023-02-07T11:05:05.000Z"

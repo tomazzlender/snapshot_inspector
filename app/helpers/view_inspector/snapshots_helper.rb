@@ -15,10 +15,10 @@ module ViewInspector
     end
 
     def self.snapshot_path(snapshot)
-      case snapshot.snapshotee_recording_klass
-      when ViewInspector::Snapshot::ResponseRecording
+      case snapshot.type
+      when "mail"
         ViewInspector::Engine.routes.url_helpers.mail_snapshot_path(slug: snapshot.slug)
-      when ViewInspector::Snapshot::MailRecording
+      when "response"
         ViewInspector::Engine.routes.url_helpers.response_snapshot_path(slug: snapshot.slug)
       end
     end

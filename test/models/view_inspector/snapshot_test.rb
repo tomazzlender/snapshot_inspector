@@ -1,4 +1,5 @@
 require "test_helper"
+require "view_inspector/snapshot/response_type"
 
 class ViewInspector::SnapshotTest < ActiveSupport::TestCase
   teardown do
@@ -18,7 +19,7 @@ class ViewInspector::SnapshotTest < ActiveSupport::TestCase
     snapshot =
       travel_to(Time.zone.parse("2023-02-07 11:05:05 UTC")) do
         response.stub(:parsed_body, "<!DOCTYPE html>\n<html>\n<head>\n  <title>View Inspector</title>\n  \n  \n\n</head>\n<body>\n\n<h1>Snapshots</h1>\n\n<ul>\n</ul>\n\n\n</body>\n</html>\n") do
-          ViewInspector::Snapshot.persist(snapshotee: response, test: test)
+          ViewInspector::Snapshot.persist(snapshotee: response, context: test)
         end
       end
 
@@ -29,15 +30,13 @@ class ViewInspector::SnapshotTest < ActiveSupport::TestCase
     assert_equal expected_file_contents, persisted_file_contents
     assert_equal snapshot.slug, "view_inspector/snapshots_controller_test/test_some_controller_action_0"
     assert_equal snapshot.created_at, Time.zone.parse("2023-02-07 11:05:05 UTC")
-    assert_equal snapshot.snapshotee_recording_klass, ViewInspector::Snapshot::ResponseRecording
-    assert_equal snapshot.test_recording.name, "some controller action"
-    assert_equal snapshot.test_recording.method_name, "test_some_controller_action"
-    assert_equal snapshot.test_recording.source_location, ["/Users/Nickname/Code/app_name/test/controllers/some_controller_test.rb", 6]
-    assert_equal snapshot.test_recording.test_case_name, "ViewInspector::SnapshotsControllerTest"
-    assert_equal snapshot.test_recording.take_snapshot_index, 0
-    assert_equal snapshot.test_recording.test_case_file_path, "/Users/Nickname/Code/app_name/test/controllers/some_controller_test.rb"
-    assert_equal snapshot.test_recording.line_number, 6
-    assert_equal snapshot.snapshotee_recording.body, "<!DOCTYPE html>\n<html>\n<head>\n  <title>View Inspector</title>\n  \n  \n\n</head>\n<body>\n\n<h1>Snapshots</h1>\n\n<ul>\n</ul>\n\n\n</body>\n</html>\n"
+    assert_equal snapshot.snapshotee_class, ActionDispatch::TestResponse
+    assert_equal snapshot.context.name, "some controller action"
+    assert_equal snapshot.context.method_name, "test_some_controller_action"
+    assert_equal snapshot.context.source_location, ["/Users/Nickname/Code/app_name/test/controllers/some_controller_test.rb", 6]
+    assert_equal snapshot.context.test_case_name, "ViewInspector::SnapshotsControllerTest"
+    assert_equal snapshot.context.take_snapshot_index, 0
+    assert_equal snapshot.body, "<!DOCTYPE html>\n<html>\n<head>\n  <title>View Inspector</title>\n  \n  \n\n</head>\n<body>\n\n<h1>Snapshots</h1>\n\n<ul>\n</ul>\n\n\n</body>\n</html>\n"
   end
 
   test "::find" do
@@ -50,15 +49,13 @@ class ViewInspector::SnapshotTest < ActiveSupport::TestCase
     assert_kind_of ViewInspector::Snapshot, snapshot
     assert_equal snapshot.slug, "view_inspector/snapshots_controller_test/test_some_controller_action_0"
     assert_equal snapshot.created_at, Time.zone.parse("2023-02-07 11:05:05 UTC")
-    assert_equal snapshot.snapshotee_recording_klass, ViewInspector::Snapshot::ResponseRecording
-    assert_equal snapshot.test_recording.name, "some controller action"
-    assert_equal snapshot.test_recording.method_name, "test_some_controller_action"
-    assert_equal snapshot.test_recording.source_location, ["/Users/Nickname/Code/app_name/test/controllers/some_controller_test.rb", 6]
-    assert_equal snapshot.test_recording.test_case_name, "ViewInspector::SnapshotsControllerTest"
-    assert_equal snapshot.test_recording.take_snapshot_index, 0
-    assert_equal snapshot.test_recording.test_case_file_path, "/Users/Nickname/Code/app_name/test/controllers/some_controller_test.rb"
-    assert_equal snapshot.test_recording.line_number, 6
-    assert_equal snapshot.snapshotee_recording.body, "<!DOCTYPE html>\n<html>\n<head>\n  <title>View Inspector</title>\n  \n  \n\n</head>\n<body>\n\n<h1>Snapshots</h1>\n\n<ul>\n</ul>\n\n\n</body>\n</html>\n"
+    assert_equal snapshot.snapshotee_class, ActionDispatch::TestResponse
+    assert_equal snapshot.context.name, "some controller action"
+    assert_equal snapshot.context.method_name, "test_some_controller_action"
+    assert_equal snapshot.context.source_location, ["/Users/Nickname/Code/app_name/test/controllers/some_controller_test.rb", 6]
+    assert_equal snapshot.context.test_case_name, "ViewInspector::SnapshotsControllerTest"
+    assert_equal snapshot.context.take_snapshot_index, 0
+    assert_equal snapshot.body, "<!DOCTYPE html>\n<html>\n<head>\n  <title>View Inspector</title>\n  \n  \n\n</head>\n<body>\n\n<h1>Snapshots</h1>\n\n<ul>\n</ul>\n\n\n</body>\n</html>\n"
   end
 
   test "::grouped_by_test_case" do
@@ -99,8 +96,8 @@ class ViewInspector::SnapshotTest < ActiveSupport::TestCase
   end
 
   test "raises an error when tries to persist a response that is not of kind active dispatch test response" do
-    error = assert_raises(ViewInspector::Snapshot::InvalidInput) do
-      ViewInspector::Snapshot.persist(snapshotee: :foo, test: {})
+    error = assert_raises(ViewInspector::Snapshot::UnknownSnapshotee) do
+      ViewInspector::Snapshot.persist(snapshotee: :foo, context: {})
     end
 
     expected_message = "#take_snapshot only accepts an argument of kind `ActionDispatch::TestResponse` or `ActionMailer::MessageDelivery`. You provided `Symbol`."
@@ -111,9 +108,9 @@ class ViewInspector::SnapshotTest < ActiveSupport::TestCase
 
   def sample_snapshot_with(name, source_location, index)
     snapshotee = ActionDispatch::TestResponse.from_response(Struct.new(:body, :status, :headers).new(body: "", status: 200, headers: {}))
-    ViewInspector::Snapshot.new.parse(
+    ViewInspector::Snapshot.new.extract(
       snapshotee: snapshotee,
-      test: {
+      context: {
         source_location: source_location,
         test_case_name: "SomethingController",
         method_name: name,

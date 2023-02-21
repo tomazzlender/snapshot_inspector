@@ -1,25 +1,29 @@
+require "view_inspector/snapshot/response_type"
+require "view_inspector/snapshot/mail_type"
+
 module ViewInspector
   class Snapshot
     class NotFound < StandardError; end
 
-    class InvalidInput < StandardError; end
+    class UnknownSnapshotee < StandardError; end
 
-    attr_reader :snapshotee_recording_klass, :snapshotee_recording, :test_recording, :slug, :created_at
+    attr_reader :snapshotee_class, :type, :context, :slug, :created_at
+    delegate_missing_to :@data
 
-    def self.persist(snapshotee:, test:)
-      new.parse(snapshotee: snapshotee, test: test).persist
+    def self.persist(snapshotee:, context:)
+      new.extract(snapshotee: snapshotee, context: context).persist
     end
 
     def self.find(slug)
-      json = JSON.parse(Storage.read(slug), symbolize_names: true)
-      new.from_json(json)
+      hash = JSON.parse(Storage.read(slug), symbolize_names: true)
+      new.from_hash(hash)
     rescue Errno::ENOENT
       raise NotFound.new("Snapshot with a slug `#{slug}` can't be found.")
     end
 
     def self.grouped_by_test_case
       all.group_by do |snapshot|
-        snapshot.test_recording.test_case_name
+        snapshot.context.test_case_name
       end
     end
 
@@ -31,15 +35,15 @@ module ViewInspector
 
     private_class_method def self.order_by_line_number(snapshots)
       snapshots.sort_by do |snapshot|
-        snapshot.test_recording.source_location.dup << snapshot.test_recording.take_snapshot_index
+        snapshot.context.source_location.dup << snapshot.context.take_snapshot_index
       end
     end
 
-    def parse(snapshotee:, test:)
-      @snapshotee_recording_klass = snapshotee_recording_klass_mapping(snapshotee)
-      @snapshotee_recording = @snapshotee_recording_klass.parse(snapshotee)
-      @test_recording = TestRecording.parse(test)
-      @slug = to_slug
+    def extract(snapshotee:, context:)
+      extract_type_specific_data(snapshotee)
+      extract_context(context)
+
+      @slug = @context.to_slug
       @created_at = Time.current
       self
     end
@@ -49,32 +53,40 @@ module ViewInspector
       self
     end
 
-    def from_json(json)
-      @snapshotee_recording_klass = json[:snapshotee_recording_klass].constantize
-      @snapshotee_recording = @snapshotee_recording_klass.new.from_json(json[:snapshotee_recording])
-      @test_recording = TestRecording.new.from_json(json[:test_recording])
-      @slug = json[:slug]
-      @created_at = Time.zone.parse(json[:created_at])
-      self
-    end
+    def from_hash(hash)
+      from_hash_type_specific_data(hash)
+      from_hash_context(hash)
 
-    def to_slug
-      [test_recording.test_case_name.underscore, "#{test_recording.method_name}_#{test_recording.take_snapshot_index}"].join("/")
+      @slug = hash[:slug]
+      @created_at = Time.zone.parse(hash[:created_at])
+      self
     end
 
     private
 
-    def snapshotee_recording_klass_mapping(snapshotee)
-      case snapshotee.class.to_s
-      when "ActionDispatch::TestResponse" then ResponseRecording
-      when "ActionMailer::MessageDelivery" then MailRecording
-      else
-        raise InvalidInput.new(invalid_snapshotee_klass_message(snapshotee))
-      end
+    def extract_type_specific_data(snapshotee)
+      @snapshotee_class = snapshotee.class
+      type_class = Type.registry[@snapshotee_class] || raise(UnknownSnapshotee.new(unknown_snapshotee_class_message))
+      @data = type_class.extract(snapshotee)
+      @type = type_class.to_s.underscore.split("/").last.gsub("_type", "")
     end
 
-    def invalid_snapshotee_klass_message(snapshotee)
-      "#take_snapshot only accepts an argument of kind `ActionDispatch::TestResponse` or `ActionMailer::MessageDelivery`. You provided `#{snapshotee.class}`."
+    def extract_context(context)
+      @context = Context.extract(context)
+    end
+
+    def from_hash_type_specific_data(hash)
+      @snapshotee_class = hash[:snapshotee_class].constantize
+      @data = Type.registry[@snapshotee_class].from_hash(hash[:data])
+      @type = @data.class.to_s.underscore.split("/").last.gsub("_type", "")
+    end
+
+    def from_hash_context(hash)
+      @context = Context.from_hash(hash[:context])
+    end
+
+    def unknown_snapshotee_class_message
+      "#take_snapshot only accepts an argument of kind `ActionDispatch::TestResponse` or `ActionMailer::MessageDelivery`. You provided `#{@snapshotee_class}`."
     end
   end
 end

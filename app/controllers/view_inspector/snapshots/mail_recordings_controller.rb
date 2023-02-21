@@ -6,29 +6,26 @@ module ViewInspector
 
     def show
       @snapshot = Snapshot.find(params[:slug])
-      @email = @snapshot.snapshotee_recording.message
+      @email = @snapshot.message
 
-      respond_to do |format|
-        format.html do
-          @part = find_preferred_part(request.format, Mime[:html], Mime[:text])
-          render :show, layout: false
-        end
-        format.eml do
-          send_data @email.to_s, filename: "#{@snapshot.snapshotee_recording.mailer_name}##{@snapshot.snapshotee_recording.action_name}.eml"
-        end
+      if params[:format] == "eml"
+        send_data @email.to_s, filename: "#{@snapshot.mailer_name}##{@snapshot.action_name}.eml"
+      else
+        @part = find_preferred_part(request.format, Mime[:html], Mime[:text])
+        render :show, layout: false, formats: [:html]
       end
     end
 
     def raw
       @snapshot = Snapshot.find(params[:slug])
-      @email = @snapshot.snapshotee_recording.message
-      part_type = Mime::Type.lookup(params[:part])
+      @email = @snapshot.message
+      part_type = Mime::Type.lookup(params[:part] || "text/html")
 
       if (part = find_part(part_type))
         response.content_type = part_type
         render plain: part.respond_to?(:decoded) ? part.decoded : part
       else
-        raise AbstractController::ActionNotFound, "Email part '#{part_type}' not found in a snapshot #{@snapshot.test.test_case_name}##{@snapshot.test.method_name}"
+        raise AbstractController::ActionNotFound, "Email part `#{part_type}` not found in a snapshot #{@snapshot.context.test_case_name}##{@snapshot.context.method_name}"
       end
     end
 

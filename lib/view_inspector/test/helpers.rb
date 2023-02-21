@@ -18,7 +18,7 @@ module ViewInspector
 
         ViewInspector::Snapshot.persist(
           snapshotee: snapshotee,
-          test: {
+          context: {
             method_name: method_name,
             source_location: method(method_name).source_location,
             test_case_name: self.class.to_s,
