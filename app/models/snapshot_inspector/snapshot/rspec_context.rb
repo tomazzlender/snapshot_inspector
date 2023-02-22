@@ -25,21 +25,21 @@ module SnapshotInspector
         self
       end
 
-      def test_group
-        root_example_group_description(@example)
-      end
-
-      def order_index
-        [@example[:file_path], @example[:line_number], @take_snapshot_index]
+      def to_slug
+        spec_path_without_extension = @example[:file_path].delete_suffix(File.extname(@example[:file_path])).delete_prefix("./")
+        [spec_path_without_extension, @example[:line_number], @take_snapshot_index].join("_")
       end
 
       def name
         @example[:full_description].gsub(test_group, "").strip
       end
 
-      def to_slug
-        spec_path_without_extension = @example[:file_path].delete_suffix(File.extname(@example[:file_path])).delete_prefix("./")
-        [spec_path_without_extension, @example[:line_number], @take_snapshot_index].join("_")
+      def test_group
+        root_example_group_description(@example)
+      end
+
+      def order_index
+        [@example[:file_path], @example[:line_number], @take_snapshot_index]
       end
 
       private
