@@ -1,5 +1,7 @@
 require "snapshot_inspector/snapshot/response_type"
 require "snapshot_inspector/snapshot/mail_type"
+require "snapshot_inspector/snapshot/test_unit_context"
+require "snapshot_inspector/snapshot/rspec_context"
 
 module SnapshotInspector
   class Snapshot
@@ -23,7 +25,7 @@ module SnapshotInspector
 
     def self.grouped_by_test_case
       all.group_by do |snapshot|
-        snapshot.context.test_case_name
+        snapshot.context.test_group
       end
     end
 
@@ -35,7 +37,7 @@ module SnapshotInspector
 
     private_class_method def self.order_by_line_number(snapshots)
       snapshots.sort_by do |snapshot|
-        snapshot.context.source_location.dup << snapshot.context.take_snapshot_index
+        snapshot.context.order_identifier
       end
     end
 
@@ -92,6 +94,7 @@ module SnapshotInspector
     def context_class(test_framework)
       case test_framework
       when :test_unit then TestUnitContext
+      when :rspec then RspecContext
       end
     end
   end

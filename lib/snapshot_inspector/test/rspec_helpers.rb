@@ -20,7 +20,7 @@ module SnapshotInspector
           snapshotee: snapshotee,
           context: {
             test_framework: :rspec,
-            example: RSpec.current_example,
+            example: RSpec.current_example.metadata.except(:execution_result).as_json.with_indifferent_access,
             take_snapshot_index: _take_snapshot_counter - 1
           }
         )

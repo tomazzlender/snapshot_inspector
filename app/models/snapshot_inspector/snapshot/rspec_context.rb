@@ -1,8 +1,8 @@
 module SnapshotInspector
   class Snapshot
-    class TestUnitContext
+    class RspecContext
       # Name `:take_snapshot_index` could be improve. It represents: if two snapshots are taken in a single test, they will have indexes 0 and 1.
-      attr_reader :test_framework, :test_case_name, :method_name, :source_location, :take_snapshot_index
+      attr_reader :test_framework, :example, :take_snapshot_index
 
       def self.extract(context)
         new.extract(context)
@@ -14,36 +14,32 @@ module SnapshotInspector
 
       def extract(context)
         @test_framework = context[:test_framework]
-        @test_case_name = context[:test_case_name]
-        @method_name = context[:method_name]
-        @source_location = context[:source_location]
+        @example = context[:example]
         @take_snapshot_index = context[:take_snapshot_index]
         self
       end
 
       def from_hash(hash)
         @test_framework = hash[:test_framework].to_sym
-        @test_case_name = hash[:test_case_name]
-        @method_name = hash[:method_name]
-        @source_location = hash[:source_location]
+        @example = hash[:example]
         @take_snapshot_index = hash[:take_snapshot_index]
         self
       end
 
       def test_group
-        test_case_name
+        @example[:example_group][:parent_example_group][:description]
       end
 
       def order_identifier
-        source_location.dup << take_snapshot_index
+        "#{@example[:location]}:#{@take_snapshot_index}"
       end
 
       def name
-        method_name.gsub(/^test_/, "").humanize(capitalize: false)
+        @example[:full_description].gsub(test_group, "").strip
       end
 
       def to_slug
-        [test_case_name.underscore, "#{method_name}_#{take_snapshot_index}"].join("/")
+        @example[:full_description].underscore.tr(" ", "_") + "_" + @take_snapshot_index.to_s
       end
     end
   end

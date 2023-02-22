@@ -5,8 +5,8 @@
     <p>Place `take_screenshot response` in your integration tests after a `response` object is populated and run the tests. Snapshots will appear below.</p>
   <% end %>
 
-  <% @grouped_by_test_class.each do |test_case_name, snapshots| %>
-    <h2><%= test_case_name %></h2>
+  <% @grouped_by_test_class.each do |test_group, snapshots| %>
+    <h2><%= test_group %></h2>
 
     <ul>
       <% snapshots.each do |snapshot| %>

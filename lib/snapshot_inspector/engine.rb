@@ -28,6 +28,9 @@ module SnapshotInspector
       if defined?(RSpec)
         RSpec.configure do |config|
           config.include SnapshotInspector::Test::RSpecHelpers
+          config.after :suite do
+            SnapshotInspector::Storage.move_files_from_processing_directory_to_snapshots_directory if SnapshotInspector::Storage.processing_directory.exist?
+          end
         end
       else
         ActiveSupport.on_load(:active_support_test_case) do
