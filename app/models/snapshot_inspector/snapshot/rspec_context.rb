@@ -1,7 +1,6 @@
 module SnapshotInspector
   class Snapshot
     class RspecContext
-      # Name `:take_snapshot_index` could be improve. It represents: if two snapshots are taken in a single test, they will have indexes 0 and 1.
       attr_reader :test_framework, :example, :take_snapshot_index
 
       def self.extract(context)
