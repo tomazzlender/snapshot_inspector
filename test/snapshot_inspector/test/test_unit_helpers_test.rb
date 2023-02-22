@@ -20,8 +20,10 @@ class SnapshotInspector::Test::HelpersTest < ActiveSupport::TestCase
 
     travel_to(Time.new(2023, 2, 7, 12, 5, 5)) do
       SnapshotInspector.configuration.stub(:snapshot_taking_enabled, true) do
-        response.stub(:parsed_body, "<html><body>Example response body.</body></html>") do
-          test_case_example.take_snapshot(response)
+        Rails.stub(:root, SnapshotInspector::Engine.root) do
+          response.stub(:parsed_body, "<html><body>Example response body.</body></html>") do
+            test_case_example.take_snapshot(response)
+          end
         end
       end
     end
@@ -42,11 +44,11 @@ class SnapshotInspector::Test::HelpersTest < ActiveSupport::TestCase
         ],
         take_snapshot_index: 0
       },
-      slug: "dummy_controller_test/test_some_controller_action_0",
+      slug: "test/snapshot_inspector/test/test_unit_helpers_test_6_0",
       created_at: "2023-02-07T11:05:05.000Z"
     }
 
-    snapshot_file_path = SnapshotInspector::Storage.processing_directory.join("dummy_controller_test", "test_some_controller_action_0.json")
+    snapshot_file_path = SnapshotInspector::Storage.processing_directory.join("test/snapshot_inspector/test/test_unit_helpers_test_6_0.json")
     assert_equal JSON.pretty_generate(expected_contents), File.read(snapshot_file_path)
   end
 
@@ -57,11 +59,13 @@ class SnapshotInspector::Test::HelpersTest < ActiveSupport::TestCase
 
     travel_to(Time.new(2023, 2, 7, 12, 5, 5)) do
       SnapshotInspector.configuration.stub(:snapshot_taking_enabled, true) do
-        first_response.stub(:parsed_body, "<html><body>Example response body.</body></html>") do
-          test_case_example.take_snapshot(first_response)
+        Rails.stub(:root, SnapshotInspector::Engine.root) do
+          first_response.stub(:parsed_body, "<html><body>Example response body.</body></html>") do
+            test_case_example.take_snapshot(first_response)
 
-          second_response.stub(:parsed_body, "<html><body>Another response body.</body></html>") do
-            test_case_example.take_snapshot(second_response)
+            second_response.stub(:parsed_body, "<html><body>Another response body.</body></html>") do
+              test_case_example.take_snapshot(second_response)
+            end
           end
         end
       end
@@ -83,7 +87,7 @@ class SnapshotInspector::Test::HelpersTest < ActiveSupport::TestCase
         ],
         take_snapshot_index: 0
       },
-      slug: "dummy_controller_test/test_some_controller_action_0",
+      slug: "test/snapshot_inspector/test/test_unit_helpers_test_6_0",
       created_at: "2023-02-07T11:05:05.000Z"
     }
 
@@ -103,14 +107,14 @@ class SnapshotInspector::Test::HelpersTest < ActiveSupport::TestCase
         ],
         take_snapshot_index: 1
       },
-      slug: "dummy_controller_test/test_some_controller_action_1",
+      slug: "test/snapshot_inspector/test/test_unit_helpers_test_6_1",
       created_at: "2023-02-07T11:05:05.000Z"
     }
 
-    snapshot1_file_path = SnapshotInspector::Storage.processing_directory.join("dummy_controller_test", "test_some_controller_action_0.json")
+    snapshot1_file_path = SnapshotInspector::Storage.processing_directory.join("test/snapshot_inspector/test/test_unit_helpers_test_6_0.json")
     assert_equal JSON.pretty_generate(snapshot1_expected_contents), File.read(snapshot1_file_path)
 
-    snapshot2_file_path = SnapshotInspector::Storage.processing_directory.join("dummy_controller_test", "test_some_controller_action_1.json")
+    snapshot2_file_path = SnapshotInspector::Storage.processing_directory.join("test/snapshot_inspector/test/test_unit_helpers_test_6_1.json")
     assert_equal JSON.pretty_generate(snapshot2_expected_contents), File.read(snapshot2_file_path)
   end
 end

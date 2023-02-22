@@ -9,7 +9,7 @@ class UserMailerTest < ActionMailer::TestCase
       take_snapshot mail
     end
 
-    persisted_mail = to_mail(SnapshotInspector::Storage.processing_directory.join("user_mailer_test/test_welcome_0.json"))
+    persisted_mail = to_mail(SnapshotInspector::Storage.processing_directory.join("test/mailers/user_mailer_test_4_0.json"))
 
     assert_equal "Welcome!", persisted_mail.subject
     assert_equal [recepient.email], persisted_mail.to
@@ -25,7 +25,7 @@ class UserMailerTest < ActionMailer::TestCase
       take_snapshot mail
     end
 
-    persisted_mail = to_mail(SnapshotInspector::Storage.processing_directory.join("user_mailer_test/test_reminder_0.json"))
+    persisted_mail = to_mail(SnapshotInspector::Storage.processing_directory.join("test/mailers/user_mailer_test_20_0.json"))
 
     assert_equal "Remember to take care of...", persisted_mail.subject
     assert_equal [recepient.email], persisted_mail.to
@@ -41,7 +41,7 @@ class UserMailerTest < ActionMailer::TestCase
       take_snapshot mail
     end
 
-    persisted_mail = to_mail(SnapshotInspector::Storage.processing_directory.join("user_mailer_test/test_plaintext_0.json"))
+    persisted_mail = to_mail(SnapshotInspector::Storage.processing_directory.join("test/mailers/user_mailer_test_36_0.json"))
 
     assert_equal "Plain text is back", persisted_mail.subject
     assert_equal [recepient.email], persisted_mail.to

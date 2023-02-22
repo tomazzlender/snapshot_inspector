@@ -14,9 +14,9 @@ module SnapshotInspector
     end
 
     test "should a list of snapshots grouped by test cases" do
-      destination = SnapshotInspector::Storage.snapshots_directory.join("snapshot_inspector/snapshots_controller_test/")
+      destination = SnapshotInspector::Storage.snapshots_directory.join("test/controllers/")
       destination.mkpath
-      FileUtils.copy(file_fixture("test_some_controller_action_0.json"), destination)
+      FileUtils.copy(file_fixture("some_controller_test_8_0.json"), destination)
 
       get root_path
 

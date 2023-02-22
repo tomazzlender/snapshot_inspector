@@ -14,21 +14,21 @@ module SnapshotInspector
     end
 
     test "shows a response snapshot" do
-      destination = SnapshotInspector::Storage.snapshots_directory.join("snapshot_inspector/snapshots_controller_test/")
+      destination = SnapshotInspector::Storage.snapshots_directory.join("test/controllers/")
       destination.mkpath
-      FileUtils.copy(file_fixture("test_some_controller_action_0.json"), destination)
+      FileUtils.copy(file_fixture("some_controller_test_8_0.json"), destination)
 
-      get response_snapshot_url("snapshot_inspector/snapshots_controller_test/test_some_controller_action_0")
+      get response_snapshot_url("test/controllers/some_controller_test_8_0")
 
       assert_response :success
     end
 
     test "shows a raw response snapshot" do
-      destination = SnapshotInspector::Storage.snapshots_directory.join("snapshot_inspector/snapshots_controller_test/")
+      destination = SnapshotInspector::Storage.snapshots_directory.join("test/controllers/")
       destination.mkpath
-      FileUtils.copy(file_fixture("test_some_controller_action_0.json"), destination)
+      FileUtils.copy(file_fixture("some_controller_test_8_0.json"), destination)
 
-      get raw_response_snapshot_url("snapshot_inspector/snapshots_controller_test/test_some_controller_action_0")
+      get raw_response_snapshot_url("test/controllers/some_controller_test_8_0")
 
       assert_response :success
     end

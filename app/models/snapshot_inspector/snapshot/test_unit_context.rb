@@ -43,7 +43,8 @@ module SnapshotInspector
       end
 
       def to_slug
-        [test_case_name.underscore, "#{method_name}_#{take_snapshot_index}"].join("/")
+        spec_path_without_extension = source_location[0].delete_suffix(File.extname(source_location[0])).delete_prefix(Rails.root.to_s + "/")
+        [spec_path_without_extension, source_location[1], take_snapshot_index].join("_")
       end
     end
   end
