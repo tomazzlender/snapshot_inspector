@@ -27,7 +27,7 @@ module SnapshotInspector
       end
 
       def test_group
-        @example[:example_group][:parent_example_group][:description]
+        root_example_group_description(@example)
       end
 
       def order_identifier
@@ -39,7 +39,20 @@ module SnapshotInspector
       end
 
       def to_slug
-        @example[:full_description].underscore.tr(" ", "_") + "_" + @take_snapshot_index.to_s
+        spec_path_without_extension = @example[:file_path].delete_suffix(File.extname(@example[:file_path])).delete_prefix("./")
+        [spec_path_without_extension, @example[:line_number], @take_snapshot_index].join("_")
+      end
+
+      private
+
+      def root_example_group_description(hash)
+        if hash[:example_group].present?
+          root_example_group_description(hash[:example_group])
+        elsif hash[:parent_example_group].present?
+          root_example_group_description(hash[:parent_example_group])
+        else
+          hash[:description]
+        end
       end
     end
   end

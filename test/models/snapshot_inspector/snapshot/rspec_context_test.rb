@@ -1,131 +1,34 @@
 require "test_helper"
 
 class SnapshotInspector::Snapshot::RspecContextTest < ActiveSupport::TestCase
-  test "stuff" do
-    _example_with_two_levels =
-      {"block" => {},
-       "description_args" => ["succeeds"],
-       "description" => "succeeds",
-       "full_description" => "PagesController succeeds",
-       "described_class" => nil,
-       "file_path" => "./spec/requests/pages_controller_spec.rb",
-       "line_number" => 4,
-       "location" => "./spec/requests/pages_controller_spec.rb:4",
-       "absolute_file_path" => "/Users/personal/Code/blog/spec/requests/pages_controller_spec.rb",
-       "rerun_file_path" => "./spec/requests/pages_controller_spec.rb",
-       "scoped_id" => "1:1",
-       "type" => "request",
-       "example_group" =>
-         {"block" => {},
-          "description_args" => ["PagesController"],
-          "description" => "PagesController",
-          "full_description" => "PagesController",
-          "described_class" => nil,
-          "file_path" => "./spec/requests/pages_controller_spec.rb",
-          "line_number" => 3,
-          "location" => "./spec/requests/pages_controller_spec.rb:3",
-          "absolute_file_path" => "/Users/personal/Code/blog/spec/requests/pages_controller_spec.rb",
-          "rerun_file_path" => "./spec/requests/pages_controller_spec.rb",
-          "scoped_id" => "1",
-          "type" => "request"},
-       "shared_group_inclusion_backtrace" => [],
-       "last_run_status" => "unknown"}
+  test "#to_slug" do
+    assert_equal "spec/requests/pages_controller_spec_5_0", rspec_context("example_without_description").to_slug
+    assert_equal "spec/requests/pages_controller_spec_4_0", rspec_context("example_with_two_levels").to_slug
+    assert_equal "spec/requests/pages_controller_spec_5_0", rspec_context("example_with_three_levels").to_slug
+    assert_equal "spec/requests/pages_controller_spec_6_0", rspec_context("example_with_four_levels").to_slug
+  end
 
-    _example_with_three_levels =
-      {"block" => {},
-       "description_args" => ["succeeds"],
-       "description" => "succeeds",
-       "full_description" => "PagesController when condition succeeds",
-       "described_class" => nil,
-       "file_path" => "./spec/requests/pages_controller_spec.rb",
-       "line_number" => 5,
-       "location" => "./spec/requests/pages_controller_spec.rb:5",
-       "absolute_file_path" => "/Users/personal/Code/blog/spec/requests/pages_controller_spec.rb",
-       "rerun_file_path" => "./spec/requests/pages_controller_spec.rb",
-       "scoped_id" => "1:1:1",
-       "type" => "request",
-       "example_group" =>
-         {"block" => {},
-          "description_args" => ["when condition"],
-          "description" => "when condition",
-          "full_description" => "PagesController when condition",
-          "described_class" => nil,
-          "file_path" => "./spec/requests/pages_controller_spec.rb",
-          "line_number" => 4,
-          "location" => "./spec/requests/pages_controller_spec.rb:4",
-          "absolute_file_path" => "/Users/personal/Code/blog/spec/requests/pages_controller_spec.rb",
-          "rerun_file_path" => "./spec/requests/pages_controller_spec.rb",
-          "scoped_id" => "1:1",
-          "type" => "request",
-          "parent_example_group" =>
-            {"block" => {},
-             "description_args" => ["PagesController"],
-             "description" => "PagesController",
-             "full_description" => "PagesController",
-             "described_class" => nil,
-             "file_path" => "./spec/requests/pages_controller_spec.rb",
-             "line_number" => 3,
-             "location" => "./spec/requests/pages_controller_spec.rb:3",
-             "absolute_file_path" => "/Users/personal/Code/blog/spec/requests/pages_controller_spec.rb",
-             "rerun_file_path" => "./spec/requests/pages_controller_spec.rb",
-             "scoped_id" => "1",
-             "type" => "request"}},
-       "shared_group_inclusion_backtrace" => [],
-       "last_run_status" => "unknown"}
+  test "#name" do
+    assert_equal "without an example description", rspec_context("example_without_description").name
+    assert_equal "succeeds", rspec_context("example_with_two_levels").name
+    assert_equal "when condition succeeds", rspec_context("example_with_three_levels").name
+    assert_equal "root page when all is good succeeds", rspec_context("example_with_four_levels").name
+  end
 
-    _example_with_four_levels =
-      {"block" => {},
-       "description_args" => ["succeeds"],
-       "description" => "succeeds",
-       "full_description" => "PagesController root page when all is good succeeds",
-       "described_class" => nil,
-       "file_path" => "./spec/requests/pages_controller_spec.rb",
-       "line_number" => 6,
-       "location" => "./spec/requests/pages_controller_spec.rb:6",
-       "absolute_file_path" => "/Users/personal/Code/blog/spec/requests/pages_controller_spec.rb",
-       "rerun_file_path" => "./spec/requests/pages_controller_spec.rb",
-       "scoped_id" => "1:1:1:1",
-       "type" => "request",
-       "example_group" =>
-         {"block" => {},
-          "description_args" => ["when all is good"],
-          "description" => "when all is good",
-          "full_description" => "PagesController root page when all is good",
-          "described_class" => nil,
-          "file_path" => "./spec/requests/pages_controller_spec.rb",
-          "line_number" => 5,
-          "location" => "./spec/requests/pages_controller_spec.rb:5",
-          "absolute_file_path" => "/Users/personal/Code/blog/spec/requests/pages_controller_spec.rb",
-          "rerun_file_path" => "./spec/requests/pages_controller_spec.rb",
-          "scoped_id" => "1:1:1",
-          "type" => "request",
-          "parent_example_group" =>
-            {"block" => {},
-             "description_args" => ["root page"],
-             "description" => "root page",
-             "full_description" => "PagesController root page",
-             "described_class" => nil,
-             "file_path" => "./spec/requests/pages_controller_spec.rb",
-             "line_number" => 4,
-             "location" => "./spec/requests/pages_controller_spec.rb:4",
-             "absolute_file_path" => "/Users/personal/Code/blog/spec/requests/pages_controller_spec.rb",
-             "rerun_file_path" => "./spec/requests/pages_controller_spec.rb",
-             "scoped_id" => "1:1",
-             "type" => "request",
-             "parent_example_group" =>
-               {"block" => {},
-                "description_args" => ["PagesController"],
-                "description" => "PagesController",
-                "full_description" => "PagesController",
-                "described_class" => nil,
-                "file_path" => "./spec/requests/pages_controller_spec.rb",
-                "line_number" => 3,
-                "location" => "./spec/requests/pages_controller_spec.rb:3",
-                "absolute_file_path" => "/Users/personal/Code/blog/spec/requests/pages_controller_spec.rb",
-                "rerun_file_path" => "./spec/requests/pages_controller_spec.rb",
-                "scoped_id" => "1",
-                "type" => "request"}}},
-       "shared_group_inclusion_backtrace" => [],
-       "last_run_status" => "unknown"}
+  test "#test_group" do
+    assert_equal "PagesController", rspec_context("example_without_description").test_group
+    assert_equal "PagesController", rspec_context("example_with_two_levels").test_group
+    assert_equal "PagesController", rspec_context("example_with_three_levels").test_group
+    assert_equal "PagesController", rspec_context("example_with_four_levels").test_group
+  end
+
+  private
+
+  def rspec_context(name)
+    SnapshotInspector::Snapshot::RspecContext.extract({
+      test_framework: :rspec,
+      example: JSON.parse(File.read(file_fixture("rspec_examples/#{name}.json").to_s), symbolize_names: true),
+      take_snapshot_index: 0
+    })
   end
 end

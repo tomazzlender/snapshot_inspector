@@ -1,0 +1,55 @@
+{
+  "block": {
+  },
+  "description_args": [
+    "succeeds"
+  ],
+  "description": "succeeds",
+  "full_description": "PagesController when condition succeeds",
+  "described_class": null,
+  "file_path": "./spec/requests/pages_controller_spec.rb",
+  "line_number": 5,
+  "location": "./spec/requests/pages_controller_spec.rb:5",
+  "absolute_file_path": "/Users/personal/Code/blog/spec/requests/pages_controller_spec.rb",
+  "rerun_file_path": "./spec/requests/pages_controller_spec.rb",
+  "scoped_id": "1:1:1",
+  "type": "request",
+  "example_group": {
+    "block": {
+    },
+    "description_args": [
+      "when condition"
+    ],
+    "description": "when condition",
+    "full_description": "PagesController when condition",
+    "described_class": null,
+    "file_path": "./spec/requests/pages_controller_spec.rb",
+    "line_number": 4,
+    "location": "./spec/requests/pages_controller_spec.rb:4",
+    "absolute_file_path": "/Users/personal/Code/blog/spec/requests/pages_controller_spec.rb",
+    "rerun_file_path": "./spec/requests/pages_controller_spec.rb",
+    "scoped_id": "1:1",
+    "type": "request",
+    "parent_example_group": {
+      "block": {
+      },
+      "description_args": [
+        "PagesController"
+      ],
+      "description": "PagesController",
+      "full_description": "PagesController",
+      "described_class": null,
+      "file_path": "./spec/requests/pages_controller_spec.rb",
+      "line_number": 3,
+      "location": "./spec/requests/pages_controller_spec.rb:3",
+      "absolute_file_path": "/Users/personal/Code/blog/spec/requests/pages_controller_spec.rb",
+      "rerun_file_path": "./spec/requests/pages_controller_spec.rb",
+      "scoped_id": "1",
+      "type": "request"
+    }
+  },
+  "shared_group_inclusion_backtrace": [
+
+  ],
+  "last_run_status": "unknown"
+}
