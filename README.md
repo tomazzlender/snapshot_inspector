@@ -1,8 +1,8 @@
 # Snapshot Inspector
 
-Take snapshots of responses and mail messages while testing, and inspect them in a browser. A Ruby on Rails engine. Works with the default Ruby on Rails testing framework only (minitest).
+Take snapshots of responses and mail messages while testing, and inspect them in a browser. A Ruby on Rails engine. Works with the default Ruby on Rails testing framework and RSpec.
 
-> **NOTICE:** the library works great, needs some internal refactoring, and a few more nice to have features.
+> **NOTICE:** the library works great, needs some internal refactoring, and some nice to have features.
 
 ## Installation
 Add the gem to your application's Gemfile under `:development` and `:test` groups. Snapshots are taken in the test environment and inspected in the development environment.
@@ -44,10 +44,17 @@ test "welcome mail" do
 end
 ```
 
-Run tests with a flag `--take-snapshots` to enable taking snapshots.
+Run tests with a flag `--take-snapshots` (minitest only) or set an environment variable `TAKE_SNAPSHOTS=1` to enable taking snapshots.
 
 ```bash
 bin/rails test --take-snapshots
+TAKE_SNAPSHOTS=1 bin/rails test
+```
+
+or
+
+```bash
+TAKE_SNAPSHOTS=1 bin/rspec
 ```
 
 Start your local server and visit http://localhost:300/rails/snapshots.
