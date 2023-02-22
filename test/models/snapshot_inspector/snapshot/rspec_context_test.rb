@@ -22,6 +22,13 @@ class SnapshotInspector::Snapshot::RspecContextTest < ActiveSupport::TestCase
     assert_equal "PagesController", rspec_context("example_with_four_levels").test_group
   end
 
+  test "#order_index" do
+    assert_equal ["./spec/requests/pages_controller_spec.rb", 5, 0], rspec_context("example_without_description").order_index
+    assert_equal ["./spec/requests/pages_controller_spec.rb", 4, 0], rspec_context("example_with_two_levels").order_index
+    assert_equal ["./spec/requests/pages_controller_spec.rb", 5, 0], rspec_context("example_with_three_levels").order_index
+    assert_equal ["./spec/requests/pages_controller_spec.rb", 6, 0], rspec_context("example_with_four_levels").order_index
+  end
+
   private
 
   def rspec_context(name)
