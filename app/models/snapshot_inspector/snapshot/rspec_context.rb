@@ -30,8 +30,8 @@ module SnapshotInspector
         root_example_group_description(@example)
       end
 
-      def order_identifier
-        "#{@example[:location]}:#{@take_snapshot_index}"
+      def order_index
+        [@example[:file_path], @example[:line_number], @take_snapshot_index]
       end
 
       def name

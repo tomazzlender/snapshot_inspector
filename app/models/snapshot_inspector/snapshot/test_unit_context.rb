@@ -34,7 +34,7 @@ module SnapshotInspector
         test_case_name
       end
 
-      def order_identifier
+      def order_index
         source_location.dup << take_snapshot_index
       end
 

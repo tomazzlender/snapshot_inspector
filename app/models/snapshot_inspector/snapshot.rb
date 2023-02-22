@@ -37,7 +37,7 @@ module SnapshotInspector
 
     private_class_method def self.order_by_line_number(snapshots)
       snapshots.sort_by do |snapshot|
-        snapshot.context.order_identifier
+        snapshot.context.order_index
       end
     end
 
