@@ -39,6 +39,7 @@ module SnapshotInspector
       end
     end
 
+    # @private
     def extract(snapshotee:, context:)
       extract_type_specific_data(snapshotee)
       extract_context(context)
@@ -48,11 +49,13 @@ module SnapshotInspector
       self
     end
 
+    # @private
     def persist
       Storage.write(slug, JSON.pretty_generate(as_json))
       self
     end
 
+    # @private
     def from_hash(hash)
       from_hash_type_specific_data(hash)
       from_hash_context(hash)
