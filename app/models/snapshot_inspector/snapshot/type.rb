@@ -30,16 +30,18 @@ module SnapshotInspector
         "#take_snapshot only accepts an argument of kind #{list_of_known_classes}. You provided `#{snapshotee_class}`."
       end
 
-      def type
-        self.class.to_s.underscore.split("/").last.gsub("_type", "")
-      end
-
+      # @private
       def extract(_snapshotee)
         raise "Implement in a child class."
       end
 
+      # @private
       def from_hash(_hash)
         raise "Implement in a child class."
+      end
+
+      def type
+        self.class.to_s.underscore.split("/").last.gsub("_type", "")
       end
 
       def as_json(data = {})

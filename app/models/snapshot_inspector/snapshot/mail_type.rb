@@ -5,11 +5,13 @@ module SnapshotInspector
     class MailType < Type
       snapshotee ActionMailer::MessageDelivery
 
+      # @private
       def extract(snapshotee)
         @message = snapshotee.to_s
         @bcc = snapshotee.bcc
       end
 
+      # @private
       def from_hash(hash)
         @message = hash[:message]
         @bcc = hash[:bcc]
