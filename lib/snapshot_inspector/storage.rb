@@ -1,6 +1,14 @@
 module SnapshotInspector
   class Storage
     class << self
+      def snapshots_directory
+        SnapshotInspector.configuration.storage_directory.join("snapshots")
+      end
+
+      def processing_directory
+        SnapshotInspector.configuration.storage_directory.join("processing")
+      end
+
       def write(key, value)
         file_path = to_file_path_for_writing(key)
         file_path.dirname.mkpath
@@ -15,14 +23,6 @@ module SnapshotInspector
         Dir
           .glob("#{snapshots_directory}/**/*.{json}")
           .map { |file_path| to_key(file_path) }
-      end
-
-      def snapshots_directory
-        SnapshotInspector.configuration.storage_directory.join("snapshots")
-      end
-
-      def processing_directory
-        SnapshotInspector.configuration.storage_directory.join("processing")
       end
 
       def clear(directory = nil)

@@ -6,7 +6,7 @@ class SnapshotInspector::StorageTest < ActiveSupport::TestCase
   setup { DUMMY_DIRECTORY.rmtree }
   teardown { DUMMY_DIRECTORY.rmtree }
 
-  test "::write, ::read, ::list" do
+  test "::write, ::read, ::list, ::clear, ::move_files_from_processing_directory_to_snapshots_directory" do
     SnapshotInspector.configuration.stub(:storage_directory, DUMMY_DIRECTORY) do
       value1, value2 = '{"foo": "bar"}', '{"foo": "baz"}'
       SnapshotInspector::Storage.write("namespace/key1", value1)
@@ -16,6 +16,9 @@ class SnapshotInspector::StorageTest < ActiveSupport::TestCase
       assert_equal value1, File.read(SnapshotInspector::Storage.snapshots_directory.join("namespace/key1.json"))
       assert_equal value1, SnapshotInspector::Storage.read("namespace/key1")
       assert_equal %w[namespace/key1 namespace/key2], SnapshotInspector::Storage.list
+
+      SnapshotInspector::Storage.clear
+      assert_equal [], SnapshotInspector::Storage.list
     end
   end
 end
