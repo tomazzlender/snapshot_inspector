@@ -2,7 +2,7 @@ require "test_helper"
 
 class SnapshotInspector::Snapshot::RspecContextTest < ActiveSupport::TestCase
   test "::extract" do
-    assert_kind_of SnapshotInspector::Snapshot::RspecContext, rspec_context("example_with_two_levels")
+    assert_kind_of SnapshotInspector::Snapshot::Context, rspec_context("example_with_two_levels")
     assert_equal :rspec, rspec_context("example_with_two_levels").test_framework
     assert_includes rspec_context("example_with_two_levels").example, :example_group
     assert_equal 0, rspec_context("example_with_two_levels").take_snapshot_index
@@ -10,9 +10,9 @@ class SnapshotInspector::Snapshot::RspecContextTest < ActiveSupport::TestCase
 
   test "::from_hash" do
     hash = JSON.parse(rspec_context("example_with_two_levels").to_json, symbolize_names: true)
-    rspec_context = SnapshotInspector::Snapshot::RspecContext.from_hash(hash)
+    rspec_context = SnapshotInspector::Snapshot::Context.from_hash(hash)
 
-    assert_kind_of SnapshotInspector::Snapshot::RspecContext, rspec_context
+    assert_kind_of SnapshotInspector::Snapshot::Context, rspec_context
     assert_equal :rspec, rspec_context.test_framework
     assert_includes rspec_context.example, :example_group
     assert_equal 0, rspec_context.take_snapshot_index
@@ -49,7 +49,7 @@ class SnapshotInspector::Snapshot::RspecContextTest < ActiveSupport::TestCase
   private
 
   def rspec_context(name)
-    SnapshotInspector::Snapshot::RspecContext.extract({
+    SnapshotInspector::Snapshot::Context.extract({
       test_framework: :rspec,
       example: JSON.parse(File.read(file_fixture("rspec_examples/#{name}.json").to_s), symbolize_names: true),
       take_snapshot_index: 0

@@ -69,7 +69,7 @@ module SnapshotInspector
     end
 
     def extract_context(context)
-      @context = context_class(context[:test_framework]).extract(context)
+      @context = Context.extract(context)
     end
 
     def from_hash_type_specific_data(hash)
@@ -77,14 +77,7 @@ module SnapshotInspector
     end
 
     def from_hash_context(hash)
-      @context = context_class(hash[:context][:test_framework].to_sym).from_hash(hash[:context])
-    end
-
-    def context_class(test_framework)
-      case test_framework
-      when :test_unit then TestUnitContext
-      when :rspec then RspecContext
-      end
+      @context = Context.from_hash(hash[:context])
     end
   end
 end

@@ -1,6 +1,8 @@
 module SnapshotInspector
   class Snapshot
     class TestUnitContext < Context
+      test_framework :test_unit
+
       attr_reader :test_framework, :test_case_name, :method_name, :source_location, :take_snapshot_index
 
       # @private

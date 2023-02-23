@@ -1,6 +1,8 @@
 module SnapshotInspector
   class Snapshot
     class RspecContext < Context
+      test_framework :rspec
+
       attr_reader :test_framework, :example, :take_snapshot_index
 
       # @private
