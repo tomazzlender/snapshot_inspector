@@ -17,24 +17,26 @@ class SnapshotInspector::Snapshot::MailTypeTest < ActiveSupport::TestCase
   end
 
   test "::extract, #message, #mailer_name, #action_name" do
-    assert_equal mail_type.message.subject, "Welcome!"
-    assert_equal mail_type.message.to, ["john@example.com"]
-    assert_equal mail_type.message.from, ["no-reply@example.com"]
-    assert_equal mail_type.message.bcc, ["bcc@example.com"]
-    assert_equal mail_type.action_name, "welcome"
-    assert_equal mail_type.mailer_name, "snapshot_inspector/snapshot/mail_type_test/dummy_mailer"
+    assert_equal "Welcome!", mail_type.message.subject
+    assert_equal ["john@example.com"], mail_type.message.to
+    assert_equal ["no-reply@example.com"], mail_type.message.from
+    assert_equal ["bcc@example.com"], mail_type.message.bcc
+    assert_equal "mail_attachment.txt", mail_type.message.attachments.first.filename
+    assert_equal "welcome", mail_type.action_name
+    assert_equal "snapshot_inspector/snapshot/mail_type_test/dummy_mailer", mail_type.mailer_name
   end
 
   test "::from_hash, #message, #mailer_name, #action_name" do
     hash = JSON.parse(mail_type.to_json, symbolize_names: true)
     mail_type_from_hash = SnapshotInspector::Snapshot::Type.from_hash(hash)
 
-    assert_equal mail_type_from_hash.message.subject, "Welcome!"
-    assert_equal mail_type_from_hash.message.to, ["john@example.com"]
-    assert_equal mail_type_from_hash.message.bcc, ["bcc@example.com"]
-    assert_equal mail_type_from_hash.message.from, ["no-reply@example.com"]
-    assert_equal mail_type_from_hash.action_name, "welcome"
-    assert_equal mail_type_from_hash.mailer_name, "snapshot_inspector/snapshot/mail_type_test/dummy_mailer"
+    assert_equal "Welcome!", mail_type_from_hash.message.subject
+    assert_equal ["john@example.com"], mail_type_from_hash.message.to
+    assert_equal ["bcc@example.com"], mail_type_from_hash.message.bcc
+    assert_equal ["no-reply@example.com"], mail_type_from_hash.message.from
+    assert_equal "mail_attachment.txt", mail_type_from_hash.message.attachments.first.filename
+    assert_equal "welcome", mail_type_from_hash.action_name
+    assert_equal "snapshot_inspector/snapshot/mail_type_test/dummy_mailer", mail_type_from_hash.mailer_name
   end
 
   private
