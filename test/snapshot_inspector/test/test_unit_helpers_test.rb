@@ -33,7 +33,6 @@ class SnapshotInspector::Test::HelpersTest < ActiveSupport::TestCase
         snapshotee_class: "ActionDispatch::TestResponse",
         body: "<html><body>Example response body.</body></html>"
       },
-      type: "response",
       context: {
         test_framework: "test_unit",
         test_case_name: "DummyControllerTest",
@@ -76,7 +75,6 @@ class SnapshotInspector::Test::HelpersTest < ActiveSupport::TestCase
         snapshotee_class: "ActionDispatch::TestResponse",
         body: "<html><body>Example response body.</body></html>"
       },
-      type: "response",
       context: {
         test_framework: "test_unit",
         test_case_name: "DummyControllerTest",
@@ -96,7 +94,6 @@ class SnapshotInspector::Test::HelpersTest < ActiveSupport::TestCase
         snapshotee_class: "ActionDispatch::TestResponse",
         body: "<html><body>Another response body.</body></html>"
       },
-      type: "response",
       context: {
         test_framework: "test_unit",
         test_case_name: "DummyControllerTest",

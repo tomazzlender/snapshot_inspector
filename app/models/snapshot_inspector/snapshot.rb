@@ -7,7 +7,7 @@ module SnapshotInspector
   class Snapshot
     class NotFound < StandardError; end
 
-    attr_reader :type, :context, :slug, :created_at
+    attr_reader :context, :slug, :created_at
     delegate_missing_to :@type_data
 
     def self.persist(snapshotee:, context:)
@@ -66,20 +66,18 @@ module SnapshotInspector
 
     def extract_type_specific_data(snapshotee)
       @type_data = Type.extract(snapshotee)
-      @type = @type_data.class.to_s.underscore.split("/").last.gsub("_type", "")
-    end
-
-    def from_hash_type_specific_data(hash)
-      @type_data = Type.from_hash(hash[:type_data])
-      @type = @type_data.class.to_s.underscore.split("/").last.gsub("_type", "")
-    end
-
-    def from_hash_context(hash)
-      @context = context_class(hash[:context][:test_framework].to_sym).from_hash(hash[:context])
     end
 
     def extract_context(context)
       @context = context_class(context[:test_framework]).extract(context)
+    end
+
+    def from_hash_type_specific_data(hash)
+      @type_data = Type.from_hash(hash[:type_data])
+    end
+
+    def from_hash_context(hash)
+      @context = context_class(hash[:context][:test_framework].to_sym).from_hash(hash[:context])
     end
 
     def context_class(test_framework)
