@@ -99,7 +99,7 @@ class SnapshotInspector::SnapshotTest < ActiveSupport::TestCase
     assert_equal expected, actual
   end
 
-  test "raises an error when tries to persist a response that is not of kind active dispatch test response" do
+  test "raises an error when tries to persist a snapshotee of an unknown kind" do
     error = assert_raises(SnapshotInspector::Snapshot::Type::UnknownSnapshotee) do
       SnapshotInspector::Snapshot.persist(snapshotee: :foo, context: {})
     end
