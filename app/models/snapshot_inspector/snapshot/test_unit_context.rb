@@ -1,15 +1,7 @@
 module SnapshotInspector
   class Snapshot
-    class TestUnitContext
+    class TestUnitContext < Context
       attr_reader :test_framework, :test_case_name, :method_name, :source_location, :take_snapshot_index
-
-      def self.extract(context)
-        new.extract(context)
-      end
-
-      def self.from_hash(hash)
-        new.from_hash(hash)
-      end
 
       # @private
       def extract(context)
@@ -18,7 +10,6 @@ module SnapshotInspector
         @method_name = context[:method_name]
         @source_location = context[:source_location]
         @take_snapshot_index = context[:take_snapshot_index]
-        self
       end
 
       # @private
@@ -28,7 +19,6 @@ module SnapshotInspector
         @method_name = hash[:method_name]
         @source_location = hash[:source_location]
         @take_snapshot_index = hash[:take_snapshot_index]
-        self
       end
 
       def to_slug

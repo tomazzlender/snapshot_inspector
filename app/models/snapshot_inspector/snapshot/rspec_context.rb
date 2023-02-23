@@ -1,22 +1,13 @@
 module SnapshotInspector
   class Snapshot
-    class RspecContext
+    class RspecContext < Context
       attr_reader :test_framework, :example, :take_snapshot_index
-
-      def self.extract(context)
-        new.extract(context)
-      end
-
-      def self.from_hash(hash)
-        new.from_hash(hash)
-      end
 
       # @private
       def extract(context)
         @test_framework = context[:test_framework]
         @example = context[:example]
         @take_snapshot_index = context[:take_snapshot_index]
-        self
       end
 
       # @private
@@ -24,7 +15,6 @@ module SnapshotInspector
         @test_framework = hash[:test_framework].to_sym
         @example = hash[:example]
         @take_snapshot_index = hash[:take_snapshot_index]
-        self
       end
 
       def to_slug
