@@ -11,6 +11,7 @@ module SnapshotInspector
         new.from_hash(hash)
       end
 
+      # @private
       def extract(context)
         @test_framework = context[:test_framework]
         @test_case_name = context[:test_case_name]
@@ -20,6 +21,7 @@ module SnapshotInspector
         self
       end
 
+      # @private
       def from_hash(hash)
         @test_framework = hash[:test_framework].to_sym
         @test_case_name = hash[:test_case_name]
