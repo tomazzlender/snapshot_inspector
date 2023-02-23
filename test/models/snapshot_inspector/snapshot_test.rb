@@ -1,5 +1,4 @@
 require "test_helper"
-require "snapshot_inspector/snapshot/response_type"
 
 class SnapshotInspector::SnapshotTest < ActiveSupport::TestCase
   teardown do
