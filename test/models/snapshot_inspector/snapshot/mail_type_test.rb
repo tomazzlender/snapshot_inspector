@@ -27,7 +27,7 @@ class SnapshotInspector::Snapshot::MailTypeTest < ActiveSupport::TestCase
 
   test "::from_hash, #message, #mailer_name, #action_name" do
     hash = JSON.parse(mail_type.to_json, symbolize_names: true)
-    mail_type_from_hash = SnapshotInspector::Snapshot::MailType.from_hash(hash)
+    mail_type_from_hash = SnapshotInspector::Snapshot::Type.from_hash(hash)
 
     assert_equal mail_type_from_hash.message.subject, "Welcome!"
     assert_equal mail_type_from_hash.message.to, ["john@example.com"]
@@ -44,5 +44,5 @@ class SnapshotInspector::Snapshot::MailTypeTest < ActiveSupport::TestCase
     DummyMailer.welcome(recipient)
   end
 
-  def mail_type = SnapshotInspector::Snapshot::MailType.extract(mail)
+  def mail_type = SnapshotInspector::Snapshot::Type.extract(mail)
 end
