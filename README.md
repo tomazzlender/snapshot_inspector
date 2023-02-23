@@ -20,38 +20,44 @@ bundle install
 
 ## Usage
 
-Start using `take_snapshot` method in the integration tests:
+Take snapshots by using a helper method `take_snapshot` in tests that deal with instances of `ActionDispatch::TestResponse` or `ActionMailer::MessageDelivery`.
+For example, in controller, integration or mailer tests.
+
+For the best experience, take snapshots before assertions. That way it is possible to inspect them as part of the investigation why assertions fail.
+
+An example in integration or controller tests:
 
 ```ruby
 test "should get index" do
   get root_path
   
-  take_snapshot response # <-- takes a snapshot of the response
+  take_snapshot response # <-- takes a snapshot of the response (instance of ActionDispatch::TestResponse)
   
   assert_response :success
 end
 ```
 
-and in mailer tests:
+An example in mailer tests:
 
 ```ruby
 test "welcome mail" do
   mail = NotifierMailer.welcome
 
-  take_snapshot mail # <-- takes a snapshot of the mail
+  take_snapshot mail # <-- takes a snapshot of the mail (instance of ActionMailer::MessageDelivery)
 
   assert_equal "Welcome!", mail.subject
 end
 ```
 
-Run tests with a flag `--take-snapshots` (minitest only) or set an environment variable `TAKE_SNAPSHOTS=1` to enable taking snapshots.
+When tests are run, by default the snapshot taking isn't enabled to avoid a slight overhead that is added to the speed of execute of tests.
+To enable them, run tests with a flag `--take-snapshots` (default rails tests only) or set an environment variable `TAKE_SNAPSHOTS=1` to enable taking snapshots.
 
 ```bash
 bin/rails test --take-snapshots
 TAKE_SNAPSHOTS=1 bin/rails test
 ```
 
-or
+If you are using RSpec, use the environment variable.
 
 ```bash
 TAKE_SNAPSHOTS=1 bin/rspec
