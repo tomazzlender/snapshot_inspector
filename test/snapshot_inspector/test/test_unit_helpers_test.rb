@@ -29,8 +29,8 @@ class SnapshotInspector::Test::HelpersTest < ActiveSupport::TestCase
     end
 
     expected_contents = {
-      snapshotee_class: "ActionDispatch::TestResponse",
-      data: {
+      type_data: {
+        snapshotee_class: "ActionDispatch::TestResponse",
         body: "<html><body>Example response body.</body></html>"
       },
       type: "response",
@@ -72,8 +72,8 @@ class SnapshotInspector::Test::HelpersTest < ActiveSupport::TestCase
     end
 
     snapshot1_expected_contents = {
-      snapshotee_class: "ActionDispatch::TestResponse",
-      data: {
+      type_data: {
+        snapshotee_class: "ActionDispatch::TestResponse",
         body: "<html><body>Example response body.</body></html>"
       },
       type: "response",
@@ -92,8 +92,8 @@ class SnapshotInspector::Test::HelpersTest < ActiveSupport::TestCase
     }
 
     snapshot2_expected_contents = {
-      snapshotee_class: "ActionDispatch::TestResponse",
-      data: {
+      type_data: {
+        snapshotee_class: "ActionDispatch::TestResponse",
         body: "<html><body>Another response body.</body></html>"
       },
       type: "response",

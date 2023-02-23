@@ -51,6 +51,6 @@ class UserMailerTest < ActionMailer::TestCase
 
   def to_mail(snapshotee_file_path)
     contents = JSON.parse(snapshotee_file_path.read, symbolize_names: true)
-    SnapshotInspector::Snapshot::MailType.from_hash(contents[:data]).message
+    SnapshotInspector::Snapshot::MailType.from_hash(contents[:type_data]).message
   end
 end

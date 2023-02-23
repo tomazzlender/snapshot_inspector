@@ -1,6 +1,6 @@
 {
-  "snapshotee_class": "ActionDispatch::TestResponse",
-  "data": {
+  "type_data": {
+    "snapshotee_class": "ActionDispatch::TestResponse",
     "body": "<!DOCTYPE html>\n<html>\n<head>\n  <title>View Inspector</title>\n  \n  \n\n</head>\n<body>\n\n<h1>Snapshots</h1>\n\n<ul>\n</ul>\n\n\n</body>\n</html>\n"
   },
   "type": "response",

@@ -34,7 +34,6 @@ class SnapshotInspector::SnapshotTest < ActiveSupport::TestCase
     assert_equal expected_file_contents, persisted_file_contents
     assert_equal snapshot.slug, "test/controllers/some_controller_test_8_0"
     assert_equal snapshot.created_at, Time.zone.parse("2023-02-07 11:05:05 UTC")
-    assert_equal snapshot.snapshotee_class, ActionDispatch::TestResponse
     assert_equal snapshot.context.test_framework, :test_unit
     assert_equal snapshot.context.name, "some controller action"
     assert_equal snapshot.context.method_name, "test_some_controller_action"
@@ -54,7 +53,6 @@ class SnapshotInspector::SnapshotTest < ActiveSupport::TestCase
     assert_kind_of SnapshotInspector::Snapshot, snapshot
     assert_equal snapshot.slug, "test/controllers/some_controller_test_8_0"
     assert_equal snapshot.created_at, Time.zone.parse("2023-02-07 11:05:05 UTC")
-    assert_equal snapshot.snapshotee_class, ActionDispatch::TestResponse
     assert_equal snapshot.context.test_framework, :test_unit
     assert_equal snapshot.context.name, "some controller action"
     assert_equal snapshot.context.method_name, "test_some_controller_action"
@@ -102,7 +100,7 @@ class SnapshotInspector::SnapshotTest < ActiveSupport::TestCase
   end
 
   test "raises an error when tries to persist a response that is not of kind active dispatch test response" do
-    error = assert_raises(SnapshotInspector::Snapshot::UnknownSnapshotee) do
+    error = assert_raises(SnapshotInspector::Snapshot::Type::UnknownSnapshotee) do
       SnapshotInspector::Snapshot.persist(snapshotee: :foo, context: {})
     end
 

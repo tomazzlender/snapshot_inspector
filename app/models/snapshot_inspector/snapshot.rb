@@ -7,10 +7,8 @@ module SnapshotInspector
   class Snapshot
     class NotFound < StandardError; end
 
-    class UnknownSnapshotee < StandardError; end
-
-    attr_reader :snapshotee_class, :type, :context, :slug, :created_at
-    delegate_missing_to :@data
+    attr_reader :type, :context, :slug, :created_at
+    delegate_missing_to :@type_data
 
     def self.persist(snapshotee:, context:)
       new.extract(snapshotee: snapshotee, context: context).persist
@@ -67,24 +65,17 @@ module SnapshotInspector
     private
 
     def extract_type_specific_data(snapshotee)
-      @snapshotee_class = snapshotee.class
-      type_class = Type.registry[@snapshotee_class] || raise(UnknownSnapshotee.new(unknown_snapshotee_class_message))
-      @data = type_class.extract(snapshotee)
-      @type = type_class.to_s.underscore.split("/").last.gsub("_type", "")
+      @type_data = Type.extract(snapshotee)
+      @type = @type_data.class.to_s.underscore.split("/").last.gsub("_type", "")
     end
 
     def from_hash_type_specific_data(hash)
-      @snapshotee_class = hash[:snapshotee_class].constantize
-      @data = Type.registry[@snapshotee_class].from_hash(hash[:data])
-      @type = @data.class.to_s.underscore.split("/").last.gsub("_type", "")
+      @type_data = Type.from_hash(hash[:type_data])
+      @type = @type_data.class.to_s.underscore.split("/").last.gsub("_type", "")
     end
 
     def from_hash_context(hash)
       @context = context_class(hash[:context][:test_framework].to_sym).from_hash(hash[:context])
-    end
-
-    def unknown_snapshotee_class_message
-      "#take_snapshot only accepts an argument of kind #{Type.registry.keys.map(&:to_s).sort.map { |class_name| "`#{class_name}`" }.join(" or ")}. You provided `#{@snapshotee_class}`."
     end
 
     def extract_context(context)
