@@ -16,27 +16,33 @@ class SnapshotInspector::Snapshot::MailTypeTest < ActiveSupport::TestCase
     end
   end
 
-  test "::extract" do
-    recipient = Struct.new(:name, :email).new(name: "John", email: "john@example.com")
-    mail = DummyMailer.welcome(recipient)
-    mail_type = SnapshotInspector::Snapshot::MailType.extract(mail)
-
+  test "::extract, #message, #mailer_name, #action_name" do
     assert_equal mail_type.message.subject, "Welcome!"
     assert_equal mail_type.message.to, ["john@example.com"]
     assert_equal mail_type.message.from, ["no-reply@example.com"]
     assert_equal mail_type.message.bcc, ["bcc@example.com"]
     assert_equal mail_type.action_name, "welcome"
     assert_equal mail_type.mailer_name, "snapshot_inspector/snapshot/mail_type_test/dummy_mailer"
-    assert_equal mail, mail_type.message
   end
 
-  test "::from_hash" do
-    fixture = JSON.parse(file_fixture("user_mailer_test/test_welcome_0.json").read, symbolize_names: true)
-    mail_type = SnapshotInspector::Snapshot::MailType.from_hash(fixture[:data])
+  test "::from_hash, #message, #mailer_name, #action_name" do
+    hash = JSON.parse(mail_type.to_json, symbolize_names: true)
+    mail_type_from_hash = SnapshotInspector::Snapshot::MailType.from_hash(hash)
 
-    assert_equal mail_type.message.subject, "Welcome!"
-    assert_equal mail_type.message.to, ["john@example.com"]
-    assert_equal mail_type.message.bcc, ["bcc@example.com"]
-    assert_equal mail_type.message.from, ["no-reply@example.com"]
+    assert_equal mail_type_from_hash.message.subject, "Welcome!"
+    assert_equal mail_type_from_hash.message.to, ["john@example.com"]
+    assert_equal mail_type_from_hash.message.bcc, ["bcc@example.com"]
+    assert_equal mail_type_from_hash.message.from, ["no-reply@example.com"]
+    assert_equal mail_type_from_hash.action_name, "welcome"
+    assert_equal mail_type_from_hash.mailer_name, "snapshot_inspector/snapshot/mail_type_test/dummy_mailer"
   end
+
+  private
+
+  def mail
+    recipient = Struct.new(:name, :email).new(name: "John", email: "john@example.com")
+    DummyMailer.welcome(recipient)
+  end
+
+  def mail_type = SnapshotInspector::Snapshot::MailType.extract(mail)
 end
