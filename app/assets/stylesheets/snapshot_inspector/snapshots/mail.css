@@ -1,3 +1,9 @@
+body#mail_show {
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+}
+
 body#mail_show header {
   width: 100%;
   padding: 10px 0 0 0;
@@ -38,4 +44,5 @@ body#mail_show td {
 body#mail_show iframe {
   border: 0;
   width: 100%;
+  flex: 1 1 auto;
 }
