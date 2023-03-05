@@ -211,7 +211,7 @@ It takes more time to make a change in the view, run the test (and generate a sn
 and reload the browser than to run a development server and use live reloading directly.
 Even with live reloading turned on and using things like [guard](https://github.com/guard/guard).
 
-It would be nice to find a way how to speed up running tests. Perhaps there is a way to run them
+It would be nice to find a way to speed up the tests. Perhaps there is a way to run them
 interactively from a console and to run something similar to `reload!` after every change? Please reach out
 via GitHub Issues if you have suggestions.
 
