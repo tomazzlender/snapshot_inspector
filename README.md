@@ -20,12 +20,12 @@ bundle install
 
 ## Usage
 
-Take snapshots by using a helper method `take_snapshot` in tests that deal with instances of `ActionDispatch::TestResponse` or `ActionMailer::MessageDelivery`.
+Take snapshots by placing a helper method `take_snapshot` in tests that deal with instances of `ActionDispatch::TestResponse` or `ActionMailer::MessageDelivery`.
 For example, in controller, integration or mailer tests.
 
-For the best experience, take snapshots before assertions. That way it is possible to inspect them as part of the investigation why assertions fail.
+For the best experience, take snapshots before assertions. That way it is possible to inspect them as part of the investigation why an assertion failed.
 
-An example in integration or controller tests:
+An example from an integration test:
 
 ```ruby
 test "should get index" do
@@ -37,7 +37,7 @@ test "should get index" do
 end
 ```
 
-An example in mailer tests:
+An example in mailer test:
 
 ```ruby
 test "welcome mail" do
@@ -49,21 +49,23 @@ test "welcome mail" do
 end
 ```
 
-When tests are run, by default the snapshot taking isn't enabled to avoid a slight overhead that is added to the speed of execute of tests.
-To enable them, run tests with a flag `--take-snapshots` (default rails tests only) or set an environment variable `TAKE_SNAPSHOTS=1` to enable taking snapshots.
+When tests are run, the snapshots aren't taken by default to avoid the overhead of taking snapshots.
+To enable them, run tests with a flag `--take-snapshots`. The flag work with the default testing framework only.
 
 ```bash
 bin/rails test --take-snapshots
 TAKE_SNAPSHOTS=1 bin/rails test
 ```
 
-If you are using RSpec, use the environment variable.
+If you are using RSpec, use the environment variable `TAKE_SNAPSHOTS`. The variable also works with the default testing framework.
 
 ```bash
 TAKE_SNAPSHOTS=1 bin/rspec
 ```
 
 Start your local server and visit http://localhost:300/rails/snapshots.
+
+### Live Reload
 
 If you wish for the snapshots in a browser to live reload, use a library like [hotwire-livereload](https://github.com/kirillplatonov/hotwire-livereload).
 Besides the general installation instructions, add the following lines into `development.rb`.
@@ -74,7 +76,12 @@ config.hotwire_livereload.force_reload_paths << SnapshotInspector::Storage.snaps
 ```
 
 ## Contributing
-Contribution directions go here.
+
+- Fork the repo
+- Create your feature branch (git checkout -b my-new-feature)
+- Commit your changes (git commit -am 'Add some feature')
+- Push to the branch (git push origin my-new-feature)
+- Create a new Pull Request
 
 ## License
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
