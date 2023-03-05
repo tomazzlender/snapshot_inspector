@@ -22,9 +22,9 @@ Gem::Specification.new do |spec|
     Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
   end
 
-  spec.add_dependency "rails", ">= 7.0.4.2"
-  spec.add_dependency "stimulus-rails", ">= 1.2.1"
-  spec.add_dependency "importmap-rails", ">= 1.1.5"
-  spec.add_dependency "sprockets-rails", ">= 3.4.2"
-  spec.add_dependency "nokogiri", ">= 1.14.1"
+  spec.add_dependency "rails"
+  spec.add_dependency "stimulus-rails"
+  spec.add_dependency "importmap-rails"
+  spec.add_dependency "sprockets-rails"
+  spec.add_dependency "nokogiri"
 end
