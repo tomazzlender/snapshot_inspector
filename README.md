@@ -2,7 +2,7 @@
 
 Take snapshots of responses and mail messages while testing, and inspect them in a browser. A Ruby on Rails engine. Works with the default Ruby on Rails testing framework and RSpec.
 
-> **NOTICE:** the library works great, needs some internal refactoring, and some nice to have features.
+> **NOTICE:** the library is actively used during development, however, deem it as beta software.
 
 ## Installation
 Add the gem to your application's Gemfile under `:development` and `:test` groups. Snapshots are taken in the test environment and inspected in the development environment.
