@@ -67,8 +67,8 @@ test "welcome mail" do
 end
 ```
 
-When tests are run, the snapshots aren't taken by default to avoid the overhead of taking snapshots.
-To enable them, run tests with a flag `--take-snapshots`. The flag work with the default testing framework only.
+When tests are run, the snapshots aren't taken by default to avoid the performance overhead.
+To enable them, run tests with a flag `--take-snapshots`. The flag works with the default testing framework only.
 
 ```bash
 bin/rails test --take-snapshots
