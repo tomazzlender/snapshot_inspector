@@ -2,7 +2,7 @@
 
 Take snapshots of responses and mail messages while testing, and inspect them in a browser. A Ruby on Rails engine. Works with the default Ruby on Rails testing framework and RSpec.
 
-> **NOTICE:** the library is actively used during development, however, deem it as beta software.
+> **NOTICE:** the library is actively used during development of apps running in production, however, deem it as beta software.
 
 ## Rationale
 
