@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    snapshot_inspector (0.1.0)
+    snapshot_inspector (0.1.1)
       importmap-rails (>= 1.0.0)
       nokogiri (>= 1.11.0)
       rails (>= 7.0.0)
