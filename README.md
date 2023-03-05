@@ -165,7 +165,7 @@ test "welcome mail" do
 end
 ```
 
-When the tests are run, to avoid the performance overhead, the snapshots taking is skipped by default.
+When the tests are run, to avoid the performance overhead, the snapshot taking is skipped by default.
 To enable them, run the tests with a flag `--take-snapshots`. The flag works with the default testing framework only.
 
 ```bash
