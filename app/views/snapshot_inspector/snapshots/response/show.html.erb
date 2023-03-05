@@ -1,1 +1,1 @@
-<iframe id="body" src="<%= raw_response_snapshot_path(@snapshot.slug) %>"></iframe>
+<iframe id="body" src="<%= raw_response_snapshot_path(@snapshot.slug, enable_javascript: params[:enable_javascript]) %>"></iframe>

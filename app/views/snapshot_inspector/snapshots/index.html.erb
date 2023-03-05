@@ -5,13 +5,20 @@
     <p>Place `take_screenshot response` in your integration tests after a `response` object is populated and run the tests. Snapshots will appear below.</p>
   <% end %>
 
+  <%= form_tag "", method: :get, class: "enable_javascript" do %>
+    <%= label_tag :enable_javascript do %>
+      <%= check_box_tag :enable_javascript, "true", params[:enable_javascript] == "true", onclick: "submit()" %>
+      <span>Open snapshots with JavaScript enabled (by default all JavaScript tags are removed)</span>
+    <% end %>
+  <% end %>
+
   <% @grouped_by_test_class.each do |test_group, snapshots| %>
     <h2><%= test_group %></h2>
 
     <ul>
       <% snapshots.each do |snapshot| %>
         <li>
-          <%= link_to SnapshotInspector::SnapshotsHelper.snapshot_path(snapshot) do %>
+          <%= link_to SnapshotInspector::SnapshotsHelper.snapshot_path(snapshot, enable_javascript: params[:enable_javascript]) do %>
             <%= snapshot.context.name %>
             <%= if snapshot.context.take_snapshot_index > 0 then "(#{(snapshot.context.take_snapshot_index + 1).ordinalize} in the same test)" end %>
           <% end %>

@@ -1,5 +1,7 @@
 module SnapshotInspector
   class ApplicationController < ActionController::Base
+    helper SnapshotInspector::Engine.helpers
+
     content_security_policy(false)
 
     private

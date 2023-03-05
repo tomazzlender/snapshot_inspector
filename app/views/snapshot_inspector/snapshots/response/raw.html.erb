@@ -1,1 +1,1 @@
-<%= SnapshotInspector::SnapshotsHelper.remove_traces_of_javascript(@snapshot.body).html_safe %>
+<%= prepare_for_render(@snapshot.body, enable_javascript: params[:enable_javascript]) %>

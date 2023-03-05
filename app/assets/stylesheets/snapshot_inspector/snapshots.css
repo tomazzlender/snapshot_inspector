@@ -36,6 +36,28 @@ body#snapshots_index pre {
 body#snapshots_index a { color: #000; text-decoration: none; }
 body#snapshots_index a:hover { text-decoration: underline; }
 
+body#snapshots_index form.enable_javascript {
+  margin-top: 20px;
+}
+
+body#snapshots_index form.enable_javascript input {
+  transform: scale(1.4);
+  cursor: pointer;
+}
+
+body#snapshots_index form.enable_javascript label {
+  cursor: pointer;
+  user-select: none;
+  font-size: 19px;
+  display: flex;
+  align-items: center;
+}
+
+body#snapshots_index form.enable_javascript label span {
+  margin: 0 0 0 10px;
+  color: #666666;
+}
+
 @media (prefers-color-scheme: dark) {
   body#snapshots_index {
     background-color: #222;
