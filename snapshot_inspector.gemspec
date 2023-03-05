@@ -6,8 +6,8 @@ Gem::Specification.new do |spec|
   spec.authors = ["Tomaz Zlender"]
   spec.email = ["tomaz@zlender.se"]
   spec.homepage = "https://github.com/tomazzlender/snapshot_inspector"
-  spec.summary = "Summary of SnapshotInspector."
-  spec.description = "Description of SnapshotInspector."
+  spec.summary = "Take snapshots of responses and mail messages while testing, and inspect them in a browser. A Ruby on Rails engine."
+  spec.description = "Take snapshots of responses and mail messages while testing, and inspect them in a browser. A Ruby on Rails engine."
   spec.license = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the "allowed_push_host"
