@@ -3,15 +3,21 @@ module SnapshotInspector
     module TestUnitHelpers
       extend ActiveSupport::Concern
 
-      # Takes a snapshot of the given +snapshotee+ (e.g. response or mail message).
+      # Takes a snapshot of a given +snapshotee+.
       #
-      # +take_snapshot+ can be called after the +snapshotee+ object becomes available
+      # A +snapshotee+ can be an instance of +ActionDispatch::TestResponse+ or +ActionMailer::MessageDelivery+.
+      #
+      # +take_snapshot+ needs to be called after the +snapshotee+ object becomes available
       # for inspection in the lifecycle of the test (e.g. integration or mailer test). You can take one or
       # more snapshots in a single test case.
       #
-      # Snapshots are taken only when explicitly enabled with a flag --take-snapshots
-      # or when an environment variable TAKE_SNAPSHOTS=1 is set.
-      # E.g. bin/rails test --take-snapshots
+      # Snapshots are taken only when explicitly enabled with a flag +--take-snapshots+
+      # or when an environment variable +TAKE_SNAPSHOTS=1+ is set.
+      #
+      # E.g. +bin/rails test --take-snapshots+
+      #
+      # @param snapshotee [ActionDispatch::TestResponse, ActionMailer::MessageDelivery]
+      # @return SnapshotInspector::Snapshot
       def take_snapshot(snapshotee)
         return unless SnapshotInspector.configuration.snapshot_taking_enabled
 

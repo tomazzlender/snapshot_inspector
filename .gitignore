@@ -7,3 +7,8 @@
 /test/dummy/log/*.log
 /test/dummy/storage/
 /test/dummy/tmp/
+/doc
+.yardoc
+!/doc/mail_snapshot_example_1.png
+!/doc/response_snapshot_example_thank_you_page.png
+!/doc/snapshots_index.png

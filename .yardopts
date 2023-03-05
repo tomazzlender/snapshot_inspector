@@ -1,0 +1,1 @@
+--no-private --protected lib/snapshot_inspector/test/*_helpers.rb

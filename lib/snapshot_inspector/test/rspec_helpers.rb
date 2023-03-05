@@ -3,14 +3,20 @@ module SnapshotInspector
     module RSpecHelpers
       extend ActiveSupport::Concern
 
-      # Takes a snapshot of the given +snapshotee+ (e.g. response or mail message).
+      # Takes a snapshot of a given +snapshotee+.
       #
-      # +take_snapshot+ can be called after the +snapshotee+ object becomes available
+      # A +snapshotee+ can be an instance of +ActionDispatch::TestResponse+ or +ActionMailer::MessageDelivery+.
+      #
+      # +take_snapshot+ needs to be called after the +snapshotee+ object becomes available
       # for inspection in the lifecycle of the spec (e.g. request or mailer spec). You can take one or
       # more snapshots in a single spec.
       #
-      # Snapshots are taken only when explicitly enabled with an environment variable TAKE_SNAPSHOTS=1.
-      # E.g. bin/rspec TAKE_SNAPSHOTS=1
+      # Snapshots are taken only when explicitly enabled with an environment variable +TAKE_SNAPSHOTS=1+.
+      #
+      # E.g. +bin/rspec TAKE_SNAPSHOTS=1+
+      #
+      # @param snapshotee [ActionDispatch::TestResponse, ActionMailer::MessageDelivery]
+      # @return SnapshotInspector::Snapshot
       def take_snapshot(snapshotee)
         return unless SnapshotInspector.configuration.snapshot_taking_enabled
 
