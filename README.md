@@ -4,6 +4,24 @@ Take snapshots of responses and mail messages while testing, and inspect them in
 
 > **NOTICE:** the library is actively used during development, however, deem it as beta software.
 
+## Rationale
+
+...
+
+![A list of snapshots](doc/snapshots_index.png)
+
+### A case for response snapshots
+
+...
+
+![A response snapshot](doc/response_snapshot_example_1.png)
+
+### A case for mail message snapshots
+
+...
+
+![A mail message snapshot](doc/mail_snapshot_example_1.png)
+
 ## Installation
 Add the gem to your application's Gemfile under `:development` and `:test` groups. Snapshots are taken in the test environment and inspected in the development environment.
 
