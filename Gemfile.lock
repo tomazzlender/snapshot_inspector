@@ -2,11 +2,11 @@ PATH
   remote: .
   specs:
     snapshot_inspector (0.1.0)
-      importmap-rails
-      nokogiri
-      rails
-      sprockets-rails
-      stimulus-rails
+      importmap-rails (>= 1.0.0)
+      nokogiri (>= 1.11.0)
+      rails (>= 7.0.0)
+      sprockets-rails (>= 3.3.0)
+      stimulus-rails (>= 1.0.0)
 
 GEM
   remote: https://rubygems.org/
