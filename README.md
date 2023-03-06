@@ -2,15 +2,21 @@
 
 Take snapshots of responses and mail messages while testing, and inspect them in a browser. A Ruby on Rails engine. Works with the default Ruby on Rails testing framework and RSpec.
 
+### Highlights
+
+- Introduces Response Snapshots for faster development feedback loop during integration testing. 
+- Replaces Action Mailer Previews with Mail Message Snapshots. It removes the duplicated effort between mailer previews
+  and tests.
+
+A sneak peek into what the library is about:
+
+![A list of snapshots](doc/snapshots_index.png)
+
 > **NOTICE**
 >
 > The library is actively used during the development of apps running in production, however, treat it as beta software.
 >
 > So far it's been tested on the latest version of Ruby on Rails (7.0.x) and Ruby (> 3.1.x).
-
-A sneak peek into what the library is about:
-
-![A list of snapshots](doc/snapshots_index.png)
 
 ## Rationale
 
@@ -76,7 +82,7 @@ of the related controller, and you'll get a pretty good picture of how the UI lo
 That might be all you need to do to replicate the bug. Or you can create a new test that
 will replicate the state of the UI the bug reporter was in, and generate snapshots as you explore.
 
-### A case for taking snapshots of mail messages
+### Taking snapshots of mail messages
 
 There is an established practice of using [Action Mailer Previews](https://guides.rubyonrails.org/action_mailer_basics.html#previewing-emails).
 
@@ -97,7 +103,7 @@ An example of a rendered mail message snapshot of a thank you email in a browser
 
 ![A mail message snapshot](doc/mail_snapshot_example_1.png)
 
-The duplicated effort between mailer previews and tests is gone. I can look and inspect all
+The duplicated effort between mailer previews and tests is gone. I can look at and inspect all
 interesting variations of a mailer that I'm already testing anyhow, without putting any effort into
 creating previews.
 
